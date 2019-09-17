@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCHouseCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,18 +8,16 @@
 
 #import "RCHouseVC.h"
 #import "RCHouseCell.h"
-#import "RCHouseFilterView.h"
 #import "RCHouseHeader.h"
 #import "RCSearchCityVC.h"
 #import "RCSearchHouseVC.h"
 #import "RCHouseDetailVC.h"
+#import "RCNoticeVC.h"
 
 static NSString *const HouseCell = @"HouseCell";
 
 @interface RCHouseVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-/* 筛选 */
-@property(nonatomic,strong) RCHouseFilterView *filterView;
 /* 头部视图 */
 @property(nonatomic,strong) RCHouseHeader *header;
 
@@ -42,7 +40,16 @@ static NSString *const HouseCell = @"HouseCell";
 {
     if (_header == nil) {
         _header = [RCHouseHeader loadXibView];
-        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 10.f+170.f+50.f);
+        hx_weakify(self);
+        _header.houseHeaderBtnClicked = ^(NSInteger type, NSInteger index) {
+            if (type == 0) {
+                RCNoticeVC *nvc = [RCNoticeVC new];
+                nvc.navTitle = @"公告";
+                [weakSelf.navigationController pushViewController:nvc animated:YES];
+            }else{
+                
+            }
+        };
     }
     return _header;
 }
@@ -56,12 +63,12 @@ static NSString *const HouseCell = @"HouseCell";
     item.imageTitleSpace = 5.f;
     item.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [item setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
-    [item setImage:HXGetImage(@"搜索") forState:UIControlStateNormal];
+    [item setImage:HXGetImage(@"icon_home_place") forState:UIControlStateNormal];
     [item setTitle:@"武汉" forState:UIControlStateNormal];
     [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"搜索") higeLightedImage:HXGetImage(@"搜索") imageEdgeInsets:UIEdgeInsetsZero];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
 }
 -(void)setUpTableView
 {
@@ -94,7 +101,6 @@ static NSString *const HouseCell = @"HouseCell";
 {
     self.tableView.tableHeaderView = self.header;
 }
-#pragma mark -- 点击事件
 -(void)cityClicked
 {
     RCSearchCityVC *hvc = [RCSearchCityVC new];
@@ -123,30 +129,20 @@ static NSString *const HouseCell = @"HouseCell";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 100.f;
+    return 60.f;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1f;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    if (self.filterView) {
-        self.filterView.target = self;
-        self.filterView.tableView = tableView;
-        self.filterView.areas = @[@"全部",@"洪山区",@"武昌区",@"汉口区",@"汉阳区",@"蔡甸区",@"青山区"];
-        self.filterView.wuye = @[@"全部",@"物业1",@"物业3",@"物业3",@"物业4"];
-        self.filterView.huxing = @[@"全部",@"一居室",@"二居室",@"三居室",@"四居室"];
-        self.filterView.mianji = @[@"全部",@"50-80平方",@"80-100平方",@"100-120平方",@"120-150平方"];
-        return self.filterView;
-    }
-    RCHouseFilterView *fv = [RCHouseFilterView loadXibView];
-    fv.hxn_width = HX_SCREEN_WIDTH;
-    fv.hxn_height = 100.f;
-    fv.target = self;
-    fv.tableView = tableView;
-    fv.areas = @[@"全部",@"洪山区",@"武昌区",@"汉口区",@"汉阳区",@"蔡甸区",@"青山区"];
-    fv.wuye = @[@"全部",@"物业1",@"物业3",@"物业3",@"物业4"];
-    fv.huxing = @[@"全部",@"一居室",@"二居室",@"三居室",@"四居室"];
-    fv.mianji = @[@"全部",@"50-80平方",@"80-100平方",@"100-120平方",@"120-150平方"];
-    self.filterView = fv;
-    return fv;
+    UILabel *label = [[UILabel alloc] init];
+    label.backgroundColor = [UIColor whiteColor];
+    label.font = [UIFont systemFontOfSize:20 weight:UIFontWeightMedium];
+    label.text = @"   文旅项目";
+    
+    return label;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -12,7 +12,6 @@
 #import "RCPushVC.h"
 #import "RCClientVC.h"
 #import "RCProfileVC.h"
-
 #import "RCHouseVC.h"
 
 @interface HXTabBarController ()<UITabBarControllerDelegate>
@@ -43,10 +42,18 @@
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
     // 添加子控制器
-//    [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"首页" selectedImage:@"首页选中"];
+    /*
+    // 小蜜蜂
     [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
     [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
     [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+     */
+    
+    // 展厅经理
+    [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
+    [self setupChildVc:[[RCClientVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+    [self setupChildVc:[[RCPushVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
+    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     
     self.delegate = self;
     

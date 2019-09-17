@@ -62,7 +62,10 @@
 {
     [super layoutSubviews];
     self.pageControl.frame = CGRectMake(0, CGRectGetHeight(self.cycleView.frame) - 20, CGRectGetWidth(self.cycleView.frame), 15);
-    self.scrollText.frame = self.scrollTextView.bounds;
+    hx_weakify(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakSelf.scrollText.frame = weakSelf.scrollTextView.bounds;
+    });
 }
 - (IBAction)noticeClicked:(UIButton *)sender {
     if (self.houseHeaderBtnClicked) {
@@ -77,7 +80,8 @@
 
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     RCBannerCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"BannerCell" forIndex:index];
-    
+    cell.contentImg.layer.cornerRadius = 6.f;
+    cell.contentImg.layer.masksToBounds = YES;
     return cell;
 }
 

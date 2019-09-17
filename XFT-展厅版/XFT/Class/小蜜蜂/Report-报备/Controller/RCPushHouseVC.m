@@ -7,11 +7,11 @@
 //
 
 #import "RCPushHouseVC.h"
-#import "RCHouseCell.h"
+#import "RCPushHouseCell.h"
 #import "RCPushHouseFilterView.h"
 #import "RCHouseDetailVC.h"
 
-static NSString *const HouseCell = @"HouseCell";
+static NSString *const PushHouseCell = @"PushHouseCell";
 
 @interface RCPushHouseVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -64,7 +64,7 @@ static NSString *const HouseCell = @"HouseCell";
     self.tableView.backgroundColor = [UIColor clearColor];
     
     // 注册cell
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseCell class]) bundle:nil] forCellReuseIdentifier:HouseCell];
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCPushHouseCell class]) bundle:nil] forCellReuseIdentifier:PushHouseCell];
 }
 #pragma mark -- 点击事件
 -(void)sureClickd
@@ -77,7 +77,7 @@ static NSString *const HouseCell = @"HouseCell";
     return 5;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RCHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseCell forIndexPath:indexPath];
+    RCPushHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:PushHouseCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.selectBtn.hidden = NO;

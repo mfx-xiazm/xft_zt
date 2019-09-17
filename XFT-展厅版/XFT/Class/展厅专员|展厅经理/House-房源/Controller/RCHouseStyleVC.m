@@ -11,6 +11,8 @@
 #import "RCHouseStyleDetailCell.h"
 #import "RCShareView.h"
 #import <zhPopupController.h>
+#import "zhAlertView.h"
+#import "RCHouseLoanVC.h"
 
 static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 
@@ -39,12 +41,17 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     if (_header == nil) {
         _header = [RCHouseStyleHeader loadXibView];
         _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 280);
+        hx_weakify(self);
+        _header.loanDetailCall = ^{
+            RCHouseLoanVC *lvc = [RCHouseLoanVC new];
+            [weakSelf.navigationController pushViewController:lvc animated:YES];
+        };
     }
     return _header;
 }
 -(void)setUpNavBar
 {
-    UIBarButtonItem *shareItem = [UIBarButtonItem itemWithTarget:self action:@selector(shareClicked) nomalImage:HXGetImage(@"搜索") higeLightedImage:HXGetImage(@"搜索") imageEdgeInsets:UIEdgeInsetsZero];
+    UIBarButtonItem *shareItem = [UIBarButtonItem itemWithTarget:self action:@selector(shareClicked) nomalImage:HXGetImage(@"icon_share_top") higeLightedImage:HXGetImage(@"icon_share_top") imageEdgeInsets:UIEdgeInsetsZero];
     
     self.navigationItem.rightBarButtonItem = shareItem;
 }
@@ -100,7 +107,27 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     [self.zh_popupController presentContentView:share duration:0.25 springAnimated:NO];
 }
 - (IBAction)reportClicked:(UIButton *)sender {
-    
+   
+}
+- (IBAction)consultClicked:(UIButton *)sender {
+    hx_weakify(self);
+    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"027-27549123" constantWidth:HX_SCREEN_WIDTH - 50*2];
+    zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+        hx_strongify(weakSelf);
+        [strongSelf.zh_popupController dismiss];
+    }];
+    zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
+        hx_strongify(weakSelf);
+        [strongSelf.zh_popupController dismiss];
+        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",@"13496755975"]]];
+    }];
+    cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+    [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+    okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+    [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+    self.zh_popupController = [[zhPopupController alloc] init];
+    [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
 }
 
 #pragma mark -- UITableView数据源和代理
