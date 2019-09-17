@@ -50,6 +50,18 @@
                         <action selector="backClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="R0l-YP-Msz"/>
                     </connections>
                 </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8C-Hy-oaG">
+                    <rect key="frame" x="370" y="30" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="78G-Jm-0yv"/>
+                        <constraint firstAttribute="height" constant="44" id="Wzp-fw-XiW"/>
+                    </constraints>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" image="relocation"/>
+                    <connections>
+                        <action selector="moreClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="7om-XT-bsX"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
@@ -61,18 +73,22 @@
                 <constraint firstAttribute="trailing" secondItem="qcZ-jd-TGj" secondAttribute="trailing" constant="59" id="PaU-3b-ckt"/>
                 <constraint firstItem="lsA-Ia-ffZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V4D-M5-wkO"/>
                 <constraint firstItem="qcZ-jd-TGj" firstAttribute="centerY" secondItem="fu5-aK-S7l" secondAttribute="centerY" id="X38-81-7o2"/>
+                <constraint firstAttribute="trailing" secondItem="Y8C-Hy-oaG" secondAttribute="trailing" id="jv9-4T-hO3"/>
+                <constraint firstAttribute="bottom" secondItem="Y8C-Hy-oaG" secondAttribute="bottom" id="ra9-Tr-gh5"/>
                 <constraint firstAttribute="bottom" secondItem="fu5-aK-S7l" secondAttribute="bottom" id="yY6-GH-2pq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="backBtn" destination="fu5-aK-S7l" id="5HQ-z1-e3E"/>
                 <outlet property="bgView" destination="lsA-Ia-ffZ" id="ghS-cJ-uZy"/>
+                <outlet property="moreBtn" destination="Y8C-Hy-oaG" id="kWt-Jp-tiU"/>
                 <outlet property="titleL" destination="qcZ-jd-TGj" id="ZZn-da-h8M"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="389.0625"/>
         </view>
     </objects>
     <resources>
+        <image name="relocation" width="16" height="16"/>
         <image name="返回" width="11" height="20"/>
     </resources>
 </document>

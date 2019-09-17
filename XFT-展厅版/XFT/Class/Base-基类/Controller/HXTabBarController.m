@@ -9,10 +9,11 @@
 #import "HXTabBarController.h"
 #import "UIImage+HXNExtension.h"
 #import "HXNavigationController.h"
-#import "RCHouseVC.h"
-#import "RCReportVC.h"
-#import "RCNewsVC.h"
+#import "RCPushVC.h"
+#import "RCClientVC.h"
 #import "RCProfileVC.h"
+
+#import "RCHouseVC.h"
 
 @interface HXTabBarController ()<UITabBarControllerDelegate>
 
@@ -35,17 +36,17 @@
     
     NSMutableDictionary *selectedAttrs = [NSMutableDictionary dictionary];
     selectedAttrs[NSFontAttributeName] = attrs[NSFontAttributeName];
-    selectedAttrs[NSForegroundColorAttributeName] = UIColorFromRGB(0x333333);
+    selectedAttrs[NSForegroundColorAttributeName] = HXControlBg;
     
     UITabBarItem *item = [UITabBarItem appearance];
     [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
     // 添加子控制器
-    [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"首页" selectedImage:@"首页选中"];
-    [self setupChildVc:[[RCReportVC alloc] init] title:@"报备" image:@"分类" selectedImage:@"分类选中"];
-    [self setupChildVc:[[RCNewsVC alloc] init] title:@"资讯" image:@"购物车" selectedImage:@"购物车选中"];
-    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"我的" selectedImage:@"我的选中"];
+//    [self setupChildVc:[[RCHouseVC alloc] init] title:@"楼盘" image:@"首页" selectedImage:@"首页选中"];
+    [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
+    [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     
     self.delegate = self;
     
