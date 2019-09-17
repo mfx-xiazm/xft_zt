@@ -13,8 +13,11 @@
 #import "RCClientVC.h"
 #import "RCProfileVC.h"
 #import "RCHouseVC.h"
+#import "RCManagerProfileVC.h"
+#import "RCTabBar.h"
+#import "RCAddTaskVC.h"
 
-@interface HXTabBarController ()<UITabBarControllerDelegate>
+@interface HXTabBarController ()<UITabBarControllerDelegate,RCTabBarDelegate>
 
 @end
 
@@ -53,15 +56,26 @@
     [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
     [self setupChildVc:[[RCClientVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
     [self setupChildVc:[[RCPushVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
-    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+    [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     
     self.delegate = self;
+    
+    // 替换系统tabBar
+    RCTabBar *tab = [[RCTabBar alloc]init];
+    tab.rcDelegate = self;
+    [self setValue:tab forKey:@"tabBar"];
     
     // 设置透明度和背景颜色
     [self.tabBar setBarTintColor:[UIColor whiteColor]];
     self.tabBar.translucent = NO;//这句表示取消tabBar的透明效果。
     [self.tabBar setBackgroundImage:[UIImage new]];
     [self.tabBar setShadowImage:[UIImage imageWithColor:HXRGBAColor(235, 235, 235, 0.8) size:CGSizeMake(1, 0.5)]];
+}
+-(void)tabBarDidClickPlusButton:(RCTabBar *)tabBar
+{
+    RCAddTaskVC *tvc = [RCAddTaskVC new];
+    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
+    [self.selectedViewController presentViewController:nav animated:YES completion:nil];
 }
 /**
  * 初始化子控制器
