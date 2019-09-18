@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCTaskWorkVC">
+            <connections>
+                <outlet property="tableView" destination="NLl-8E-umz" id="ako-m3-H0W"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ikt-hE-Osd">
+                    <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Go-yU-R4W">
+                            <rect key="frame" x="15" y="8" width="184.5" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="eXm-1c-GBc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="任务统计" image="icon_rwtj">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="taskTotalClicked:" destination="-1" eventType="touchUpInside" id="Vbj-GY-tXm"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzS-4V-PDS">
+                            <rect key="frame" x="214.5" y="8" width="184.5" height="44"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Nd2-to-scs"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                            <state key="normal" title="考勤统计" image="icon_kqtj">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="workTotalClicked:" destination="-1" eventType="touchUpInside" id="XfM-6q-t9E"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="fzS-4V-PDS" firstAttribute="width" secondItem="6Go-yU-R4W" secondAttribute="width" id="10p-7f-cPR"/>
+                        <constraint firstItem="fzS-4V-PDS" firstAttribute="leading" secondItem="6Go-yU-R4W" secondAttribute="trailing" constant="15" id="140-vs-iOC"/>
+                        <constraint firstAttribute="trailing" secondItem="fzS-4V-PDS" secondAttribute="trailing" constant="15" id="JA4-Cu-sVK"/>
+                        <constraint firstItem="6Go-yU-R4W" firstAttribute="leading" secondItem="Ikt-hE-Osd" secondAttribute="leading" constant="15" id="hXj-id-sM0"/>
+                        <constraint firstAttribute="height" constant="60" id="qxL-gN-mVc"/>
+                        <constraint firstItem="6Go-yU-R4W" firstAttribute="centerY" secondItem="Ikt-hE-Osd" secondAttribute="centerY" id="tOF-PS-dkV"/>
+                        <constraint firstItem="fzS-4V-PDS" firstAttribute="centerY" secondItem="Ikt-hE-Osd" secondAttribute="centerY" id="xlY-wv-vwJ"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NLl-8E-umz">
+                    <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Ikt-hE-Osd" secondAttribute="trailing" id="2nI-Xk-GAb"/>
+                <constraint firstItem="Ikt-hE-Osd" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="DuC-me-2yH"/>
+                <constraint firstItem="Ikt-hE-Osd" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="S2R-lH-vat"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="NLl-8E-umz" secondAttribute="bottom" id="Umv-a1-ube"/>
+                <constraint firstItem="NLl-8E-umz" firstAttribute="top" secondItem="Ikt-hE-Osd" secondAttribute="bottom" id="ZpB-AH-b9Q"/>
+                <constraint firstItem="NLl-8E-umz" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="bmk-Po-4tP"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="NLl-8E-umz" secondAttribute="trailing" id="k04-cL-M5Y"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_kqtj" width="30" height="30"/>
+        <image name="icon_rwtj" width="30" height="30"/>
+    </resources>
+</document>

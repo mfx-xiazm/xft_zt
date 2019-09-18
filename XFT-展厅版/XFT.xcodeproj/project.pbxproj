@@ -124,6 +124,32 @@
 		90C3084A2331BD9700A39E78 /* RCChooseMemberHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308492331BD9700A39E78 /* RCChooseMemberHeader.xib */; };
 		90C3084E2331BF0D00A39E78 /* RCChooseMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3084C2331BF0D00A39E78 /* RCChooseMemberCell.m */; };
 		90C3084F2331BF0D00A39E78 /* RCChooseMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3084D2331BF0D00A39E78 /* RCChooseMemberCell.xib */; };
+		90C308572331C35F00A39E78 /* RCTaskWorkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308552331C35F00A39E78 /* RCTaskWorkVC.m */; };
+		90C308582331C35F00A39E78 /* RCTaskWorkVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308562331C35F00A39E78 /* RCTaskWorkVC.xib */; };
+		90C308612331C9B500A39E78 /* RCTaskWorkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3085F2331C9B500A39E78 /* RCTaskWorkCell.m */; };
+		90C308622331C9B500A39E78 /* RCTaskWorkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308602331C9B500A39E78 /* RCTaskWorkCell.xib */; };
+		90C308662331CCA700A39E78 /* RCTaskDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308642331CCA700A39E78 /* RCTaskDetailVC.m */; };
+		90C308672331CCA700A39E78 /* RCTaskDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308652331CCA700A39E78 /* RCTaskDetailVC.xib */; };
+		90C3086A2331CDDC00A39E78 /* RCTaskDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308692331CDDB00A39E78 /* RCTaskDetailHeader.m */; };
+		90C3086C2331CDE200A39E78 /* RCTaskDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3086B2331CDE200A39E78 /* RCTaskDetailHeader.xib */; };
+		90C308702331D28D00A39E78 /* RCTaskDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3086E2331D28D00A39E78 /* RCTaskDetailCell.m */; };
+		90C308712331D28D00A39E78 /* RCTaskDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3086F2331D28D00A39E78 /* RCTaskDetailCell.xib */; };
+		90C308752331D40000A39E78 /* RCPinDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308732331D40000A39E78 /* RCPinDetailVC.m */; };
+		90C308762331D40000A39E78 /* RCPinDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308742331D40000A39E78 /* RCPinDetailVC.xib */; };
+		90C3087A2331D83000A39E78 /* RCTaskTotalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308782331D83000A39E78 /* RCTaskTotalVC.m */; };
+		90C3087B2331D83000A39E78 /* RCTaskTotalVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308792331D83000A39E78 /* RCTaskTotalVC.xib */; };
+		90C3087F2331D84A00A39E78 /* RCWorkTotalVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3087D2331D84A00A39E78 /* RCWorkTotalVC.m */; };
+		90C308802331D84A00A39E78 /* RCWorkTotalVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3087E2331D84A00A39E78 /* RCWorkTotalVC.xib */; };
+		90C308842331D8B800A39E78 /* RCWorkTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308822331D8B800A39E78 /* RCWorkTotalCell.m */; };
+		90C308852331D8B800A39E78 /* RCWorkTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308832331D8B800A39E78 /* RCWorkTotalCell.xib */; };
+		90C308882331DCF900A39E78 /* RCWorkTotalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308872331DCF900A39E78 /* RCWorkTotalHeader.m */; };
+		90C3088A2331DCFF00A39E78 /* RCWorkTotalHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308892331DCFF00A39E78 /* RCWorkTotalHeader.xib */; };
+		90C3088D2331DF1200A39E78 /* RCTaskTotalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3088C2331DF1200A39E78 /* RCTaskTotalHeader.m */; };
+		90C3088F2331DF1900A39E78 /* RCTaskTotalHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3088E2331DF1900A39E78 /* RCTaskTotalHeader.xib */; };
+		90C308922331FA9B00A39E78 /* RCTaskTotalFilterHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308912331FA9B00A39E78 /* RCTaskTotalFilterHeader.m */; };
+		90C308942331FAA200A39E78 /* RCTaskTotalFilterHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308932331FAA200A39E78 /* RCTaskTotalFilterHeader.xib */; };
+		90C308982331FC8300A39E78 /* RCTaskTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308962331FC8300A39E78 /* RCTaskTotalCell.m */; };
+		90C308992331FC8300A39E78 /* RCTaskTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308972331FC8300A39E78 /* RCTaskTotalCell.xib */; };
 		90DFA6E8233088B2005C35A8 /* RCClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6E6233088B2005C35A8 /* RCClientCell.m */; };
 		90DFA6E9233088B2005C35A8 /* RCClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90DFA6E7233088B2005C35A8 /* RCClientCell.xib */; };
 		90DFA6EC2330AFF0005C35A8 /* RCProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6EB2330AFF0005C35A8 /* RCProfileHeader.m */; };
@@ -475,6 +501,45 @@
 		90C3084B2331BF0D00A39E78 /* RCChooseMemberCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCChooseMemberCell.h; sourceTree = "<group>"; };
 		90C3084C2331BF0D00A39E78 /* RCChooseMemberCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCChooseMemberCell.m; sourceTree = "<group>"; };
 		90C3084D2331BF0D00A39E78 /* RCChooseMemberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCChooseMemberCell.xib; sourceTree = "<group>"; };
+		90C308542331C35F00A39E78 /* RCTaskWorkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskWorkVC.h; sourceTree = "<group>"; };
+		90C308552331C35F00A39E78 /* RCTaskWorkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskWorkVC.m; sourceTree = "<group>"; };
+		90C308562331C35F00A39E78 /* RCTaskWorkVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskWorkVC.xib; sourceTree = "<group>"; };
+		90C3085E2331C9B500A39E78 /* RCTaskWorkCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskWorkCell.h; sourceTree = "<group>"; };
+		90C3085F2331C9B500A39E78 /* RCTaskWorkCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskWorkCell.m; sourceTree = "<group>"; };
+		90C308602331C9B500A39E78 /* RCTaskWorkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskWorkCell.xib; sourceTree = "<group>"; };
+		90C308632331CCA700A39E78 /* RCTaskDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskDetailVC.h; sourceTree = "<group>"; };
+		90C308642331CCA700A39E78 /* RCTaskDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskDetailVC.m; sourceTree = "<group>"; };
+		90C308652331CCA700A39E78 /* RCTaskDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskDetailVC.xib; sourceTree = "<group>"; };
+		90C308682331CDDB00A39E78 /* RCTaskDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskDetailHeader.h; sourceTree = "<group>"; };
+		90C308692331CDDB00A39E78 /* RCTaskDetailHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskDetailHeader.m; sourceTree = "<group>"; };
+		90C3086B2331CDE200A39E78 /* RCTaskDetailHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskDetailHeader.xib; sourceTree = "<group>"; };
+		90C3086D2331D28D00A39E78 /* RCTaskDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskDetailCell.h; sourceTree = "<group>"; };
+		90C3086E2331D28D00A39E78 /* RCTaskDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskDetailCell.m; sourceTree = "<group>"; };
+		90C3086F2331D28D00A39E78 /* RCTaskDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskDetailCell.xib; sourceTree = "<group>"; };
+		90C308722331D40000A39E78 /* RCPinDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCPinDetailVC.h; sourceTree = "<group>"; };
+		90C308732331D40000A39E78 /* RCPinDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCPinDetailVC.m; sourceTree = "<group>"; };
+		90C308742331D40000A39E78 /* RCPinDetailVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCPinDetailVC.xib; sourceTree = "<group>"; };
+		90C308772331D83000A39E78 /* RCTaskTotalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskTotalVC.h; sourceTree = "<group>"; };
+		90C308782331D83000A39E78 /* RCTaskTotalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskTotalVC.m; sourceTree = "<group>"; };
+		90C308792331D83000A39E78 /* RCTaskTotalVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskTotalVC.xib; sourceTree = "<group>"; };
+		90C3087C2331D84A00A39E78 /* RCWorkTotalVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCWorkTotalVC.h; sourceTree = "<group>"; };
+		90C3087D2331D84A00A39E78 /* RCWorkTotalVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCWorkTotalVC.m; sourceTree = "<group>"; };
+		90C3087E2331D84A00A39E78 /* RCWorkTotalVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCWorkTotalVC.xib; sourceTree = "<group>"; };
+		90C308812331D8B800A39E78 /* RCWorkTotalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCWorkTotalCell.h; sourceTree = "<group>"; };
+		90C308822331D8B800A39E78 /* RCWorkTotalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCWorkTotalCell.m; sourceTree = "<group>"; };
+		90C308832331D8B800A39E78 /* RCWorkTotalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCWorkTotalCell.xib; sourceTree = "<group>"; };
+		90C308862331DCF900A39E78 /* RCWorkTotalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCWorkTotalHeader.h; sourceTree = "<group>"; };
+		90C308872331DCF900A39E78 /* RCWorkTotalHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCWorkTotalHeader.m; sourceTree = "<group>"; };
+		90C308892331DCFF00A39E78 /* RCWorkTotalHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCWorkTotalHeader.xib; sourceTree = "<group>"; };
+		90C3088B2331DF1200A39E78 /* RCTaskTotalHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskTotalHeader.h; sourceTree = "<group>"; };
+		90C3088C2331DF1200A39E78 /* RCTaskTotalHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskTotalHeader.m; sourceTree = "<group>"; };
+		90C3088E2331DF1900A39E78 /* RCTaskTotalHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskTotalHeader.xib; sourceTree = "<group>"; };
+		90C308902331FA9B00A39E78 /* RCTaskTotalFilterHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskTotalFilterHeader.h; sourceTree = "<group>"; };
+		90C308912331FA9B00A39E78 /* RCTaskTotalFilterHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskTotalFilterHeader.m; sourceTree = "<group>"; };
+		90C308932331FAA200A39E78 /* RCTaskTotalFilterHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskTotalFilterHeader.xib; sourceTree = "<group>"; };
+		90C308952331FC8300A39E78 /* RCTaskTotalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskTotalCell.h; sourceTree = "<group>"; };
+		90C308962331FC8300A39E78 /* RCTaskTotalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskTotalCell.m; sourceTree = "<group>"; };
+		90C308972331FC8300A39E78 /* RCTaskTotalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskTotalCell.xib; sourceTree = "<group>"; };
 		90DFA6E5233088B2005C35A8 /* RCClientCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientCell.h; sourceTree = "<group>"; };
 		90DFA6E6233088B2005C35A8 /* RCClientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientCell.m; sourceTree = "<group>"; };
 		90DFA6E7233088B2005C35A8 /* RCClientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientCell.xib; sourceTree = "<group>"; };
@@ -1441,6 +1506,21 @@
 		90C308512331C29500A39E78 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				90C308542331C35F00A39E78 /* RCTaskWorkVC.h */,
+				90C308552331C35F00A39E78 /* RCTaskWorkVC.m */,
+				90C308562331C35F00A39E78 /* RCTaskWorkVC.xib */,
+				90C308772331D83000A39E78 /* RCTaskTotalVC.h */,
+				90C308782331D83000A39E78 /* RCTaskTotalVC.m */,
+				90C308792331D83000A39E78 /* RCTaskTotalVC.xib */,
+				90C3087C2331D84A00A39E78 /* RCWorkTotalVC.h */,
+				90C3087D2331D84A00A39E78 /* RCWorkTotalVC.m */,
+				90C3087E2331D84A00A39E78 /* RCWorkTotalVC.xib */,
+				90C308632331CCA700A39E78 /* RCTaskDetailVC.h */,
+				90C308642331CCA700A39E78 /* RCTaskDetailVC.m */,
+				90C308652331CCA700A39E78 /* RCTaskDetailVC.xib */,
+				90C308722331D40000A39E78 /* RCPinDetailVC.h */,
+				90C308732331D40000A39E78 /* RCPinDetailVC.m */,
+				90C308742331D40000A39E78 /* RCPinDetailVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1455,6 +1535,30 @@
 		90C308532331C29500A39E78 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				90C3085E2331C9B500A39E78 /* RCTaskWorkCell.h */,
+				90C3085F2331C9B500A39E78 /* RCTaskWorkCell.m */,
+				90C308602331C9B500A39E78 /* RCTaskWorkCell.xib */,
+				90C308682331CDDB00A39E78 /* RCTaskDetailHeader.h */,
+				90C308692331CDDB00A39E78 /* RCTaskDetailHeader.m */,
+				90C3086B2331CDE200A39E78 /* RCTaskDetailHeader.xib */,
+				90C3086D2331D28D00A39E78 /* RCTaskDetailCell.h */,
+				90C3086E2331D28D00A39E78 /* RCTaskDetailCell.m */,
+				90C3086F2331D28D00A39E78 /* RCTaskDetailCell.xib */,
+				90C308952331FC8300A39E78 /* RCTaskTotalCell.h */,
+				90C308962331FC8300A39E78 /* RCTaskTotalCell.m */,
+				90C308972331FC8300A39E78 /* RCTaskTotalCell.xib */,
+				90C3088B2331DF1200A39E78 /* RCTaskTotalHeader.h */,
+				90C3088C2331DF1200A39E78 /* RCTaskTotalHeader.m */,
+				90C3088E2331DF1900A39E78 /* RCTaskTotalHeader.xib */,
+				90C308902331FA9B00A39E78 /* RCTaskTotalFilterHeader.h */,
+				90C308912331FA9B00A39E78 /* RCTaskTotalFilterHeader.m */,
+				90C308932331FAA200A39E78 /* RCTaskTotalFilterHeader.xib */,
+				90C308812331D8B800A39E78 /* RCWorkTotalCell.h */,
+				90C308822331D8B800A39E78 /* RCWorkTotalCell.m */,
+				90C308832331D8B800A39E78 /* RCWorkTotalCell.xib */,
+				90C308862331DCF900A39E78 /* RCWorkTotalHeader.h */,
+				90C308872331DCF900A39E78 /* RCWorkTotalHeader.m */,
+				90C308892331DCFF00A39E78 /* RCWorkTotalHeader.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1830,8 +1934,12 @@
 				90ED8D802330FEA000EF9EB7 /* RCChangeRoleVC.xib in Resources */,
 				90DFA7942330D568005C35A8 /* RCHouseDetailInfoCell.xib in Resources */,
 				9014114223307E2100CAEBB3 /* RCReportResultCell.xib in Resources */,
+				90C3087B2331D83000A39E78 /* RCTaskTotalVC.xib in Resources */,
+				90C308582331C35F00A39E78 /* RCTaskWorkVC.xib in Resources */,
 				90ED8D7B2330FB5200EF9EB7 /* RCManagerMsgCell.xib in Resources */,
 				9040F1A023138F5D005E6B2E /* LaunchScreen.storyboard in Resources */,
+				90C308622331C9B500A39E78 /* RCTaskWorkCell.xib in Resources */,
+				90C308712331D28D00A39E78 /* RCTaskDetailCell.xib in Resources */,
 				90DFA78F2330D568005C35A8 /* RCLoanDetailHeader.xib in Resources */,
 				90DFA7952330D568005C35A8 /* RCLoanDetailTitleView.xib in Resources */,
 				9040F29F2313DA19005E6B2E /* FSActionSheet_cancel@2x.png in Resources */,
@@ -1862,29 +1970,38 @@
 				90DFA7A72330D568005C35A8 /* RCHouseStyleDetailCell.xib in Resources */,
 				9040F19D23138F5D005E6B2E /* Assets.xcassets in Resources */,
 				9014114123307E2100CAEBB3 /* RCAddPhoneCell.xib in Resources */,
+				90C3086C2331CDE200A39E78 /* RCTaskDetailHeader.xib in Resources */,
 				90ED8D6C2330E66400EF9EB7 /* RCManagerProfileHeader.xib in Resources */,
 				90DFA7BA2330D744005C35A8 /* RCNewsCell.xib in Resources */,
 				9014112B23307DB400CAEBB3 /* RCPushClientEditVC.xib in Resources */,
 				901410B7233070E500CAEBB3 /* RCProfileCell.xib in Resources */,
 				90DFA6EE2330AFF7005C35A8 /* RCProfileHeader.xib in Resources */,
+				90C3088A2331DCFF00A39E78 /* RCWorkTotalHeader.xib in Resources */,
+				90C308802331D84A00A39E78 /* RCWorkTotalVC.xib in Resources */,
 				90ED8D852330FF2900EF9EB7 /* RCChangeRoleCell.xib in Resources */,
 				9014112C23307DB400CAEBB3 /* RCPushHouseVC.xib in Resources */,
 				90DFA6F32330B573005C35A8 /* RCChangePwdVC.xib in Resources */,
 				90DFA7AD2330D568005C35A8 /* RCShareView.xib in Resources */,
 				90DFA7C32330D99D005C35A8 /* RCHouseHeader.xib in Resources */,
 				90DFA7462330D4EE005C35A8 /* RCSearchCityVC.xib in Resources */,
+				90C308942331FAA200A39E78 /* RCTaskTotalFilterHeader.xib in Resources */,
 				90ED8D712330F8D300EF9EB7 /* RCManagerRecordVC.xib in Resources */,
 				9014113123307DB400CAEBB3 /* RCPushVC.xib in Resources */,
 				90DFA7992330D568005C35A8 /* RCHouseStyleCell.xib in Resources */,
 				90DFA74B2330D4EE005C35A8 /* RCLoanDetailVC.xib in Resources */,
+				90C308672331CCA700A39E78 /* RCTaskDetailVC.xib in Resources */,
 				90DFA7522330D4EE005C35A8 /* RCHouseDetailVC.xib in Resources */,
+				90C3088F2331DF1900A39E78 /* RCTaskTotalHeader.xib in Resources */,
 				90DFA7CD2330DE3C005C35A8 /* RCNoticeCell.xib in Resources */,
 				90DFA6FD2330B865005C35A8 /* RCMyOrganizationCell.xib in Resources */,
 				90DFA7912330D568005C35A8 /* RCLoanDetailCell.xib in Resources */,
 				90DFA7452330D4EE005C35A8 /* RCHouseStyleVC.xib in Resources */,
 				9014115423307E2E00CAEBB3 /* RCReportResultSectionHeader.xib in Resources */,
 				90DFA79F2330D568005C35A8 /* RCHouseNearbyHeader.xib in Resources */,
+				90C308762331D40000A39E78 /* RCPinDetailVC.xib in Resources */,
 				90DFA78D2330D568005C35A8 /* RCHouseDetailNewsCell.xib in Resources */,
+				90C308852331D8B800A39E78 /* RCWorkTotalCell.xib in Resources */,
+				90C308992331FC8300A39E78 /* RCTaskTotalCell.xib in Resources */,
 				90DFA7AE2330D568005C35A8 /* RCFilterCell.xib in Resources */,
 				90DFA7112330C350005C35A8 /* RCRecordVC.xib in Resources */,
 				9014112E23307DB400CAEBB3 /* RCReportResultVC.xib in Resources */,
@@ -1999,6 +2116,7 @@
 				90DFA7A82330D568005C35A8 /* RCSearchTagCell.m in Sources */,
 				9040F2302313A839005E6B2E /* FBShimmeringLayer.m in Sources */,
 				90ED8D752330FB1600EF9EB7 /* RCManagerMsgVC.m in Sources */,
+				90C308752331D40000A39E78 /* RCPinDetailVC.m in Sources */,
 				90DFA7422330D4EE005C35A8 /* RCHouseLoanVC.m in Sources */,
 				90C3084E2331BF0D00A39E78 /* RCChooseMemberCell.m in Sources */,
 				9040F2462313A839005E6B2E /* UIButton+HXCode.m in Sources */,
@@ -2010,6 +2128,8 @@
 				9040F2362313A839005E6B2E /* zhAlertView.m in Sources */,
 				9040F2522313A839005E6B2E /* HXNetworkTool.m in Sources */,
 				90DFA7512330D4EE005C35A8 /* RCHouseInfoVC.m in Sources */,
+				90C308922331FA9B00A39E78 /* RCTaskTotalFilterHeader.m in Sources */,
+				90C3088D2331DF1200A39E78 /* RCTaskTotalHeader.m in Sources */,
 				90DFA7CE2330DE3C005C35A8 /* RCNoticeCell.m in Sources */,
 				901DDC5F23209E7700E579D9 /* SGQRCodeObtainConfigure.m in Sources */,
 				90DFA7982330D568005C35A8 /* RCHouseGoodsCell.m in Sources */,
@@ -2042,17 +2162,22 @@
 				9040F24A2313A839005E6B2E /* Foundation+Log.m in Sources */,
 				9040F2342313A839005E6B2E /* UIView+LYExtension.m in Sources */,
 				9040F2A22313DA19005E6B2E /* FSActionSheetCell.m in Sources */,
+				90C308882331DCF900A39E78 /* RCWorkTotalHeader.m in Sources */,
 				9040F2312313A839005E6B2E /* FBShimmeringView.m in Sources */,
 				90DFA7542330D4EE005C35A8 /* RCPanoramaVC.m in Sources */,
 				90DFA7AA2330D568005C35A8 /* RCLoanDetailCell.m in Sources */,
 				90068BC4231D0B9E00B0D856 /* RCNavBarView.m in Sources */,
+				90C3087F2331D84A00A39E78 /* RCWorkTotalVC.m in Sources */,
 				901411142330727E00CAEBB3 /* BSPanoramaView.m in Sources */,
+				90C3086A2331CDDC00A39E78 /* RCTaskDetailHeader.m in Sources */,
 				90DFA74C2330D4EE005C35A8 /* RCHouseNearbyVC.m in Sources */,
 				9040F2562313A839005E6B2E /* MSUserManager.m in Sources */,
 				90ED8D9523310B2400EF9EB7 /* RCAddTaskVC.m in Sources */,
+				90C308982331FC8300A39E78 /* RCTaskTotalCell.m in Sources */,
 				90DFA7962330D568005C35A8 /* RCHouseStyleCell.m in Sources */,
 				90DFA7432330D4EE005C35A8 /* RCHouseNearbyDetailVC.m in Sources */,
 				9040F24B2313A839005E6B2E /* HXConst.m in Sources */,
+				90C308572331C35F00A39E78 /* RCTaskWorkVC.m in Sources */,
 				90ED8D662330E64400EF9EB7 /* RCManagerProfileVC.m in Sources */,
 				9040F2482313A839005E6B2E /* UIImage+HXNExtension.m in Sources */,
 				90ED8D7A2330FB5200EF9EB7 /* RCManagerMsgCell.m in Sources */,
@@ -2071,6 +2196,7 @@
 				90ED8D882331029D00EF9EB7 /* RCChangeRoleHeader.m in Sources */,
 				901DDC6123209E7700E579D9 /* SGQRCodeScanView.m in Sources */,
 				9040F2A32313DA19005E6B2E /* FSActionSheetItem.m in Sources */,
+				90C308612331C9B500A39E78 /* RCTaskWorkCell.m in Sources */,
 				9040F2902313AC6E005E6B2E /* HXGuideViewController.m in Sources */,
 				90DFA7532330D4EE005C35A8 /* RCHouseDetailVC.m in Sources */,
 				9014115023307E2E00CAEBB3 /* RCPushHouseFilterView.m in Sources */,
@@ -2085,6 +2211,7 @@
 				90DFA7972330D568005C35A8 /* RCHouseStyleDetailCell.m in Sources */,
 				9040F2532313A839005E6B2E /* HXNetworkCache.m in Sources */,
 				9040F2332313A839005E6B2E /* UIScrollView+Empty.m in Sources */,
+				90C308842331D8B800A39E78 /* RCWorkTotalCell.m in Sources */,
 				9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */,
 				9040F2A02313DA19005E6B2E /* FSActionSheetConfig.m in Sources */,
 				9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */,
@@ -2099,6 +2226,7 @@
 				9014114523307E2100CAEBB3 /* RCReportResultCell.m in Sources */,
 				901411172330727E00CAEBB3 /* UILabel+ForLMJVerticalScrollText.m in Sources */,
 				90ED8D702330F8D300EF9EB7 /* RCManagerRecordVC.m in Sources */,
+				90C308702331D28D00A39E78 /* RCTaskDetailCell.m in Sources */,
 				90DFA7B02330D568005C35A8 /* RCSearchTagHeader.m in Sources */,
 				90DFA7A42330D568005C35A8 /* RCHouseStyleHeader.m in Sources */,
 				90DFA7142330CEB3005C35A8 /* RCProfileFooter.m in Sources */,
@@ -2125,6 +2253,7 @@
 				901411132330727E00CAEBB3 /* DCAvatarManager.m in Sources */,
 				90DFA7902330D568005C35A8 /* RCHouseNearbyCell.m in Sources */,
 				90DFA74A2330D4EE005C35A8 /* RCHouseNewsVC.m in Sources */,
+				90C308662331CCA700A39E78 /* RCTaskDetailVC.m in Sources */,
 				90DFA7442330D4EE005C35A8 /* RCSearchCityVC.m in Sources */,
 				901411102330727E00CAEBB3 /* DCAvatarHelper.m in Sources */,
 				90DFA79A2330D568005C35A8 /* RCHouseDetailNewsCell.m in Sources */,
@@ -2133,6 +2262,7 @@
 				9040F22F2313A839005E6B2E /* SPButton.m in Sources */,
 				90DFA6F22330B573005C35A8 /* RCChangePwdVC.m in Sources */,
 				90DFA7B42330D60D005C35A8 /* RCPushHouseCell.m in Sources */,
+				90C3087A2331D83000A39E78 /* RCTaskTotalVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
