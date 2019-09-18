@@ -118,6 +118,12 @@
 		9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934117231F5B9E001A3A6E /* WSDatePickerView.m */; };
 		9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934118231F5B9E001A3A6E /* NSDate+Extension.m */; };
 		9093411D231F5B9E001A3A6E /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934119231F5B9E001A3A6E /* UIView+Extension.m */; };
+		90C308442331BD6A00A39E78 /* RCChooseMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308422331BD6A00A39E78 /* RCChooseMemberVC.m */; };
+		90C308452331BD6A00A39E78 /* RCChooseMemberVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308432331BD6A00A39E78 /* RCChooseMemberVC.xib */; };
+		90C308482331BD9000A39E78 /* RCChooseMemberHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308472331BD9000A39E78 /* RCChooseMemberHeader.m */; };
+		90C3084A2331BD9700A39E78 /* RCChooseMemberHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308492331BD9700A39E78 /* RCChooseMemberHeader.xib */; };
+		90C3084E2331BF0D00A39E78 /* RCChooseMemberCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3084C2331BF0D00A39E78 /* RCChooseMemberCell.m */; };
+		90C3084F2331BF0D00A39E78 /* RCChooseMemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C3084D2331BF0D00A39E78 /* RCChooseMemberCell.xib */; };
 		90DFA6E8233088B2005C35A8 /* RCClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6E6233088B2005C35A8 /* RCClientCell.m */; };
 		90DFA6E9233088B2005C35A8 /* RCClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90DFA6E7233088B2005C35A8 /* RCClientCell.xib */; };
 		90DFA6EC2330AFF0005C35A8 /* RCProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6EB2330AFF0005C35A8 /* RCProfileHeader.m */; };
@@ -460,6 +466,15 @@
 		90934117231F5B9E001A3A6E /* WSDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSDatePickerView.m; sourceTree = "<group>"; };
 		90934118231F5B9E001A3A6E /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
 		90934119231F5B9E001A3A6E /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		90C308412331BD6A00A39E78 /* RCChooseMemberVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCChooseMemberVC.h; sourceTree = "<group>"; };
+		90C308422331BD6A00A39E78 /* RCChooseMemberVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCChooseMemberVC.m; sourceTree = "<group>"; };
+		90C308432331BD6A00A39E78 /* RCChooseMemberVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCChooseMemberVC.xib; sourceTree = "<group>"; };
+		90C308462331BD9000A39E78 /* RCChooseMemberHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCChooseMemberHeader.h; sourceTree = "<group>"; };
+		90C308472331BD9000A39E78 /* RCChooseMemberHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCChooseMemberHeader.m; sourceTree = "<group>"; };
+		90C308492331BD9700A39E78 /* RCChooseMemberHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCChooseMemberHeader.xib; sourceTree = "<group>"; };
+		90C3084B2331BF0D00A39E78 /* RCChooseMemberCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCChooseMemberCell.h; sourceTree = "<group>"; };
+		90C3084C2331BF0D00A39E78 /* RCChooseMemberCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCChooseMemberCell.m; sourceTree = "<group>"; };
+		90C3084D2331BF0D00A39E78 /* RCChooseMemberCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCChooseMemberCell.xib; sourceTree = "<group>"; };
 		90DFA6E5233088B2005C35A8 /* RCClientCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientCell.h; sourceTree = "<group>"; };
 		90DFA6E6233088B2005C35A8 /* RCClientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientCell.m; sourceTree = "<group>"; };
 		90DFA6E7233088B2005C35A8 /* RCClientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientCell.xib; sourceTree = "<group>"; };
@@ -713,6 +728,7 @@
 			children = (
 				90140F8B233070E500CAEBB3 /* House-房源 */,
 				90ED8D8E23310B0A00EF9EB7 /* Task-任务 */,
+				90C308502331C29500A39E78 /* Work-考勤 */,
 				90ED8D5F2330E5F200EF9EB7 /* Profile-我的 */,
 			);
 			path = "展厅专员|展厅经理";
@@ -1412,6 +1428,37 @@
 			path = WSDatePickerView;
 			sourceTree = "<group>";
 		};
+		90C308502331C29500A39E78 /* Work-考勤 */ = {
+			isa = PBXGroup;
+			children = (
+				90C308512331C29500A39E78 /* Controller */,
+				90C308522331C29500A39E78 /* Model */,
+				90C308532331C29500A39E78 /* View */,
+			);
+			path = "Work-考勤";
+			sourceTree = "<group>";
+		};
+		90C308512331C29500A39E78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		90C308522331C29500A39E78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		90C308532331C29500A39E78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		90DFA7CF2330DEAE005C35A8 /* 房源详情 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1641,6 +1688,9 @@
 				90ED8D9223310B2400EF9EB7 /* RCAddTaskVC.h */,
 				90ED8D9323310B2400EF9EB7 /* RCAddTaskVC.m */,
 				90ED8D9423310B2400EF9EB7 /* RCAddTaskVC.xib */,
+				90C308412331BD6A00A39E78 /* RCChooseMemberVC.h */,
+				90C308422331BD6A00A39E78 /* RCChooseMemberVC.m */,
+				90C308432331BD6A00A39E78 /* RCChooseMemberVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1658,6 +1708,12 @@
 				90ED8D972331116000EF9EB7 /* RCAddTaskMemberCell.h */,
 				90ED8D982331116000EF9EB7 /* RCAddTaskMemberCell.m */,
 				90ED8D992331116000EF9EB7 /* RCAddTaskMemberCell.xib */,
+				90C308462331BD9000A39E78 /* RCChooseMemberHeader.h */,
+				90C308472331BD9000A39E78 /* RCChooseMemberHeader.m */,
+				90C308492331BD9700A39E78 /* RCChooseMemberHeader.xib */,
+				90C3084B2331BF0D00A39E78 /* RCChooseMemberCell.h */,
+				90C3084C2331BF0D00A39E78 /* RCChooseMemberCell.m */,
+				90C3084D2331BF0D00A39E78 /* RCChooseMemberCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1781,6 +1837,7 @@
 				9040F29F2313DA19005E6B2E /* FSActionSheet_cancel@2x.png in Resources */,
 				9014108B233070E500CAEBB3 /* RCHouseCell.xib in Resources */,
 				90ED8D672330E64400EF9EB7 /* RCManagerProfileVC.xib in Resources */,
+				90C308452331BD6A00A39E78 /* RCChooseMemberVC.xib in Resources */,
 				90DFA7BE2330D789005C35A8 /* RCNewsDetailVC.xib in Resources */,
 				90DFA7A22330D568005C35A8 /* RCSearchTagHeader.xib in Resources */,
 				90ED8D9623310B2400EF9EB7 /* RCAddTaskVC.xib in Resources */,
@@ -1789,6 +1846,7 @@
 				90DFA74F2330D4EE005C35A8 /* RCPanoramaVC.xib in Resources */,
 				90DFA7A02330D568005C35A8 /* RCBannerCell.xib in Resources */,
 				901DDC682320ADD800E579D9 /* RCRegisterVC.xib in Resources */,
+				90C3084F2331BF0D00A39E78 /* RCChooseMemberCell.xib in Resources */,
 				9014114423307E2100CAEBB3 /* RCAddedClientCell.xib in Resources */,
 				9040F29E2313DA19005E6B2E /* FSActionSheet_cancel@3x.png in Resources */,
 				90ED8D8A233102A300EF9EB7 /* RCChangeRoleHeader.xib in Resources */,
@@ -1839,6 +1897,7 @@
 				9014111D233072DE00CAEBB3 /* RCClientVC.xib in Resources */,
 				90DFA7502330D4EE005C35A8 /* RCHouseLoanVC.xib in Resources */,
 				90DFA70C2330BBFA005C35A8 /* RCPinNoteCell.xib in Resources */,
+				90C3084A2331BD9700A39E78 /* RCChooseMemberHeader.xib in Resources */,
 				90068BC5231D0B9E00B0D856 /* RCNavBarView.xib in Resources */,
 				90141097233070E500CAEBB3 /* RCProfileVC.xib in Resources */,
 				90DFA7072330BBEB005C35A8 /* RCPinNoteVC.xib in Resources */,
@@ -1941,6 +2000,7 @@
 				9040F2302313A839005E6B2E /* FBShimmeringLayer.m in Sources */,
 				90ED8D752330FB1600EF9EB7 /* RCManagerMsgVC.m in Sources */,
 				90DFA7422330D4EE005C35A8 /* RCHouseLoanVC.m in Sources */,
+				90C3084E2331BF0D00A39E78 /* RCChooseMemberCell.m in Sources */,
 				9040F2462313A839005E6B2E /* UIButton+HXCode.m in Sources */,
 				9014112D23307DB400CAEBB3 /* RCPushHouseVC.m in Sources */,
 				901410B0233070E500CAEBB3 /* RCProfileVC.m in Sources */,
@@ -1969,6 +2029,7 @@
 				9040F22E2313A839005E6B2E /* JMNotifyView.m in Sources */,
 				9040F2772313AABE005E6B2E /* AppDelegate+MSAppService.m in Sources */,
 				901DDC6023209E7700E579D9 /* SGQRCodeObtain.m in Sources */,
+				90C308482331BD9000A39E78 /* RCChooseMemberHeader.m in Sources */,
 				9040F2452313A839005E6B2E /* UINavigation+SXFixSpace.m in Sources */,
 				90DFA7AF2330D568005C35A8 /* RCFilterCell.m in Sources */,
 				901411112330727E00CAEBB3 /* UIImage+DCAvatar.m in Sources */,
@@ -2030,6 +2091,7 @@
 				90DFA7412330D4EE005C35A8 /* RCHouseVC.m in Sources */,
 				90068B84231CE42C00B0D856 /* HXLocationTool_.m in Sources */,
 				9040F28D2313AC6E005E6B2E /* HXTabBarController.m in Sources */,
+				90C308442331BD6A00A39E78 /* RCChooseMemberVC.m in Sources */,
 				9014113023307DB400CAEBB3 /* RCReportResultVC.m in Sources */,
 				9040F2572313A839005E6B2E /* HXCacheTool.m in Sources */,
 				90DFA7C82330DE2F005C35A8 /* RCNoticeVC.m in Sources */,

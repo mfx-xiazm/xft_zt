@@ -10,6 +10,7 @@
 #import <MAMapKit/MAMapKit.h>
 #import <ZLCollectionViewVerticalLayout.h>
 #import "RCAddTaskMemberCell.h"
+#import "RCChooseMemberVC.h"
 
 static NSString *const AddTaskMemberCell = @"AddTaskMemberCell";
 
@@ -102,6 +103,8 @@ static NSString *const AddTaskMemberCell = @"AddTaskMemberCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.item == 5) {
         HXLog(@"分配专员");
+        RCChooseMemberVC *mvc = [RCChooseMemberVC new];
+        [self.navigationController pushViewController:mvc animated:YES];
     }
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
