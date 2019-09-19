@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="RCClientDetailHeader">
-            <rect key="frame" x="0.0" y="0.0" width="435" height="135"/>
+            <rect key="frame" x="0.0" y="0.0" width="435" height="205"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wwd-17-IHL">
@@ -52,6 +52,21 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" A " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8W-oq-cuy">
+                            <rect key="frame" x="200" y="34" width="15" height="16"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="xVc-e1-ujM"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最后备注: 2019-08-10 12:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3U-pa-c9c">
                             <rect key="frame" x="69" y="69" width="351" height="14"/>
                             <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="14"/>
@@ -71,21 +86,13 @@
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" A " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8W-oq-cuy">
-                            <rect key="frame" x="200" y="34" width="15" height="16"/>
-                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="16" id="xVc-e1-ujM"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdi-ck-8Ea">
+                            <rect key="frame" x="396" y="76" width="24" height="24"/>
+                            <state key="normal" image="icon_erweima_48"/>
+                            <connections>
+                                <action selector="detailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="9Q1-nS-hlh"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -94,6 +101,7 @@
                         <constraint firstItem="D1o-YX-BqV" firstAttribute="top" secondItem="r3U-pa-c9c" secondAttribute="bottom" constant="10" id="31c-LJ-6jo"/>
                         <constraint firstAttribute="trailing" secondItem="D1o-YX-BqV" secondAttribute="trailing" constant="15" id="4yX-ls-PSj"/>
                         <constraint firstItem="iFo-eN-AQQ" firstAttribute="leading" secondItem="jOA-Nv-aAy" secondAttribute="trailing" constant="10" id="70t-Lq-4Mb"/>
+                        <constraint firstAttribute="trailing" secondItem="gdi-ck-8Ea" secondAttribute="trailing" constant="15" id="9A2-0v-oNH"/>
                         <constraint firstItem="D1o-YX-BqV" firstAttribute="leading" secondItem="eeC-SN-G1k" secondAttribute="trailing" constant="10" id="9nr-YA-mNJ"/>
                         <constraint firstAttribute="trailing" secondItem="r3U-pa-c9c" secondAttribute="trailing" constant="15" id="C8E-8L-mlv"/>
                         <constraint firstItem="H8W-oq-cuy" firstAttribute="leading" secondItem="iFo-eN-AQQ" secondAttribute="trailing" constant="10" id="H7m-h9-EQ4"/>
@@ -101,6 +109,7 @@
                         <constraint firstItem="5nh-Q8-Vni" firstAttribute="leading" secondItem="wwd-17-IHL" secondAttribute="leading" id="LEQ-Tt-Vhm"/>
                         <constraint firstAttribute="trailing" secondItem="5nh-Q8-Vni" secondAttribute="trailing" id="LN0-8U-eWm"/>
                         <constraint firstItem="eeC-SN-G1k" firstAttribute="leading" secondItem="wwd-17-IHL" secondAttribute="leading" constant="15" id="SV9-PQ-OwP"/>
+                        <constraint firstAttribute="bottom" secondItem="gdi-ck-8Ea" secondAttribute="bottom" constant="25" id="ahv-Tm-NDF"/>
                         <constraint firstItem="r3U-pa-c9c" firstAttribute="top" secondItem="eeC-SN-G1k" secondAttribute="bottom" constant="5" id="epM-9R-iZF"/>
                         <constraint firstItem="eeC-SN-G1k" firstAttribute="top" secondItem="wwd-17-IHL" secondAttribute="top" constant="20" id="ij7-VD-WMr"/>
                         <constraint firstItem="H8W-oq-cuy" firstAttribute="centerY" secondItem="iFo-eN-AQQ" secondAttribute="centerY" id="j32-HO-zfK"/>
@@ -108,16 +117,127 @@
                         <constraint firstItem="jOA-Nv-aAy" firstAttribute="centerY" secondItem="eeC-SN-G1k" secondAttribute="centerY" id="u89-xa-uxq"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APG-Pi-sOM">
+                    <rect key="frame" x="0.0" y="125" width="435" height="70"/>
+                    <subviews>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZ7-wr-qbA" customClass="SPButton">
+                            <rect key="frame" x="0.0" y="0.0" width="109" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="15327427571" image="icon_telphone">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="detailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Ihg-5w-J7I"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3W0-Mg-uC3" customClass="SPButton">
+                            <rect key="frame" x="109" y="0.0" width="108.5" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="发送短信" image="icon_news_48">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="detailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="uE3-dG-W0N"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6H-Mq-AYX" customClass="SPButton">
+                            <rect key="frame" x="217.5" y="0.0" width="109" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="关注客户" image="icon_schx">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="detailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Zhp-ug-Eqz"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gui-KK-vhm" customClass="SPButton">
+                            <rect key="frame" x="326.5" y="0.0" width="108.5" height="70"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="跟进备注" image="icon_erweima_48">
+                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="2"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="detailClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="JJ6-xT-eBh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="xZ7-wr-qbA" firstAttribute="top" secondItem="APG-Pi-sOM" secondAttribute="top" id="33F-yj-aOp"/>
+                        <constraint firstAttribute="bottom" secondItem="3W0-Mg-uC3" secondAttribute="bottom" id="4LJ-UF-Ydg"/>
+                        <constraint firstItem="3W0-Mg-uC3" firstAttribute="leading" secondItem="xZ7-wr-qbA" secondAttribute="trailing" id="6nz-yj-A0g"/>
+                        <constraint firstItem="3W0-Mg-uC3" firstAttribute="top" secondItem="APG-Pi-sOM" secondAttribute="top" id="7ME-tx-8vH"/>
+                        <constraint firstAttribute="bottom" secondItem="gui-KK-vhm" secondAttribute="bottom" id="7tw-2S-u3h"/>
+                        <constraint firstAttribute="height" constant="70" id="Dpi-kT-KOl"/>
+                        <constraint firstItem="xZ7-wr-qbA" firstAttribute="leading" secondItem="APG-Pi-sOM" secondAttribute="leading" id="Gct-9X-wFj"/>
+                        <constraint firstItem="B6H-Mq-AYX" firstAttribute="width" secondItem="gui-KK-vhm" secondAttribute="width" id="LSm-bw-Agg"/>
+                        <constraint firstItem="3W0-Mg-uC3" firstAttribute="width" secondItem="xZ7-wr-qbA" secondAttribute="width" id="WIm-5I-RYe"/>
+                        <constraint firstAttribute="bottom" secondItem="B6H-Mq-AYX" secondAttribute="bottom" id="Xtl-fG-2oT"/>
+                        <constraint firstItem="gui-KK-vhm" firstAttribute="top" secondItem="APG-Pi-sOM" secondAttribute="top" id="bkB-NU-b0F"/>
+                        <constraint firstItem="B6H-Mq-AYX" firstAttribute="leading" secondItem="3W0-Mg-uC3" secondAttribute="trailing" id="bxT-3m-58h"/>
+                        <constraint firstItem="gui-KK-vhm" firstAttribute="width" secondItem="xZ7-wr-qbA" secondAttribute="width" id="gCL-4V-BfO"/>
+                        <constraint firstItem="gui-KK-vhm" firstAttribute="leading" secondItem="B6H-Mq-AYX" secondAttribute="trailing" id="mkK-rW-rdx"/>
+                        <constraint firstAttribute="trailing" secondItem="gui-KK-vhm" secondAttribute="trailing" id="mu5-f8-EMb"/>
+                        <constraint firstAttribute="bottom" secondItem="xZ7-wr-qbA" secondAttribute="bottom" id="sEQ-TE-Goo"/>
+                        <constraint firstItem="B6H-Mq-AYX" firstAttribute="top" secondItem="APG-Pi-sOM" secondAttribute="top" id="zAJ-tT-Vl0"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstItem="APG-Pi-sOM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GVN-LI-7U9"/>
                 <constraint firstItem="wwd-17-IHL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="a5i-F4-c5f"/>
-                <constraint firstAttribute="bottom" secondItem="wwd-17-IHL" secondAttribute="bottom" constant="10" id="wtd-y8-DO1"/>
+                <constraint firstAttribute="trailing" secondItem="APG-Pi-sOM" secondAttribute="trailing" id="epy-Pk-a6B"/>
+                <constraint firstItem="APG-Pi-sOM" firstAttribute="top" secondItem="wwd-17-IHL" secondAttribute="bottom" id="fKB-rz-S6g"/>
+                <constraint firstAttribute="bottom" secondItem="APG-Pi-sOM" secondAttribute="bottom" constant="10" id="nWc-3l-Ueq"/>
                 <constraint firstAttribute="trailing" secondItem="wwd-17-IHL" secondAttribute="trailing" id="yNT-uV-EYb"/>
                 <constraint firstItem="wwd-17-IHL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="z43-f5-KAb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="148.55072463768118" y="575.55803571428567"/>
+            <connections>
+                <outlet property="clientToolView" destination="APG-Pi-sOM" id="cwq-i1-egQ"/>
+                <outlet property="clientViewHeight" destination="Dpi-kT-KOl" id="mtD-cJ-0bV"/>
+                <outlet property="codeBtn" destination="gdi-ck-8Ea" id="y5G-Zt-vnj"/>
+            </connections>
+            <point key="canvasLocation" x="148.55072463768118" y="598.99553571428567"/>
         </view>
     </objects>
+    <resources>
+        <image name="icon_erweima_48" width="24" height="24"/>
+        <image name="icon_news_48" width="24" height="24"/>
+        <image name="icon_schx" width="24" height="24"/>
+        <image name="icon_telphone" width="24" height="24"/>
+    </resources>
 </document>

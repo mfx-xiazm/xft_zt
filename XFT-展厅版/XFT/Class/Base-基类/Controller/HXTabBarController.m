@@ -18,6 +18,7 @@
 #import "RCAddTaskVC.h"
 #import "RCTaskWorkVC.h"
 #import "RCGradeVC.h"
+#import "RCGradeVC2.h"
 
 @interface HXTabBarController ()<UITabBarControllerDelegate,RCTabBarDelegate>
 
@@ -46,6 +47,10 @@
     [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
+    MSUserInfo *info = [[MSUserInfo alloc] init];
+    info.ulevel = 1;
+    [MSUserManager sharedInstance].curUserInfo = info;
+    [[MSUserManager sharedInstance] saveUserInfo];
     // 添加子控制器
     /*
     // 小蜜蜂
@@ -54,11 +59,20 @@
     [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
      */
     
+    /*
     // 展厅经理
     [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
     [self setupChildVc:[[RCGradeVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
     [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
     [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+     */
+    
+    // 展厅专员
+    [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
+    [self setupChildVc:[[RCGradeVC2 alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+    [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
+    [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+    
     
     self.delegate = self;
     

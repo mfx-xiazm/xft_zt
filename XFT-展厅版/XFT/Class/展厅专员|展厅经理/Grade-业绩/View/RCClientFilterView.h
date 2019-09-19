@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCClientFilterView : UIView
 /* 目标控制器 */
 @property (nonatomic,weak) UIViewController *target;
-
 @property (nonatomic, weak) id<RCClientFilterViewDelegate> delegate;
 
 @end

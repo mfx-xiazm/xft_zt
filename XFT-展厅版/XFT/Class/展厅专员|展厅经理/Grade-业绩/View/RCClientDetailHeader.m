@@ -16,5 +16,10 @@
     self.autoresizingMask = UIViewAutoresizingNone;
 
 }
+- (IBAction)detailClicked:(UIButton *)sender {
+    if (self.clientDetailCall) {
+        self.clientDetailCall(sender.tag);
+    }
+}
 
 @end

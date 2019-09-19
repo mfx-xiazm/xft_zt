@@ -18,6 +18,8 @@
 #import "RCManagerRecordVC.h"
 #import "RCManagerMsgVC.h"
 #import "RCChangeRoleVC.h"
+#import "RCMyBrokerVC.h"
+#import "RCMyBeesVC.h"
 
 static NSString *const ProfileCell = @"ProfileCell";
 
@@ -115,7 +117,7 @@ static NSString *const ProfileCell = @"ProfileCell";
 -(NSArray *)titles
 {
     if (_titles == nil) {
-        _titles = @[@[@"消息中心",@"修改密码",@"版本更新"]];
+        _titles = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@[@[@"发展经纪人",@"我的小蜜蜂",@"消息中心",@"修改密码",@"版本更新"]]: @[@[@"消息中心",@"修改密码",@"版本更新"]];
     }
     return _titles;
 }
@@ -270,14 +272,32 @@ static NSString *const ProfileCell = @"ProfileCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-        [self.navigationController pushViewController:mvc animated:YES];
-    }else if (indexPath.row == 1) {
-        RCChangePwdVC *pwd = [RCChangePwdVC new];
-        [self.navigationController pushViewController:pwd animated:YES];
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel==1) {
+        if (indexPath.row == 0) {
+            RCMyBrokerVC *bvc = [RCMyBrokerVC new];
+            [self.navigationController pushViewController:bvc animated:YES];
+        }else if (indexPath.row == 1){
+            RCMyBeesVC *bvc = [RCMyBeesVC new];
+            [self.navigationController pushViewController:bvc animated:YES];
+        }else if (indexPath.row == 2) {
+            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
+        }else if (indexPath.row == 3) {
+            RCChangePwdVC *pwd = [RCChangePwdVC new];
+            [self.navigationController pushViewController:pwd animated:YES];
+        }else{
+            HXLog(@"版本更新");
+        }
     }else{
-        HXLog(@"版本更新");
+        if (indexPath.row == 0) {
+            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
+        }else if (indexPath.row == 1) {
+            RCChangePwdVC *pwd = [RCChangePwdVC new];
+            [self.navigationController pushViewController:pwd animated:YES];
+        }else{
+            HXLog(@"版本更新");
+        }
     }
 }
 

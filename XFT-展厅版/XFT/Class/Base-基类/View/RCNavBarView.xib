@@ -33,7 +33,7 @@
                         <constraint firstAttribute="trailing" secondItem="XCG-dN-2du" secondAttribute="trailing" id="tsw-xK-e2f"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcZ-jd-TGj">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qcZ-jd-TGj">
                     <rect key="frame" x="59" y="41.5" width="296" height="21.5"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -57,7 +57,6 @@
                         <constraint firstAttribute="height" constant="44" id="Wzp-fw-XiW"/>
                     </constraints>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" image="relocation"/>
                     <connections>
                         <action selector="moreClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="7om-XT-bsX"/>
                     </connections>
@@ -70,10 +69,10 @@
                 <constraint firstItem="qcZ-jd-TGj" firstAttribute="leading" secondItem="fu5-aK-S7l" secondAttribute="trailing" constant="15" id="Dwf-Sl-BKZ"/>
                 <constraint firstItem="lsA-Ia-ffZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="E36-dS-LUY"/>
                 <constraint firstAttribute="bottom" secondItem="lsA-Ia-ffZ" secondAttribute="bottom" id="Fv1-wK-WPc"/>
-                <constraint firstAttribute="trailing" secondItem="qcZ-jd-TGj" secondAttribute="trailing" constant="59" id="PaU-3b-ckt"/>
                 <constraint firstItem="lsA-Ia-ffZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="V4D-M5-wkO"/>
                 <constraint firstItem="qcZ-jd-TGj" firstAttribute="centerY" secondItem="fu5-aK-S7l" secondAttribute="centerY" id="X38-81-7o2"/>
                 <constraint firstAttribute="trailing" secondItem="Y8C-Hy-oaG" secondAttribute="trailing" id="jv9-4T-hO3"/>
+                <constraint firstItem="Y8C-Hy-oaG" firstAttribute="leading" secondItem="qcZ-jd-TGj" secondAttribute="trailing" constant="15" id="qy0-qa-T1Z"/>
                 <constraint firstAttribute="bottom" secondItem="Y8C-Hy-oaG" secondAttribute="bottom" id="ra9-Tr-gh5"/>
                 <constraint firstAttribute="bottom" secondItem="fu5-aK-S7l" secondAttribute="bottom" id="yY6-GH-2pq"/>
             </constraints>
@@ -88,7 +87,6 @@
         </view>
     </objects>
     <resources>
-        <image name="relocation" width="16" height="16"/>
         <image name="返回" width="11" height="20"/>
     </resources>
 </document>

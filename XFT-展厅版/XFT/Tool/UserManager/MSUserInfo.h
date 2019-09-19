@@ -11,8 +11,8 @@
 @interface MSUserInfo : NSObject
 @property (nonatomic,copy) NSString *uid;
 @property (nonatomic,copy) NSString *token;
-/** 1 运营中心 2运营商 3 尊享VIP 4尊享 */
-@property (nonatomic,copy) NSString *ulevel;
+/** 0小蜜蜂 1专员 2经理 */
+@property (nonatomic,assign) NSInteger ulevel;
 @property (nonatomic,copy) NSString *share_code;
 @property (nonatomic,copy) NSString *avatar;
 @property (nonatomic,copy) NSString *business;

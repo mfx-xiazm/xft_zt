@@ -13,6 +13,8 @@
 #import <JXCategoryView.h>
 #import "RCClientDetailNoteVC.h"
 #import "RCMoveClientToVC.h"
+#import "RCGoHouseVC.h"
+#import "RCRenewRemarkVC.h"
 
 @interface RCClientDetailVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
 @property (weak, nonatomic) IBOutlet RCPageMainTable *tableView;
@@ -34,7 +36,9 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"客户详情"];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(giveOtherClicked) title:@"转移" font:[UIFont systemFontOfSize:16] titleColor:UIColorFromRGB(0x333333) highlightedColor:UIColorFromRGB(0x333333) titleEdgeInsets:UIEdgeInsetsZero];
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel != 1) {
+        self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(giveOtherClicked) title:@"转移" font:[UIFont systemFontOfSize:16] titleColor:UIColorFromRGB(0x333333) highlightedColor:UIColorFromRGB(0x333333) titleEdgeInsets:UIEdgeInsetsZero];
+    }
     
     self.isCanScroll = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MainTableScroll:) name:@"MainTableScroll" object:nil];
@@ -44,13 +48,32 @@
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.header.frame = CGRectMake(0, -(135.f), HX_SCREEN_WIDTH, 135.f);
+    self.header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?CGRectMake(0, -(205.f), HX_SCREEN_WIDTH, 205.f):CGRectMake(0, -(135.f), HX_SCREEN_WIDTH, 135.f);
 }
 -(RCClientDetailHeader *)header
 {
     if (_header == nil) {
         _header = [RCClientDetailHeader loadXibView];
-        _header.frame = CGRectMake(0,0, HX_SCREEN_WIDTH, 210.f);
+        _header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?CGRectMake(0, 0, HX_SCREEN_WIDTH, 205.f):CGRectMake(0, 0, HX_SCREEN_WIDTH, 135.f);
+        _header.clientToolView.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?NO:YES;
+        _header.clientViewHeight.constant = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?70.f:0.f;
+        _header.codeBtn.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?NO:YES;
+        hx_weakify(self);
+        _header.clientDetailCall = ^(NSInteger index) {
+            if (index == 0) {
+                RCGoHouseVC *hvc = [RCGoHouseVC new];
+                [weakSelf.navigationController pushViewController:hvc animated:YES];
+            }else if (index == 1) {
+                
+            }else if (index == 2) {
+                
+            }else if (index == 3) {
+                
+            }else{
+                RCRenewRemarkVC *rvc= [RCRenewRemarkVC new];
+                [weakSelf.navigationController pushViewController:rvc animated:YES];
+            }
+        };
     }
     return _header;
 }
@@ -120,7 +143,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(135.f,0, 0, 0);
+    self.tableView.contentInset = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?UIEdgeInsetsMake(205.f,0, 0, 0):UIEdgeInsetsMake(135.f,0, 0, 0);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     

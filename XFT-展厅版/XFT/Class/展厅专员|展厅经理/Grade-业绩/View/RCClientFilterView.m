@@ -22,6 +22,8 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) UITextField *reportBeginTime;
 @property (weak, nonatomic) UITextField *reportEndTime;
+@property (weak, nonatomic) UITextField *visitBeginTime;
+@property (weak, nonatomic) UITextField *visitEndTime;
 //是否显示
 @property (nonatomic, assign) BOOL show;
 /* 测试数据 */
@@ -84,6 +86,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
         return headerView;
     }else if ([kind isEqualToString : UICollectionElementKindSectionFooter]){
         RCClientFilterTimeView * footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ClientFilterTimeView forIndexPath:indexPath];
+        footerView.visitTimeView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1 ? NO:YES;
         footerView.filterTimeCall = ^(UITextField * _Nonnull textField) {
             //年-月-日
             WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
@@ -99,6 +102,8 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
         if (indexPath.section == 2) {
             self.reportBeginTime = footerView.reportBeginTime;
             self.reportEndTime = footerView.reportEndTime;
+            self.visitBeginTime = footerView.visitBeginTime;
+            self.visitEndTime = footerView.visitEndTime;
             return footerView;
         }else{
             return nil;
@@ -109,7 +114,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
     if (section == 2) {
-        return CGSizeMake(collectionView.frame.size.width, 100);
+        return ([MSUserManager sharedInstance].curUserInfo.ulevel == 1)?CGSizeMake(collectionView.frame.size.width, 200):CGSizeMake(collectionView.frame.size.width, 100);
     }else{
         return CGSizeZero;
     }

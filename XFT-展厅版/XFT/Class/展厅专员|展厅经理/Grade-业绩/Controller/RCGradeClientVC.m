@@ -14,6 +14,8 @@ static NSString *const MyClientCell = @"MyClientCell";
 
 @interface RCGradeClientVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIView *followView;
+@property (weak, nonatomic) IBOutlet UIView *clientFilterView;
 
 @end
 
@@ -22,6 +24,9 @@ static NSString *const MyClientCell = @"MyClientCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"展厅专员"];
+    self.clientFilterView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1?YES:NO;
+    self.followView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1?NO:YES;
+
     [self setUpTableView];
 }
 -(void)setUpTableView
