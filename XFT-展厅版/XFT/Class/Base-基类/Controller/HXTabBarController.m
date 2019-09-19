@@ -19,6 +19,7 @@
 #import "RCTaskWorkVC.h"
 #import "RCGradeVC.h"
 #import "RCGradeVC2.h"
+#import "RCTaskWorkVC1.h"
 
 @interface HXTabBarController ()<UITabBarControllerDelegate,RCTabBarDelegate>
 
@@ -52,12 +53,13 @@
     [MSUserManager sharedInstance].curUserInfo = info;
     [[MSUserManager sharedInstance] saveUserInfo];
     // 添加子控制器
+    
     /*
     // 小蜜蜂
     [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
     [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
     [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
-     */
+    */
     
     /*
     // 展厅经理
@@ -70,7 +72,7 @@
     // 展厅专员
     [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
     [self setupChildVc:[[RCGradeVC2 alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
-    [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
+    [self setupChildVc:[[RCTaskWorkVC1 alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
     [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     
     
@@ -89,8 +91,14 @@
 }
 -(void)tabBarDidClickPlusButton:(RCTabBar *)tabBar
 {
-    RCAddTaskVC *tvc = [RCAddTaskVC new];
-    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
+//    // 新增任务
+//    RCAddTaskVC *tvc = [RCAddTaskVC new];
+//    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
+//    [self.selectedViewController presentViewController:nav animated:YES completion:nil];
+    
+    // 报备客户
+    RCPushVC *pvc = [RCPushVC new];
+    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
     [self.selectedViewController presentViewController:nav animated:YES completion:nil];
 }
 /**

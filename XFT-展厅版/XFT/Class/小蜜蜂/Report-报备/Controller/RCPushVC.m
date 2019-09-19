@@ -19,6 +19,7 @@
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "FSActionSheet.h"
+#import "RCWishHouseVC.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 static NSString *const HouseTagsCell = @"HouseTagsCell";
@@ -46,9 +47,27 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备客户"];
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//展厅专员
+        // 如果push进来的不是第一个控制器，就设置其左边的返回键
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateHighlighted];
+        [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
+        button.hxn_size = CGSizeMake(44, 44);
+        // 让按钮内部的所有内容左对齐
+        //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
+        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    }
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
     [self setUpTableView];
     [self setUpCollectionView];
+}
+-(void)back
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(NSMutableArray *)houses
 {
@@ -110,8 +129,13 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 #pragma mark -- 点击事件
 - (IBAction)chooseHouseClicked:(UIButton *)sender {
-    RCPushHouseVC *hvc = [RCPushHouseVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//展厅专员
+        RCWishHouseVC *hvc = [RCWishHouseVC new];
+        [self.navigationController pushViewController:hvc animated:YES];
+    }else{//小蜜蜂
+        RCPushHouseVC *hvc = [RCPushHouseVC new];
+        [self.navigationController pushViewController:hvc animated:YES];
+    }
     [self.houses addObjectsFromArray:@[@"",@"",@""]];
     self.houseViewHeight.constant = 50.f+60.f;
     hx_weakify(self); dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
