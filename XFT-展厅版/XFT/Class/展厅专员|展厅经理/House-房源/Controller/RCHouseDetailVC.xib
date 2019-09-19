@@ -36,7 +36,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ley-0u-5zZ">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="754"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ey-O0-hrz">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="2068"/>
@@ -820,12 +820,79 @@
                         <constraint firstAttribute="bottom" secondItem="5Ey-O0-hrz" secondAttribute="bottom" id="yOM-eN-OFZ"/>
                     </constraints>
                 </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6N-Y4-ft9">
+                    <rect key="frame" x="0.0" y="798" width="414" height="64"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AP9-L2-byw">
+                            <rect key="frame" x="15" y="10" width="184.5" height="44"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="免费咨询">
+                                <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
+                                    <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="houseReportClicked:" destination="-1" eventType="touchUpInside" id="wQ7-7L-UVJ"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="68Z-8r-wu7">
+                            <rect key="frame" x="214.5" y="10" width="184.5" height="44"/>
+                            <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <state key="normal" title="报备客户"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="houseReportClicked:" destination="-1" eventType="touchUpInside" id="6LO-mv-GEC"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v72-B8-Sdj" userLabel="分割线">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="wOT-3F-lfj"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="68Z-8r-wu7" secondAttribute="bottom" constant="10" id="7UO-9v-Hqq"/>
+                        <constraint firstAttribute="height" constant="64" id="BZP-CR-Dsp"/>
+                        <constraint firstItem="v72-B8-Sdj" firstAttribute="leading" secondItem="H6N-Y4-ft9" secondAttribute="leading" id="MTi-CW-gfC"/>
+                        <constraint firstAttribute="trailing" secondItem="v72-B8-Sdj" secondAttribute="trailing" id="O0P-Xr-BZO"/>
+                        <constraint firstItem="v72-B8-Sdj" firstAttribute="top" secondItem="H6N-Y4-ft9" secondAttribute="top" id="T84-h0-bTa"/>
+                        <constraint firstItem="68Z-8r-wu7" firstAttribute="top" secondItem="H6N-Y4-ft9" secondAttribute="top" constant="10" id="TgS-rj-anh"/>
+                        <constraint firstItem="AP9-L2-byw" firstAttribute="top" secondItem="H6N-Y4-ft9" secondAttribute="top" constant="10" id="ThY-nX-9jH"/>
+                        <constraint firstItem="68Z-8r-wu7" firstAttribute="leading" secondItem="AP9-L2-byw" secondAttribute="trailing" constant="15" id="VYl-2A-LVH"/>
+                        <constraint firstAttribute="bottom" secondItem="AP9-L2-byw" secondAttribute="bottom" constant="10" id="gMj-ie-cj7"/>
+                        <constraint firstItem="AP9-L2-byw" firstAttribute="leading" secondItem="H6N-Y4-ft9" secondAttribute="leading" constant="15" id="iDY-PB-g77"/>
+                        <constraint firstAttribute="trailing" secondItem="68Z-8r-wu7" secondAttribute="trailing" constant="15" id="nh8-9e-wSx"/>
+                        <constraint firstItem="68Z-8r-wu7" firstAttribute="width" secondItem="AP9-L2-byw" secondAttribute="width" id="qRv-xw-8Ss"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Ley-0u-5zZ" secondAttribute="bottom" id="End-eH-TFf"/>
+                <constraint firstItem="H6N-Y4-ft9" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="9BM-Xe-j8B"/>
+                <constraint firstItem="H6N-Y4-ft9" firstAttribute="top" secondItem="Ley-0u-5zZ" secondAttribute="bottom" id="HVs-7l-f1N"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="H6N-Y4-ft9" secondAttribute="bottom" id="QFb-7A-q9a"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="leading" secondItem="Ley-0u-5zZ" secondAttribute="leading" id="dQS-p5-5q2"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Ley-0u-5zZ" secondAttribute="trailing" id="iFe-iy-8rm"/>
+                <constraint firstItem="H6N-Y4-ft9" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="nzC-oA-uID"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="Ley-0u-5zZ" secondAttribute="top" id="xms-4D-x5K"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

@@ -31,6 +31,7 @@
 #import "HXNavigationController.h"
 #import "RCVideoFullScreenVC.h"
 #import "RCHouseGoodsCell.h"
+#import "RCReportClientVC.h"
 
 static NSString *const HouseNearbyCell = @"HouseNearbyCell";
 static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
@@ -306,7 +307,8 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 }
 - (IBAction)houseReportClicked:(UIButton *)sender {
     if (sender.tag == 1) {
-        
+        RCReportClientVC *rvc = [RCReportClientVC new];
+        [self.navigationController pushViewController:rvc animated:YES];
     }else{
         hx_weakify(self);
         zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"027-27549123" constantWidth:HX_SCREEN_WIDTH - 50*2];

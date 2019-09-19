@@ -13,6 +13,8 @@
 #import "RCSearchHouseVC.h"
 #import "RCHouseDetailVC.h"
 #import "RCNoticeVC.h"
+#import "RCManagerMsgVC.h"
+#import "RCReportClientVC.h"
 
 static NSString *const HouseCell = @"HouseCell";
 
@@ -68,7 +70,15 @@ static NSString *const HouseCell = @"HouseCell";
     [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
     
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
+    SPButton *msgBtn = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
+    msgBtn.hxn_size = CGSizeMake(44, 44);
+    [msgBtn setImage:HXGetImage(@"icon_news") forState:UIControlStateNormal];
+    [msgBtn addTarget:self action:@selector(messageClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *msgItem = [[UIBarButtonItem alloc] initWithCustomView:msgBtn];
+    
+    UIBarButtonItem *searchItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
+    
+    self.navigationItem.rightBarButtonItems = @[msgItem,searchItem];
 }
 -(void)setUpTableView
 {
@@ -101,6 +111,7 @@ static NSString *const HouseCell = @"HouseCell";
 {
     self.tableView.tableHeaderView = self.header;
 }
+#pragma mark -- 点击事件
 -(void)cityClicked
 {
     RCSearchCityVC *hvc = [RCSearchCityVC new];
@@ -111,6 +122,11 @@ static NSString *const HouseCell = @"HouseCell";
     RCSearchHouseVC *hvc = [RCSearchHouseVC new];
     [self.navigationController pushViewController:hvc animated:YES];
 }
+-(void)messageClicked
+{
+    RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+    [self.navigationController pushViewController:mvc animated:YES];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -120,6 +136,11 @@ static NSString *const HouseCell = @"HouseCell";
     RCHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    hx_weakify(self);
+    cell.reportCall = ^{
+        RCReportClientVC *cvc = [RCReportClientVC new];
+        [weakSelf.navigationController pushViewController:cvc animated:YES];
+    };
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

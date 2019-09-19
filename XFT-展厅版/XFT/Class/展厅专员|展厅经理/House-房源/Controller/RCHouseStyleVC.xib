@@ -22,16 +22,83 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dnd-Ab-eYC">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="754"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zct-XT-dFH">
+                    <rect key="frame" x="0.0" y="798" width="414" height="64"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-Ya-1sJ">
+                            <rect key="frame" x="15" y="10" width="184.5" height="44"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                            <state key="normal" title="免费咨询">
+                                <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
+                                    <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="consultClicked:" destination="-1" eventType="touchUpInside" id="vVU-2A-Gk2"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rc9-uc-xDi">
+                            <rect key="frame" x="214.5" y="10" width="184.5" height="44"/>
+                            <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                            <state key="normal" title="报备客户"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="reportClicked:" destination="-1" eventType="touchUpInside" id="hO9-tf-8RJ"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MGY-Q0-iRf" userLabel="分割线">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                            <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="nwr-J8-2QQ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="iSu-Ya-1sJ" firstAttribute="leading" secondItem="Zct-XT-dFH" secondAttribute="leading" constant="15" id="2yP-tz-cO0"/>
+                        <constraint firstItem="Rc9-uc-xDi" firstAttribute="width" secondItem="iSu-Ya-1sJ" secondAttribute="width" id="Aan-Uy-2L1"/>
+                        <constraint firstItem="MGY-Q0-iRf" firstAttribute="top" secondItem="Zct-XT-dFH" secondAttribute="top" id="Jp4-P9-MHB"/>
+                        <constraint firstAttribute="bottom" secondItem="Rc9-uc-xDi" secondAttribute="bottom" constant="10" id="MP7-B2-VBg"/>
+                        <constraint firstItem="iSu-Ya-1sJ" firstAttribute="top" secondItem="Zct-XT-dFH" secondAttribute="top" constant="10" id="N9w-I0-geM"/>
+                        <constraint firstItem="Rc9-uc-xDi" firstAttribute="leading" secondItem="iSu-Ya-1sJ" secondAttribute="trailing" constant="15" id="Oci-oF-5lg"/>
+                        <constraint firstItem="Rc9-uc-xDi" firstAttribute="top" secondItem="Zct-XT-dFH" secondAttribute="top" constant="10" id="bKa-xR-CwW"/>
+                        <constraint firstAttribute="trailing" secondItem="MGY-Q0-iRf" secondAttribute="trailing" id="cl3-Mf-pB6"/>
+                        <constraint firstAttribute="trailing" secondItem="Rc9-uc-xDi" secondAttribute="trailing" constant="15" id="dmF-aN-yEk"/>
+                        <constraint firstAttribute="height" constant="64" id="hBr-ol-gZu"/>
+                        <constraint firstAttribute="bottom" secondItem="iSu-Ya-1sJ" secondAttribute="bottom" constant="10" id="oIE-Dl-Njz"/>
+                        <constraint firstItem="MGY-Q0-iRf" firstAttribute="leading" secondItem="Zct-XT-dFH" secondAttribute="leading" id="veV-vB-sTw"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="dnd-Ab-eYC" secondAttribute="trailing" id="7K8-SC-ioo"/>
                 <constraint firstItem="dnd-Ab-eYC" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="CBa-9B-rzg"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="dnd-Ab-eYC" secondAttribute="bottom" id="MRK-HP-hpV"/>
+                <constraint firstItem="Zct-XT-dFH" firstAttribute="top" secondItem="dnd-Ab-eYC" secondAttribute="bottom" id="Lnw-Tc-1WO"/>
                 <constraint firstItem="dnd-Ab-eYC" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="T3g-95-VYS"/>
+                <constraint firstItem="Zct-XT-dFH" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="XTf-An-EBu"/>
+                <constraint firstItem="Zct-XT-dFH" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="q87-w8-HEf"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Zct-XT-dFH" secondAttribute="bottom" id="tSK-VH-wuh"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
         </view>

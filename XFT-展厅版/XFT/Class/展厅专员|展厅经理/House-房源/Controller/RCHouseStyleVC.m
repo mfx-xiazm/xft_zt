@@ -13,6 +13,7 @@
 #import <zhPopupController.h>
 #import "zhAlertView.h"
 #import "RCHouseLoanVC.h"
+#import "RCReportClientVC.h"
 
 static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 
@@ -107,7 +108,8 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     [self.zh_popupController presentContentView:share duration:0.25 springAnimated:NO];
 }
 - (IBAction)reportClicked:(UIButton *)sender {
-   
+    RCReportClientVC *rvc = [RCReportClientVC new];
+    [self.navigationController pushViewController:rvc animated:YES];
 }
 - (IBAction)consultClicked:(UIButton *)sender {
     hx_weakify(self);

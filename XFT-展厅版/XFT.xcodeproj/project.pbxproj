@@ -124,6 +124,8 @@
 		904E87B42333249E00A792FD /* RCScoreRankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87B22333249E00A792FD /* RCScoreRankCell.xib */; };
 		904E87B8233324C400A792FD /* RCScoreBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87B6233324C400A792FD /* RCScoreBarCell.m */; };
 		904E87B9233324C400A792FD /* RCScoreBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87B7233324C400A792FD /* RCScoreBarCell.xib */; };
+		904E87C7233332C100A792FD /* RCReportClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87C5233332C100A792FD /* RCReportClientVC.m */; };
+		904E87C8233332C100A792FD /* RCReportClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87C6233332C100A792FD /* RCReportClientVC.xib */; };
 		9093411A231F5B9E001A3A6E /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90934116231F5B9E001A3A6E /* WSDatePickerView.xib */; };
 		9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934117231F5B9E001A3A6E /* WSDatePickerView.m */; };
 		9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934118231F5B9E001A3A6E /* NSDate+Extension.m */; };
@@ -554,6 +556,9 @@
 		904E87B5233324C400A792FD /* RCScoreBarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCScoreBarCell.h; sourceTree = "<group>"; };
 		904E87B6233324C400A792FD /* RCScoreBarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCScoreBarCell.m; sourceTree = "<group>"; };
 		904E87B7233324C400A792FD /* RCScoreBarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCScoreBarCell.xib; sourceTree = "<group>"; };
+		904E87C4233332C100A792FD /* RCReportClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCReportClientVC.h; sourceTree = "<group>"; };
+		904E87C5233332C100A792FD /* RCReportClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCReportClientVC.m; sourceTree = "<group>"; };
+		904E87C6233332C100A792FD /* RCReportClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCReportClientVC.xib; sourceTree = "<group>"; };
 		90934113231F5B9E001A3A6E /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		90934114231F5B9E001A3A6E /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
 		90934115231F5B9E001A3A6E /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -1934,6 +1939,9 @@
 				90DFA7332330D4ED005C35A8 /* RCPanoramaVC.xib */,
 				90DFA72C2330D4EC005C35A8 /* RCVideoFullScreenVC.h */,
 				90DFA73C2330D4EE005C35A8 /* RCVideoFullScreenVC.m */,
+				904E87C4233332C100A792FD /* RCReportClientVC.h */,
+				904E87C5233332C100A792FD /* RCReportClientVC.m */,
+				904E87C6233332C100A792FD /* RCReportClientVC.xib */,
 			);
 			name = "房源详情";
 			sourceTree = "<group>";
@@ -2337,6 +2345,7 @@
 				90DFA7462330D4EE005C35A8 /* RCSearchCityVC.xib in Resources */,
 				90CC69F8233211D200A49C49 /* RCGradeClientVC.xib in Resources */,
 				90C308942331FAA200A39E78 /* RCTaskTotalFilterHeader.xib in Resources */,
+				904E87C8233332C100A792FD /* RCReportClientVC.xib in Resources */,
 				90ED8D712330F8D300EF9EB7 /* RCManagerRecordVC.xib in Resources */,
 				9014113123307DB400CAEBB3 /* RCPushVC.xib in Resources */,
 				90DFA7992330D568005C35A8 /* RCHouseStyleCell.xib in Resources */,
@@ -2498,6 +2507,7 @@
 				90DFA7512330D4EE005C35A8 /* RCHouseInfoVC.m in Sources */,
 				90C308922331FA9B00A39E78 /* RCTaskTotalFilterHeader.m in Sources */,
 				90CC6A3B23322DDD00A49C49 /* RCStoreClientCell.m in Sources */,
+				904E87C7233332C100A792FD /* RCReportClientVC.m in Sources */,
 				90C3088D2331DF1200A39E78 /* RCTaskTotalHeader.m in Sources */,
 				904E87B32333249E00A792FD /* RCScoreRankCell.m in Sources */,
 				90DFA7CE2330DE3C005C35A8 /* RCNoticeCell.m in Sources */,
