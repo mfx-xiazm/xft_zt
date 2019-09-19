@@ -27,10 +27,13 @@ PODS:
   - MJRefresh (3.2.0)
   - NHHUDExtend (1.0.2):
     - MBProgressHUD
+  - PNChart (0.8.9):
+    - UICountingLabel (~> 1.2.0)
   - SDWebImage (5.0.6):
     - SDWebImage/Core (= 5.0.6)
   - SDWebImage/Core (5.0.6)
   - TYCyclePagerView (1.2.0)
+  - UICountingLabel (1.2.0)
   - UMCCommon (2.1.1)
   - UMCSecurityPlugins (1.0.6)
   - UMCShare/Core (6.9.6):
@@ -59,6 +62,7 @@ DEPENDENCIES:
   - JXCategoryView
   - MJRefresh
   - NHHUDExtend
+  - PNChart
   - TYCyclePagerView
   - UMCCommon
   - UMCSecurityPlugins
@@ -84,8 +88,10 @@ SPEC REPOS:
     - MBProgressHUD
     - MJRefresh
     - NHHUDExtend
+    - PNChart
     - SDWebImage
     - TYCyclePagerView
+    - UICountingLabel
     - UMCCommon
     - UMCSecurityPlugins
     - UMCShare
@@ -108,8 +114,10 @@ SPEC CHECKSUMS:
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   NHHUDExtend: 1fd914b12b93ac61c1cfdb04485c25db59f27627
+  PNChart: 84774d225c2126ded6c93d4dbe6ae98c3a73c2d2
   SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
   TYCyclePagerView: 2b051dade0615c70784aa34f40c646feeddb7344
+  UICountingLabel: 1db4e7d023e1762171eb226d6dff47a7a84f27aa
   UMCCommon: 971f324a5a99c9d662ae040a815e7e3d7ef8b2a8
   UMCSecurityPlugins: 0831a08f3988f3cea9f1d3a7626cd9bee4fef150
   UMCShare: e0cef55c0fd6051254c8cda1d0630eb578b27bad
@@ -120,6 +128,6 @@ SPEC CHECKSUMS:
   ZLCollectionViewFlowLayout: 44293c96b7fd275f107b321ba1dc3f95869c3860
   ZLPhotoBrowser: 8975b83f53dbcec1399ef8d1badffc0e09aa9422
 
-PODFILE CHECKSUM: 3efcd50566eb17c15a43280caa493f23bcbf34d8
+PODFILE CHECKSUM: 1fb25e624e730c36027144c14d8ef25109164af4
 
 COCOAPODS: 1.6.1

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="RCScoreBarCell">
+            <rect key="frame" x="0.0" y="0.0" width="59" height="193"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="59" height="193"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MIc-F7-tGG">
+                        <rect key="frame" x="21.5" y="68" width="16" height="100"/>
+                        <color key="backgroundColor" red="1" green="0.34901960784313724" blue="0.031372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="4xr-Kc-0zj"/>
+                            <constraint firstAttribute="width" constant="16" id="G6f-O1-hhJ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9/14" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxZ-et-MFO">
+                        <rect key="frame" x="0.0" y="178" width="59" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="64" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQu-Dp-xj6">
+                        <rect key="frame" x="0.0" y="41" width="59" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                        <color key="textColor" red="1" green="0.34901960780000002" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="MIc-F7-tGG" firstAttribute="centerX" secondItem="SEy-5g-ep8" secondAttribute="centerX" id="35x-3E-MKm"/>
+                <constraint firstItem="eQu-Dp-xj6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="D0F-dA-oiM"/>
+                <constraint firstAttribute="trailing" secondItem="eQu-Dp-xj6" secondAttribute="trailing" id="JRq-ck-Kgc"/>
+                <constraint firstAttribute="bottom" secondItem="nxZ-et-MFO" secondAttribute="bottom" id="Tqe-33-QZv"/>
+                <constraint firstItem="MIc-F7-tGG" firstAttribute="top" secondItem="eQu-Dp-xj6" secondAttribute="bottom" constant="10" id="esT-GD-XP1"/>
+                <constraint firstItem="nxZ-et-MFO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hwI-bF-Mqs"/>
+                <constraint firstAttribute="trailing" secondItem="nxZ-et-MFO" secondAttribute="trailing" id="xPC-h3-kre"/>
+                <constraint firstItem="nxZ-et-MFO" firstAttribute="top" secondItem="MIc-F7-tGG" secondAttribute="bottom" constant="10" id="xet-A1-BpG"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <size key="customSize" width="59" height="193"/>
+            <point key="canvasLocation" x="144.20289855072465" y="111.49553571428571"/>
+        </collectionViewCell>
+    </objects>
+</document>

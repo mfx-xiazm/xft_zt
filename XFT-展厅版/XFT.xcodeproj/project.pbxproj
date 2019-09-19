@@ -114,6 +114,16 @@
 		9040F2C02313F8AF005E6B2E /* RCLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9040F2BE2313F8AF005E6B2E /* RCLoginVC.xib */; };
 		9040F2C323140013005E6B2E /* RCWebContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9040F2C223140013005E6B2E /* RCWebContentVC.m */; };
 		904BB22E231FD7D30060E206 /* YCMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 904BB22D231FD7D20060E206 /* YCMenuView.m */; };
+		904E87A423330D5F00A792FD /* RCClientLegendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87A223330D5F00A792FD /* RCClientLegendCell.m */; };
+		904E87A523330D5F00A792FD /* RCClientLegendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87A323330D5F00A792FD /* RCClientLegendCell.xib */; };
+		904E87A923330F5400A792FD /* RCSearchClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87A623330F5300A792FD /* RCSearchClientVC.m */; };
+		904E87AA23330F5400A792FD /* RCSearchClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87A723330F5300A792FD /* RCSearchClientVC.xib */; };
+		904E87AE2333122700A792FD /* RCScoreAnalyzeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87AC2333122700A792FD /* RCScoreAnalyzeVC.m */; };
+		904E87AF2333122700A792FD /* RCScoreAnalyzeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87AD2333122700A792FD /* RCScoreAnalyzeVC.xib */; };
+		904E87B32333249E00A792FD /* RCScoreRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87B12333249E00A792FD /* RCScoreRankCell.m */; };
+		904E87B42333249E00A792FD /* RCScoreRankCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87B22333249E00A792FD /* RCScoreRankCell.xib */; };
+		904E87B8233324C400A792FD /* RCScoreBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87B6233324C400A792FD /* RCScoreBarCell.m */; };
+		904E87B9233324C400A792FD /* RCScoreBarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87B7233324C400A792FD /* RCScoreBarCell.xib */; };
 		9093411A231F5B9E001A3A6E /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90934116231F5B9E001A3A6E /* WSDatePickerView.xib */; };
 		9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934117231F5B9E001A3A6E /* WSDatePickerView.m */; };
 		9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934118231F5B9E001A3A6E /* NSDate+Extension.m */; };
@@ -150,6 +160,50 @@
 		90C308942331FAA200A39E78 /* RCTaskTotalFilterHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308932331FAA200A39E78 /* RCTaskTotalFilterHeader.xib */; };
 		90C308982331FC8300A39E78 /* RCTaskTotalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C308962331FC8300A39E78 /* RCTaskTotalCell.m */; };
 		90C308992331FC8300A39E78 /* RCTaskTotalCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308972331FC8300A39E78 /* RCTaskTotalCell.xib */; };
+		90C308A12331FFD300A39E78 /* RCGradeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C3089F2331FFD300A39E78 /* RCGradeVC.m */; };
+		90C308A22331FFD300A39E78 /* RCGradeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90C308A02331FFD300A39E78 /* RCGradeVC.xib */; };
+		90CC69E42332032C00A49C49 /* RCMyClientStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69E12332032C00A49C49 /* RCMyClientStateCell.xib */; };
+		90CC69E52332032C00A49C49 /* RCMyClientStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69E22332032C00A49C49 /* RCMyClientStateCell.m */; };
+		90CC69E92332035F00A49C49 /* RCClientGradeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69E72332035F00A49C49 /* RCClientGradeCell.m */; };
+		90CC69EA2332035F00A49C49 /* RCClientGradeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69E82332035F00A49C49 /* RCClientGradeCell.xib */; };
+		90CC69EE233209F300A49C49 /* ZJPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69EC233209F300A49C49 /* ZJPickerView.m */; };
+		90CC69F2233210AD00A49C49 /* RCGradeNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69F0233210AD00A49C49 /* RCGradeNumVC.m */; };
+		90CC69F3233210AD00A49C49 /* RCGradeNumVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69F1233210AD00A49C49 /* RCGradeNumVC.xib */; };
+		90CC69F7233211D200A49C49 /* RCGradeClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69F5233211D200A49C49 /* RCGradeClientVC.m */; };
+		90CC69F8233211D200A49C49 /* RCGradeClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69F6233211D200A49C49 /* RCGradeClientVC.xib */; };
+		90CC69FC2332127900A49C49 /* RCMyClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69F92332127800A49C49 /* RCMyClientCell.m */; };
+		90CC69FD2332127900A49C49 /* RCMyClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69FA2332127800A49C49 /* RCMyClientCell.xib */; };
+		90CC6A072332163200A49C49 /* RCClientDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC69FE2332163100A49C49 /* RCClientDetailInfoVC.m */; };
+		90CC6A082332163200A49C49 /* RCClientDetailInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC69FF2332163100A49C49 /* RCClientDetailInfoVC.xib */; };
+		90CC6A092332163200A49C49 /* RCClientDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A002332163100A49C49 /* RCClientDetailVC.xib */; };
+		90CC6A0A2332163200A49C49 /* RCClientDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A022332163200A49C49 /* RCClientDetailVC.m */; };
+		90CC6A0B2332163200A49C49 /* RCClientDetailNoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A032332163200A49C49 /* RCClientDetailNoteVC.m */; };
+		90CC6A0C2332163200A49C49 /* RCClientDetailNoteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A062332163200A49C49 /* RCClientDetailNoteVC.xib */; };
+		90CC6A152332164D00A49C49 /* RCClientNoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A0F2332164B00A49C49 /* RCClientNoteCell.m */; };
+		90CC6A162332164D00A49C49 /* RCClientNoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A102332164C00A49C49 /* RCClientNoteCell.xib */; };
+		90CC6A172332164D00A49C49 /* RCClientDetailHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A112332164C00A49C49 /* RCClientDetailHeader.xib */; };
+		90CC6A182332164D00A49C49 /* RCClientDetailHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A132332164D00A49C49 /* RCClientDetailHeader.m */; };
+		90CC6A192332164D00A49C49 /* RCPageMainTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A142332164D00A49C49 /* RCPageMainTable.m */; };
+		90CC6A1D23321E2100A49C49 /* RCMoveClientToVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A1B23321E2100A49C49 /* RCMoveClientToVC.m */; };
+		90CC6A1E23321E2100A49C49 /* RCMoveClientToVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A1C23321E2100A49C49 /* RCMoveClientToVC.xib */; };
+		90CC6A222332219700A49C49 /* RCMoveClientFromVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A202332219700A49C49 /* RCMoveClientFromVC.m */; };
+		90CC6A232332219700A49C49 /* RCMoveClientFromVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A212332219700A49C49 /* RCMoveClientFromVC.xib */; };
+		90CC6A272332245900A49C49 /* RCMoveClientFromCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A252332245900A49C49 /* RCMoveClientFromCell.m */; };
+		90CC6A282332245900A49C49 /* RCMoveClientFromCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A262332245900A49C49 /* RCMoveClientFromCell.xib */; };
+		90CC6A2C23322C0300A49C49 /* RCMyStoreVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A2A23322C0300A49C49 /* RCMyStoreVC.xib */; };
+		90CC6A2D23322C0300A49C49 /* RCMyStoreVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A2B23322C0300A49C49 /* RCMyStoreVC.m */; };
+		90CC6A3123322C0F00A49C49 /* RCMyStoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A2E23322C0F00A49C49 /* RCMyStoreCell.xib */; };
+		90CC6A3223322C0F00A49C49 /* RCMyStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A2F23322C0F00A49C49 /* RCMyStoreCell.m */; };
+		90CC6A3623322DBC00A49C49 /* RCStoreClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A3423322DBC00A49C49 /* RCStoreClientVC.m */; };
+		90CC6A3723322DBC00A49C49 /* RCStoreClientVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A3523322DBC00A49C49 /* RCStoreClientVC.xib */; };
+		90CC6A3B23322DDD00A49C49 /* RCStoreClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A3923322DDD00A49C49 /* RCStoreClientCell.m */; };
+		90CC6A3C23322DDD00A49C49 /* RCStoreClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A3A23322DDD00A49C49 /* RCStoreClientCell.xib */; };
+		90CC6A432332326000A49C49 /* RCClientFilterTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A3D2332325F00A49C49 /* RCClientFilterTimeView.m */; };
+		90CC6A442332326000A49C49 /* RCClientFilterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A3E2332325F00A49C49 /* RCClientFilterView.xib */; };
+		90CC6A452332326000A49C49 /* RCClientFilterTimeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A402332325F00A49C49 /* RCClientFilterTimeView.xib */; };
+		90CC6A462332326000A49C49 /* RCClientFilterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A422332326000A49C49 /* RCClientFilterView.m */; };
+		90CC6A4A2332365600A49C49 /* RCClientElementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 90CC6A482332365600A49C49 /* RCClientElementVC.m */; };
+		90CC6A4B2332365600A49C49 /* RCClientElementVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90CC6A492332365600A49C49 /* RCClientElementVC.xib */; };
 		90DFA6E8233088B2005C35A8 /* RCClientCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6E6233088B2005C35A8 /* RCClientCell.m */; };
 		90DFA6E9233088B2005C35A8 /* RCClientCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90DFA6E7233088B2005C35A8 /* RCClientCell.xib */; };
 		90DFA6EC2330AFF0005C35A8 /* RCProfileHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DFA6EB2330AFF0005C35A8 /* RCProfileHeader.m */; };
@@ -485,6 +539,21 @@
 		9040F2C223140013005E6B2E /* RCWebContentVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCWebContentVC.m; sourceTree = "<group>"; };
 		904BB22C231FD7D20060E206 /* YCMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YCMenuView.h; sourceTree = "<group>"; };
 		904BB22D231FD7D20060E206 /* YCMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YCMenuView.m; sourceTree = "<group>"; };
+		904E87A123330D5F00A792FD /* RCClientLegendCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientLegendCell.h; sourceTree = "<group>"; };
+		904E87A223330D5F00A792FD /* RCClientLegendCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientLegendCell.m; sourceTree = "<group>"; };
+		904E87A323330D5F00A792FD /* RCClientLegendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientLegendCell.xib; sourceTree = "<group>"; };
+		904E87A623330F5300A792FD /* RCSearchClientVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCSearchClientVC.m; sourceTree = "<group>"; };
+		904E87A723330F5300A792FD /* RCSearchClientVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCSearchClientVC.xib; sourceTree = "<group>"; };
+		904E87A823330F5400A792FD /* RCSearchClientVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCSearchClientVC.h; sourceTree = "<group>"; };
+		904E87AB2333122700A792FD /* RCScoreAnalyzeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCScoreAnalyzeVC.h; sourceTree = "<group>"; };
+		904E87AC2333122700A792FD /* RCScoreAnalyzeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCScoreAnalyzeVC.m; sourceTree = "<group>"; };
+		904E87AD2333122700A792FD /* RCScoreAnalyzeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCScoreAnalyzeVC.xib; sourceTree = "<group>"; };
+		904E87B02333249E00A792FD /* RCScoreRankCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCScoreRankCell.h; sourceTree = "<group>"; };
+		904E87B12333249E00A792FD /* RCScoreRankCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCScoreRankCell.m; sourceTree = "<group>"; };
+		904E87B22333249E00A792FD /* RCScoreRankCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCScoreRankCell.xib; sourceTree = "<group>"; };
+		904E87B5233324C400A792FD /* RCScoreBarCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCScoreBarCell.h; sourceTree = "<group>"; };
+		904E87B6233324C400A792FD /* RCScoreBarCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCScoreBarCell.m; sourceTree = "<group>"; };
+		904E87B7233324C400A792FD /* RCScoreBarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCScoreBarCell.xib; sourceTree = "<group>"; };
 		90934113231F5B9E001A3A6E /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		90934114231F5B9E001A3A6E /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
 		90934115231F5B9E001A3A6E /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -540,6 +609,73 @@
 		90C308952331FC8300A39E78 /* RCTaskTotalCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTaskTotalCell.h; sourceTree = "<group>"; };
 		90C308962331FC8300A39E78 /* RCTaskTotalCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTaskTotalCell.m; sourceTree = "<group>"; };
 		90C308972331FC8300A39E78 /* RCTaskTotalCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCTaskTotalCell.xib; sourceTree = "<group>"; };
+		90C3089E2331FFD300A39E78 /* RCGradeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCGradeVC.h; sourceTree = "<group>"; };
+		90C3089F2331FFD300A39E78 /* RCGradeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCGradeVC.m; sourceTree = "<group>"; };
+		90C308A02331FFD300A39E78 /* RCGradeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCGradeVC.xib; sourceTree = "<group>"; };
+		90CC69E12332032C00A49C49 /* RCMyClientStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCMyClientStateCell.xib; sourceTree = "<group>"; };
+		90CC69E22332032C00A49C49 /* RCMyClientStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMyClientStateCell.m; sourceTree = "<group>"; };
+		90CC69E32332032C00A49C49 /* RCMyClientStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMyClientStateCell.h; sourceTree = "<group>"; };
+		90CC69E62332035F00A49C49 /* RCClientGradeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientGradeCell.h; sourceTree = "<group>"; };
+		90CC69E72332035F00A49C49 /* RCClientGradeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientGradeCell.m; sourceTree = "<group>"; };
+		90CC69E82332035F00A49C49 /* RCClientGradeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientGradeCell.xib; sourceTree = "<group>"; };
+		90CC69EC233209F300A49C49 /* ZJPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJPickerView.m; sourceTree = "<group>"; };
+		90CC69ED233209F300A49C49 /* ZJPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJPickerView.h; sourceTree = "<group>"; };
+		90CC69EF233210AD00A49C49 /* RCGradeNumVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCGradeNumVC.h; sourceTree = "<group>"; };
+		90CC69F0233210AD00A49C49 /* RCGradeNumVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCGradeNumVC.m; sourceTree = "<group>"; };
+		90CC69F1233210AD00A49C49 /* RCGradeNumVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCGradeNumVC.xib; sourceTree = "<group>"; };
+		90CC69F4233211D200A49C49 /* RCGradeClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCGradeClientVC.h; sourceTree = "<group>"; };
+		90CC69F5233211D200A49C49 /* RCGradeClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCGradeClientVC.m; sourceTree = "<group>"; };
+		90CC69F6233211D200A49C49 /* RCGradeClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCGradeClientVC.xib; sourceTree = "<group>"; };
+		90CC69F92332127800A49C49 /* RCMyClientCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMyClientCell.m; sourceTree = "<group>"; };
+		90CC69FA2332127800A49C49 /* RCMyClientCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCMyClientCell.xib; sourceTree = "<group>"; };
+		90CC69FB2332127800A49C49 /* RCMyClientCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMyClientCell.h; sourceTree = "<group>"; };
+		90CC69FE2332163100A49C49 /* RCClientDetailInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientDetailInfoVC.m; sourceTree = "<group>"; };
+		90CC69FF2332163100A49C49 /* RCClientDetailInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientDetailInfoVC.xib; sourceTree = "<group>"; };
+		90CC6A002332163100A49C49 /* RCClientDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientDetailVC.xib; sourceTree = "<group>"; };
+		90CC6A012332163100A49C49 /* RCClientDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientDetailVC.h; sourceTree = "<group>"; };
+		90CC6A022332163200A49C49 /* RCClientDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientDetailVC.m; sourceTree = "<group>"; };
+		90CC6A032332163200A49C49 /* RCClientDetailNoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientDetailNoteVC.m; sourceTree = "<group>"; };
+		90CC6A042332163200A49C49 /* RCClientDetailInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientDetailInfoVC.h; sourceTree = "<group>"; };
+		90CC6A052332163200A49C49 /* RCClientDetailNoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientDetailNoteVC.h; sourceTree = "<group>"; };
+		90CC6A062332163200A49C49 /* RCClientDetailNoteVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientDetailNoteVC.xib; sourceTree = "<group>"; };
+		90CC6A0D2332164B00A49C49 /* RCClientNoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientNoteCell.h; sourceTree = "<group>"; };
+		90CC6A0E2332164B00A49C49 /* RCClientDetailHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientDetailHeader.h; sourceTree = "<group>"; };
+		90CC6A0F2332164B00A49C49 /* RCClientNoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientNoteCell.m; sourceTree = "<group>"; };
+		90CC6A102332164C00A49C49 /* RCClientNoteCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientNoteCell.xib; sourceTree = "<group>"; };
+		90CC6A112332164C00A49C49 /* RCClientDetailHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientDetailHeader.xib; sourceTree = "<group>"; };
+		90CC6A122332164C00A49C49 /* RCPageMainTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCPageMainTable.h; sourceTree = "<group>"; };
+		90CC6A132332164D00A49C49 /* RCClientDetailHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientDetailHeader.m; sourceTree = "<group>"; };
+		90CC6A142332164D00A49C49 /* RCPageMainTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCPageMainTable.m; sourceTree = "<group>"; };
+		90CC6A1A23321E2100A49C49 /* RCMoveClientToVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMoveClientToVC.h; sourceTree = "<group>"; };
+		90CC6A1B23321E2100A49C49 /* RCMoveClientToVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMoveClientToVC.m; sourceTree = "<group>"; };
+		90CC6A1C23321E2100A49C49 /* RCMoveClientToVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMoveClientToVC.xib; sourceTree = "<group>"; };
+		90CC6A1F2332219700A49C49 /* RCMoveClientFromVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMoveClientFromVC.h; sourceTree = "<group>"; };
+		90CC6A202332219700A49C49 /* RCMoveClientFromVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMoveClientFromVC.m; sourceTree = "<group>"; };
+		90CC6A212332219700A49C49 /* RCMoveClientFromVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMoveClientFromVC.xib; sourceTree = "<group>"; };
+		90CC6A242332245900A49C49 /* RCMoveClientFromCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMoveClientFromCell.h; sourceTree = "<group>"; };
+		90CC6A252332245900A49C49 /* RCMoveClientFromCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMoveClientFromCell.m; sourceTree = "<group>"; };
+		90CC6A262332245900A49C49 /* RCMoveClientFromCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMoveClientFromCell.xib; sourceTree = "<group>"; };
+		90CC6A2923322C0300A49C49 /* RCMyStoreVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMyStoreVC.h; sourceTree = "<group>"; };
+		90CC6A2A23322C0300A49C49 /* RCMyStoreVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCMyStoreVC.xib; sourceTree = "<group>"; };
+		90CC6A2B23322C0300A49C49 /* RCMyStoreVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMyStoreVC.m; sourceTree = "<group>"; };
+		90CC6A2E23322C0F00A49C49 /* RCMyStoreCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCMyStoreCell.xib; sourceTree = "<group>"; };
+		90CC6A2F23322C0F00A49C49 /* RCMyStoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCMyStoreCell.m; sourceTree = "<group>"; };
+		90CC6A3023322C0F00A49C49 /* RCMyStoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCMyStoreCell.h; sourceTree = "<group>"; };
+		90CC6A3323322DBC00A49C49 /* RCStoreClientVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCStoreClientVC.h; sourceTree = "<group>"; };
+		90CC6A3423322DBC00A49C49 /* RCStoreClientVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCStoreClientVC.m; sourceTree = "<group>"; };
+		90CC6A3523322DBC00A49C49 /* RCStoreClientVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCStoreClientVC.xib; sourceTree = "<group>"; };
+		90CC6A3823322DDD00A49C49 /* RCStoreClientCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCStoreClientCell.h; sourceTree = "<group>"; };
+		90CC6A3923322DDD00A49C49 /* RCStoreClientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCStoreClientCell.m; sourceTree = "<group>"; };
+		90CC6A3A23322DDD00A49C49 /* RCStoreClientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCStoreClientCell.xib; sourceTree = "<group>"; };
+		90CC6A3D2332325F00A49C49 /* RCClientFilterTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientFilterTimeView.m; sourceTree = "<group>"; };
+		90CC6A3E2332325F00A49C49 /* RCClientFilterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientFilterView.xib; sourceTree = "<group>"; };
+		90CC6A3F2332325F00A49C49 /* RCClientFilterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientFilterView.h; sourceTree = "<group>"; };
+		90CC6A402332325F00A49C49 /* RCClientFilterTimeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RCClientFilterTimeView.xib; sourceTree = "<group>"; };
+		90CC6A412332326000A49C49 /* RCClientFilterTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCClientFilterTimeView.h; sourceTree = "<group>"; };
+		90CC6A422332326000A49C49 /* RCClientFilterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCClientFilterView.m; sourceTree = "<group>"; };
+		90CC6A472332365600A49C49 /* RCClientElementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientElementVC.h; sourceTree = "<group>"; };
+		90CC6A482332365600A49C49 /* RCClientElementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientElementVC.m; sourceTree = "<group>"; };
+		90CC6A492332365600A49C49 /* RCClientElementVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientElementVC.xib; sourceTree = "<group>"; };
 		90DFA6E5233088B2005C35A8 /* RCClientCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCClientCell.h; sourceTree = "<group>"; };
 		90DFA6E6233088B2005C35A8 /* RCClientCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCClientCell.m; sourceTree = "<group>"; };
 		90DFA6E7233088B2005C35A8 /* RCClientCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCClientCell.xib; sourceTree = "<group>"; };
@@ -792,6 +928,7 @@
 			isa = PBXGroup;
 			children = (
 				90140F8B233070E500CAEBB3 /* House-房源 */,
+				90C3089A2331FFAE00A39E78 /* Grade-业绩 */,
 				90ED8D8E23310B0A00EF9EB7 /* Task-任务 */,
 				90C308502331C29500A39E78 /* Work-考勤 */,
 				90ED8D5F2330E5F200EF9EB7 /* Profile-我的 */,
@@ -1155,6 +1292,7 @@
 			isa = PBXGroup;
 			children = (
 				901411002330727E00CAEBB3 /* BSPanoramaView */,
+				90CC69EB233209F300A49C49 /* ZJPickerView */,
 				901410F12330727E00CAEBB3 /* CDDGroupAvatar */,
 				901411032330727E00CAEBB3 /* LMJScrollText */,
 				904BB22B231FD7D20060E206 /* YCMenuView */,
@@ -1479,6 +1617,153 @@
 			path = YCMenuView;
 			sourceTree = "<group>";
 		};
+		904E87BA23332AC600A792FD /* 客户分析 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC6A472332365600A49C49 /* RCClientElementVC.h */,
+				90CC6A482332365600A49C49 /* RCClientElementVC.m */,
+				90CC6A492332365600A49C49 /* RCClientElementVC.xib */,
+			);
+			name = "客户分析";
+			sourceTree = "<group>";
+		};
+		904E87BB23332AFD00A792FD /* 客户转移 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC6A1A23321E2100A49C49 /* RCMoveClientToVC.h */,
+				90CC6A1B23321E2100A49C49 /* RCMoveClientToVC.m */,
+				90CC6A1C23321E2100A49C49 /* RCMoveClientToVC.xib */,
+				90CC6A1F2332219700A49C49 /* RCMoveClientFromVC.h */,
+				90CC6A202332219700A49C49 /* RCMoveClientFromVC.m */,
+				90CC6A212332219700A49C49 /* RCMoveClientFromVC.xib */,
+			);
+			name = "客户转移";
+			sourceTree = "<group>";
+		};
+		904E87BC23332B2300A792FD /* 业绩分析 */ = {
+			isa = PBXGroup;
+			children = (
+				904E87AB2333122700A792FD /* RCScoreAnalyzeVC.h */,
+				904E87AC2333122700A792FD /* RCScoreAnalyzeVC.m */,
+				904E87AD2333122700A792FD /* RCScoreAnalyzeVC.xib */,
+			);
+			name = "业绩分析";
+			sourceTree = "<group>";
+		};
+		904E87BD23332B3400A792FD /* 合作中介 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC6A2923322C0300A49C49 /* RCMyStoreVC.h */,
+				90CC6A2B23322C0300A49C49 /* RCMyStoreVC.m */,
+				90CC6A2A23322C0300A49C49 /* RCMyStoreVC.xib */,
+				90CC6A3323322DBC00A49C49 /* RCStoreClientVC.h */,
+				90CC6A3423322DBC00A49C49 /* RCStoreClientVC.m */,
+				90CC6A3523322DBC00A49C49 /* RCStoreClientVC.xib */,
+			);
+			name = "合作中介";
+			sourceTree = "<group>";
+		};
+		904E87BE23332B6E00A792FD /* 客户展示 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC69EF233210AD00A49C49 /* RCGradeNumVC.h */,
+				90CC69F0233210AD00A49C49 /* RCGradeNumVC.m */,
+				90CC69F1233210AD00A49C49 /* RCGradeNumVC.xib */,
+				90CC69F4233211D200A49C49 /* RCGradeClientVC.h */,
+				90CC69F5233211D200A49C49 /* RCGradeClientVC.m */,
+				90CC69F6233211D200A49C49 /* RCGradeClientVC.xib */,
+				90CC6A012332163100A49C49 /* RCClientDetailVC.h */,
+				90CC6A022332163200A49C49 /* RCClientDetailVC.m */,
+				90CC6A002332163100A49C49 /* RCClientDetailVC.xib */,
+				90CC6A042332163200A49C49 /* RCClientDetailInfoVC.h */,
+				90CC69FE2332163100A49C49 /* RCClientDetailInfoVC.m */,
+				90CC69FF2332163100A49C49 /* RCClientDetailInfoVC.xib */,
+				90CC6A052332163200A49C49 /* RCClientDetailNoteVC.h */,
+				90CC6A032332163200A49C49 /* RCClientDetailNoteVC.m */,
+				90CC6A062332163200A49C49 /* RCClientDetailNoteVC.xib */,
+				904E87A823330F5400A792FD /* RCSearchClientVC.h */,
+				904E87A623330F5300A792FD /* RCSearchClientVC.m */,
+				904E87A723330F5300A792FD /* RCSearchClientVC.xib */,
+			);
+			name = "客户展示";
+			sourceTree = "<group>";
+		};
+		904E87BF23332BA300A792FD /* 业绩分析 */ = {
+			isa = PBXGroup;
+			children = (
+				904E87B02333249E00A792FD /* RCScoreRankCell.h */,
+				904E87B12333249E00A792FD /* RCScoreRankCell.m */,
+				904E87B22333249E00A792FD /* RCScoreRankCell.xib */,
+				904E87B5233324C400A792FD /* RCScoreBarCell.h */,
+				904E87B6233324C400A792FD /* RCScoreBarCell.m */,
+				904E87B7233324C400A792FD /* RCScoreBarCell.xib */,
+			);
+			name = "业绩分析";
+			sourceTree = "<group>";
+		};
+		904E87C023332BD400A792FD /* 客户分析 */ = {
+			isa = PBXGroup;
+			children = (
+				904E87A123330D5F00A792FD /* RCClientLegendCell.h */,
+				904E87A223330D5F00A792FD /* RCClientLegendCell.m */,
+				904E87A323330D5F00A792FD /* RCClientLegendCell.xib */,
+			);
+			name = "客户分析";
+			sourceTree = "<group>";
+		};
+		904E87C123332BF400A792FD /* 客户展示 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC69E32332032C00A49C49 /* RCMyClientStateCell.h */,
+				90CC69E22332032C00A49C49 /* RCMyClientStateCell.m */,
+				90CC69E12332032C00A49C49 /* RCMyClientStateCell.xib */,
+				90CC69E62332035F00A49C49 /* RCClientGradeCell.h */,
+				90CC69E72332035F00A49C49 /* RCClientGradeCell.m */,
+				90CC69E82332035F00A49C49 /* RCClientGradeCell.xib */,
+				90CC69FB2332127800A49C49 /* RCMyClientCell.h */,
+				90CC69F92332127800A49C49 /* RCMyClientCell.m */,
+				90CC69FA2332127800A49C49 /* RCMyClientCell.xib */,
+				90CC6A0E2332164B00A49C49 /* RCClientDetailHeader.h */,
+				90CC6A132332164D00A49C49 /* RCClientDetailHeader.m */,
+				90CC6A112332164C00A49C49 /* RCClientDetailHeader.xib */,
+				90CC6A0D2332164B00A49C49 /* RCClientNoteCell.h */,
+				90CC6A0F2332164B00A49C49 /* RCClientNoteCell.m */,
+				90CC6A102332164C00A49C49 /* RCClientNoteCell.xib */,
+				90CC6A122332164C00A49C49 /* RCPageMainTable.h */,
+				90CC6A142332164D00A49C49 /* RCPageMainTable.m */,
+			);
+			name = "客户展示";
+			sourceTree = "<group>";
+		};
+		904E87C223332C2800A792FD /* 合作中介 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC6A3023322C0F00A49C49 /* RCMyStoreCell.h */,
+				90CC6A2F23322C0F00A49C49 /* RCMyStoreCell.m */,
+				90CC6A2E23322C0F00A49C49 /* RCMyStoreCell.xib */,
+				90CC6A3823322DDD00A49C49 /* RCStoreClientCell.h */,
+				90CC6A3923322DDD00A49C49 /* RCStoreClientCell.m */,
+				90CC6A412332326000A49C49 /* RCClientFilterTimeView.h */,
+				90CC6A3D2332325F00A49C49 /* RCClientFilterTimeView.m */,
+				90CC6A402332325F00A49C49 /* RCClientFilterTimeView.xib */,
+				90CC6A3F2332325F00A49C49 /* RCClientFilterView.h */,
+				90CC6A422332326000A49C49 /* RCClientFilterView.m */,
+				90CC6A3E2332325F00A49C49 /* RCClientFilterView.xib */,
+				90CC6A3A23322DDD00A49C49 /* RCStoreClientCell.xib */,
+			);
+			name = "合作中介";
+			sourceTree = "<group>";
+		};
+		904E87C323332C5900A792FD /* 客户转移 */ = {
+			isa = PBXGroup;
+			children = (
+				90CC6A242332245900A49C49 /* RCMoveClientFromCell.h */,
+				90CC6A252332245900A49C49 /* RCMoveClientFromCell.m */,
+				90CC6A262332245900A49C49 /* RCMoveClientFromCell.xib */,
+			);
+			name = "客户转移";
+			sourceTree = "<group>";
+		};
 		90934112231F5B9E001A3A6E /* WSDatePickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1561,6 +1846,59 @@
 				90C308892331DCFF00A39E78 /* RCWorkTotalHeader.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		90C3089A2331FFAE00A39E78 /* Grade-业绩 */ = {
+			isa = PBXGroup;
+			children = (
+				90C3089B2331FFAE00A39E78 /* Controller */,
+				90C3089C2331FFAE00A39E78 /* Model */,
+				90C3089D2331FFAE00A39E78 /* View */,
+			);
+			path = "Grade-业绩";
+			sourceTree = "<group>";
+		};
+		90C3089B2331FFAE00A39E78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				90C3089E2331FFD300A39E78 /* RCGradeVC.h */,
+				90C3089F2331FFD300A39E78 /* RCGradeVC.m */,
+				90C308A02331FFD300A39E78 /* RCGradeVC.xib */,
+				904E87BE23332B6E00A792FD /* 客户展示 */,
+				904E87BA23332AC600A792FD /* 客户分析 */,
+				904E87BB23332AFD00A792FD /* 客户转移 */,
+				904E87BC23332B2300A792FD /* 业绩分析 */,
+				904E87BD23332B3400A792FD /* 合作中介 */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		90C3089C2331FFAE00A39E78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		90C3089D2331FFAE00A39E78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				904E87C123332BF400A792FD /* 客户展示 */,
+				904E87C223332C2800A792FD /* 合作中介 */,
+				904E87C323332C5900A792FD /* 客户转移 */,
+				904E87C023332BD400A792FD /* 客户分析 */,
+				904E87BF23332BA300A792FD /* 业绩分析 */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		90CC69EB233209F300A49C49 /* ZJPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				90CC69ED233209F300A49C49 /* ZJPickerView.h */,
+				90CC69EC233209F300A49C49 /* ZJPickerView.m */,
+			);
+			path = ZJPickerView;
 			sourceTree = "<group>";
 		};
 		90DFA7CF2330DEAE005C35A8 /* 房源详情 */ = {
@@ -1929,11 +2267,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90CC6A3723322DBC00A49C49 /* RCStoreClientVC.xib in Resources */,
+				90CC6A452332326000A49C49 /* RCClientFilterTimeView.xib in Resources */,
 				90DFA7A32330D568005C35A8 /* RCHouseGoodsCell.xib in Resources */,
+				90CC6A082332163200A49C49 /* RCClientDetailInfoVC.xib in Resources */,
 				90DFA79E2330D568005C35A8 /* RCHouseStyleHeader.xib in Resources */,
 				90ED8D802330FEA000EF9EB7 /* RCChangeRoleVC.xib in Resources */,
 				90DFA7942330D568005C35A8 /* RCHouseDetailInfoCell.xib in Resources */,
+				90CC6A2C23322C0300A49C49 /* RCMyStoreVC.xib in Resources */,
 				9014114223307E2100CAEBB3 /* RCReportResultCell.xib in Resources */,
+				90CC6A4B2332365600A49C49 /* RCClientElementVC.xib in Resources */,
 				90C3087B2331D83000A39E78 /* RCTaskTotalVC.xib in Resources */,
 				90C308582331C35F00A39E78 /* RCTaskWorkVC.xib in Resources */,
 				90ED8D7B2330FB5200EF9EB7 /* RCManagerMsgCell.xib in Resources */,
@@ -1944,6 +2287,7 @@
 				90DFA7952330D568005C35A8 /* RCLoanDetailTitleView.xib in Resources */,
 				9040F29F2313DA19005E6B2E /* FSActionSheet_cancel@2x.png in Resources */,
 				9014108B233070E500CAEBB3 /* RCHouseCell.xib in Resources */,
+				90CC6A282332245900A49C49 /* RCMoveClientFromCell.xib in Resources */,
 				90ED8D672330E64400EF9EB7 /* RCManagerProfileVC.xib in Resources */,
 				90C308452331BD6A00A39E78 /* RCChooseMemberVC.xib in Resources */,
 				90DFA7BE2330D789005C35A8 /* RCNewsDetailVC.xib in Resources */,
@@ -1952,7 +2296,9 @@
 				9093411A231F5B9E001A3A6E /* WSDatePickerView.xib in Resources */,
 				9014115223307E2E00CAEBB3 /* RCPushHouseFilterView.xib in Resources */,
 				90DFA74F2330D4EE005C35A8 /* RCPanoramaVC.xib in Resources */,
+				90CC69E42332032C00A49C49 /* RCMyClientStateCell.xib in Resources */,
 				90DFA7A02330D568005C35A8 /* RCBannerCell.xib in Resources */,
+				904E87A523330D5F00A792FD /* RCClientLegendCell.xib in Resources */,
 				901DDC682320ADD800E579D9 /* RCRegisterVC.xib in Resources */,
 				90C3084F2331BF0D00A39E78 /* RCChooseMemberCell.xib in Resources */,
 				9014114423307E2100CAEBB3 /* RCAddedClientCell.xib in Resources */,
@@ -1970,11 +2316,16 @@
 				90DFA7A72330D568005C35A8 /* RCHouseStyleDetailCell.xib in Resources */,
 				9040F19D23138F5D005E6B2E /* Assets.xcassets in Resources */,
 				9014114123307E2100CAEBB3 /* RCAddPhoneCell.xib in Resources */,
+				904E87B42333249E00A792FD /* RCScoreRankCell.xib in Resources */,
 				90C3086C2331CDE200A39E78 /* RCTaskDetailHeader.xib in Resources */,
+				90CC69FD2332127900A49C49 /* RCMyClientCell.xib in Resources */,
+				90CC6A232332219700A49C49 /* RCMoveClientFromVC.xib in Resources */,
+				904E87B9233324C400A792FD /* RCScoreBarCell.xib in Resources */,
 				90ED8D6C2330E66400EF9EB7 /* RCManagerProfileHeader.xib in Resources */,
 				90DFA7BA2330D744005C35A8 /* RCNewsCell.xib in Resources */,
 				9014112B23307DB400CAEBB3 /* RCPushClientEditVC.xib in Resources */,
 				901410B7233070E500CAEBB3 /* RCProfileCell.xib in Resources */,
+				90CC6A172332164D00A49C49 /* RCClientDetailHeader.xib in Resources */,
 				90DFA6EE2330AFF7005C35A8 /* RCProfileHeader.xib in Resources */,
 				90C3088A2331DCFF00A39E78 /* RCWorkTotalHeader.xib in Resources */,
 				90C308802331D84A00A39E78 /* RCWorkTotalVC.xib in Resources */,
@@ -1984,20 +2335,28 @@
 				90DFA7AD2330D568005C35A8 /* RCShareView.xib in Resources */,
 				90DFA7C32330D99D005C35A8 /* RCHouseHeader.xib in Resources */,
 				90DFA7462330D4EE005C35A8 /* RCSearchCityVC.xib in Resources */,
+				90CC69F8233211D200A49C49 /* RCGradeClientVC.xib in Resources */,
 				90C308942331FAA200A39E78 /* RCTaskTotalFilterHeader.xib in Resources */,
 				90ED8D712330F8D300EF9EB7 /* RCManagerRecordVC.xib in Resources */,
 				9014113123307DB400CAEBB3 /* RCPushVC.xib in Resources */,
 				90DFA7992330D568005C35A8 /* RCHouseStyleCell.xib in Resources */,
+				90C308A22331FFD300A39E78 /* RCGradeVC.xib in Resources */,
+				90CC69EA2332035F00A49C49 /* RCClientGradeCell.xib in Resources */,
 				90DFA74B2330D4EE005C35A8 /* RCLoanDetailVC.xib in Resources */,
 				90C308672331CCA700A39E78 /* RCTaskDetailVC.xib in Resources */,
+				90CC6A0C2332163200A49C49 /* RCClientDetailNoteVC.xib in Resources */,
+				904E87AA23330F5400A792FD /* RCSearchClientVC.xib in Resources */,
 				90DFA7522330D4EE005C35A8 /* RCHouseDetailVC.xib in Resources */,
 				90C3088F2331DF1900A39E78 /* RCTaskTotalHeader.xib in Resources */,
+				90CC69F3233210AD00A49C49 /* RCGradeNumVC.xib in Resources */,
+				90CC6A442332326000A49C49 /* RCClientFilterView.xib in Resources */,
 				90DFA7CD2330DE3C005C35A8 /* RCNoticeCell.xib in Resources */,
 				90DFA6FD2330B865005C35A8 /* RCMyOrganizationCell.xib in Resources */,
 				90DFA7912330D568005C35A8 /* RCLoanDetailCell.xib in Resources */,
 				90DFA7452330D4EE005C35A8 /* RCHouseStyleVC.xib in Resources */,
 				9014115423307E2E00CAEBB3 /* RCReportResultSectionHeader.xib in Resources */,
 				90DFA79F2330D568005C35A8 /* RCHouseNearbyHeader.xib in Resources */,
+				90CC6A092332163200A49C49 /* RCClientDetailVC.xib in Resources */,
 				90C308762331D40000A39E78 /* RCPinDetailVC.xib in Resources */,
 				90DFA78D2330D568005C35A8 /* RCHouseDetailNewsCell.xib in Resources */,
 				90C308852331D8B800A39E78 /* RCWorkTotalCell.xib in Resources */,
@@ -2006,6 +2365,8 @@
 				90DFA7112330C350005C35A8 /* RCRecordVC.xib in Resources */,
 				9014112E23307DB400CAEBB3 /* RCReportResultVC.xib in Resources */,
 				9014115323307E2E00CAEBB3 /* RCHouseTagsCell.xib in Resources */,
+				904E87AF2333122700A792FD /* RCScoreAnalyzeVC.xib in Resources */,
+				90CC6A1E23321E2100A49C49 /* RCMoveClientToVC.xib in Resources */,
 				90DFA7022330B963005C35A8 /* RCMyOrganizationVC.xib in Resources */,
 				90DFA7562330D4EE005C35A8 /* RCHouseNewsVC.xib in Resources */,
 				90DFA73E2330D4EE005C35A8 /* RCSearchHouseVC.xib in Resources */,
@@ -2014,8 +2375,11 @@
 				9014111D233072DE00CAEBB3 /* RCClientVC.xib in Resources */,
 				90DFA7502330D4EE005C35A8 /* RCHouseLoanVC.xib in Resources */,
 				90DFA70C2330BBFA005C35A8 /* RCPinNoteCell.xib in Resources */,
+				90CC6A162332164D00A49C49 /* RCClientNoteCell.xib in Resources */,
 				90C3084A2331BD9700A39E78 /* RCChooseMemberHeader.xib in Resources */,
+				90CC6A3C23322DDD00A49C49 /* RCStoreClientCell.xib in Resources */,
 				90068BC5231D0B9E00B0D856 /* RCNavBarView.xib in Resources */,
+				90CC6A3123322C0F00A49C49 /* RCMyStoreCell.xib in Resources */,
 				90141097233070E500CAEBB3 /* RCProfileVC.xib in Resources */,
 				90DFA7072330BBEB005C35A8 /* RCPinNoteVC.xib in Resources */,
 				90DFA7472330D4EE005C35A8 /* RCSearchHouseResultVC.xib in Resources */,
@@ -2116,12 +2480,16 @@
 				90DFA7A82330D568005C35A8 /* RCSearchTagCell.m in Sources */,
 				9040F2302313A839005E6B2E /* FBShimmeringLayer.m in Sources */,
 				90ED8D752330FB1600EF9EB7 /* RCManagerMsgVC.m in Sources */,
+				90CC69E52332032C00A49C49 /* RCMyClientStateCell.m in Sources */,
+				904E87A423330D5F00A792FD /* RCClientLegendCell.m in Sources */,
 				90C308752331D40000A39E78 /* RCPinDetailVC.m in Sources */,
 				90DFA7422330D4EE005C35A8 /* RCHouseLoanVC.m in Sources */,
 				90C3084E2331BF0D00A39E78 /* RCChooseMemberCell.m in Sources */,
 				9040F2462313A839005E6B2E /* UIButton+HXCode.m in Sources */,
 				9014112D23307DB400CAEBB3 /* RCPushHouseVC.m in Sources */,
 				901410B0233070E500CAEBB3 /* RCProfileVC.m in Sources */,
+				90CC6A2D23322C0300A49C49 /* RCMyStoreVC.m in Sources */,
+				90CC6A272332245900A49C49 /* RCMoveClientFromCell.m in Sources */,
 				9040F2C323140013005E6B2E /* RCWebContentVC.m in Sources */,
 				9040F24E2313A839005E6B2E /* UILabel+HXNExtension.m in Sources */,
 				901411162330727E00CAEBB3 /* LMJVerticalScrollText.m in Sources */,
@@ -2129,18 +2497,22 @@
 				9040F2522313A839005E6B2E /* HXNetworkTool.m in Sources */,
 				90DFA7512330D4EE005C35A8 /* RCHouseInfoVC.m in Sources */,
 				90C308922331FA9B00A39E78 /* RCTaskTotalFilterHeader.m in Sources */,
+				90CC6A3B23322DDD00A49C49 /* RCStoreClientCell.m in Sources */,
 				90C3088D2331DF1200A39E78 /* RCTaskTotalHeader.m in Sources */,
+				904E87B32333249E00A792FD /* RCScoreRankCell.m in Sources */,
 				90DFA7CE2330DE3C005C35A8 /* RCNoticeCell.m in Sources */,
 				901DDC5F23209E7700E579D9 /* SGQRCodeObtainConfigure.m in Sources */,
 				90DFA7982330D568005C35A8 /* RCHouseGoodsCell.m in Sources */,
 				9040F24D2313A839005E6B2E /* UINavigationBar+ChangeColor.m in Sources */,
 				901410C4233070E500CAEBB3 /* RCProfileCell.m in Sources */,
+				904E87AE2333122700A792FD /* RCScoreAnalyzeVC.m in Sources */,
 				90ED8D8D2331065400EF9EB7 /* RCTabBar.m in Sources */,
 				9040F2552313A839005E6B2E /* MSUserInfo.m in Sources */,
 				90DFA7B92330D744005C35A8 /* RCNewsCell.m in Sources */,
 				9014112F23307DB400CAEBB3 /* RCPushClientEditVC.m in Sources */,
 				9040F2512313A839005E6B2E /* UIView+HXNExtension.m in Sources */,
 				90DFA7A52330D568005C35A8 /* RCLoanDetailHeader.m in Sources */,
+				90C308A12331FFD300A39E78 /* RCGradeVC.m in Sources */,
 				9040F2352313A839005E6B2E /* LYEmptyView.m in Sources */,
 				90ED8D842330FF2900EF9EB7 /* RCChangeRoleCell.m in Sources */,
 				901411152330727E00CAEBB3 /* UIView+ForLMJVerticalScrollText.m in Sources */,
@@ -2152,6 +2524,7 @@
 				90C308482331BD9000A39E78 /* RCChooseMemberHeader.m in Sources */,
 				9040F2452313A839005E6B2E /* UINavigation+SXFixSpace.m in Sources */,
 				90DFA7AF2330D568005C35A8 /* RCFilterCell.m in Sources */,
+				90CC6A462332326000A49C49 /* RCClientFilterView.m in Sources */,
 				901411112330727E00CAEBB3 /* UIImage+DCAvatar.m in Sources */,
 				9040F2762313AABE005E6B2E /* AppDelegate+MSPushService.m in Sources */,
 				90DFA79D2330D568005C35A8 /* RCBannerCell.m in Sources */,
@@ -2167,9 +2540,11 @@
 				90DFA7542330D4EE005C35A8 /* RCPanoramaVC.m in Sources */,
 				90DFA7AA2330D568005C35A8 /* RCLoanDetailCell.m in Sources */,
 				90068BC4231D0B9E00B0D856 /* RCNavBarView.m in Sources */,
+				90CC6A1D23321E2100A49C49 /* RCMoveClientToVC.m in Sources */,
 				90C3087F2331D84A00A39E78 /* RCWorkTotalVC.m in Sources */,
 				901411142330727E00CAEBB3 /* BSPanoramaView.m in Sources */,
 				90C3086A2331CDDC00A39E78 /* RCTaskDetailHeader.m in Sources */,
+				90CC6A182332164D00A49C49 /* RCClientDetailHeader.m in Sources */,
 				90DFA74C2330D4EE005C35A8 /* RCHouseNearbyVC.m in Sources */,
 				9040F2562313A839005E6B2E /* MSUserManager.m in Sources */,
 				90ED8D9523310B2400EF9EB7 /* RCAddTaskVC.m in Sources */,
@@ -2179,15 +2554,21 @@
 				9040F24B2313A839005E6B2E /* HXConst.m in Sources */,
 				90C308572331C35F00A39E78 /* RCTaskWorkVC.m in Sources */,
 				90ED8D662330E64400EF9EB7 /* RCManagerProfileVC.m in Sources */,
+				90CC6A3623322DBC00A49C49 /* RCStoreClientVC.m in Sources */,
 				9040F2482313A839005E6B2E /* UIImage+HXNExtension.m in Sources */,
 				90ED8D7A2330FB5200EF9EB7 /* RCManagerMsgCell.m in Sources */,
 				90DFA7AB2330D568005C35A8 /* RCLoanDetailTitleView.m in Sources */,
 				9040F23A2313A839005E6B2E /* CAAnimation+WAnimation.m in Sources */,
+				90CC69EE233209F300A49C49 /* ZJPickerView.m in Sources */,
 				90DFA74D2330D4EE005C35A8 /* RCHouseStyleVC.m in Sources */,
+				90CC69FC2332127900A49C49 /* RCMyClientCell.m in Sources */,
 				9014114023307E2100CAEBB3 /* RCAddPhoneCell.m in Sources */,
 				9040F28F2313AC6E005E6B2E /* HXNavigationController.m in Sources */,
 				9040F2A12313DA19005E6B2E /* FSActionSheet.m in Sources */,
 				9014112A23307DB400CAEBB3 /* RCPushVC.m in Sources */,
+				90CC6A0B2332163200A49C49 /* RCClientDetailNoteVC.m in Sources */,
+				90CC6A072332163200A49C49 /* RCClientDetailInfoVC.m in Sources */,
+				90CC69F2233210AD00A49C49 /* RCGradeNumVC.m in Sources */,
 				9040F2472313A839005E6B2E /* XTimer.m in Sources */,
 				9040F2442313A839005E6B2E /* NSObject+LMRuntime.m in Sources */,
 				9040F1A323138F5D005E6B2E /* main.m in Sources */,
@@ -2198,27 +2579,34 @@
 				9040F2A32313DA19005E6B2E /* FSActionSheetItem.m in Sources */,
 				90C308612331C9B500A39E78 /* RCTaskWorkCell.m in Sources */,
 				9040F2902313AC6E005E6B2E /* HXGuideViewController.m in Sources */,
+				90CC6A222332219700A49C49 /* RCMoveClientFromVC.m in Sources */,
 				90DFA7532330D4EE005C35A8 /* RCHouseDetailVC.m in Sources */,
 				9014115023307E2E00CAEBB3 /* RCPushHouseFilterView.m in Sources */,
 				90068B0C231CAEAA00B0D856 /* HXDropMenuView.m in Sources */,
 				90ED8D6A2330E65E00EF9EB7 /* RCManagerProfileHeader.m in Sources */,
+				90CC6A0A2332163200A49C49 /* RCClientDetailVC.m in Sources */,
 				90DFA70B2330BBFA005C35A8 /* RCPinNoteCell.m in Sources */,
 				90DFA7BF2330D789005C35A8 /* RCNewsDetailVC.m in Sources */,
 				90DFA7492330D4EE005C35A8 /* RCSearchHouseVC.m in Sources */,
 				9040F24C2313A839005E6B2E /* NSDate+HXNExtension.m in Sources */,
 				901411182330727E00CAEBB3 /* LMJHorizontalScrollText.m in Sources */,
 				9014114623307E2100CAEBB3 /* RCAddedClientCell.m in Sources */,
+				904E87A923330F5400A792FD /* RCSearchClientVC.m in Sources */,
 				90DFA7972330D568005C35A8 /* RCHouseStyleDetailCell.m in Sources */,
 				9040F2532313A839005E6B2E /* HXNetworkCache.m in Sources */,
 				9040F2332313A839005E6B2E /* UIScrollView+Empty.m in Sources */,
+				90CC6A192332164D00A49C49 /* RCPageMainTable.m in Sources */,
 				90C308842331D8B800A39E78 /* RCWorkTotalCell.m in Sources */,
 				9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */,
 				9040F2A02313DA19005E6B2E /* FSActionSheetConfig.m in Sources */,
 				9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */,
+				90CC6A4A2332365600A49C49 /* RCClientElementVC.m in Sources */,
 				90DFA7412330D4EE005C35A8 /* RCHouseVC.m in Sources */,
 				90068B84231CE42C00B0D856 /* HXLocationTool_.m in Sources */,
+				90CC69F7233211D200A49C49 /* RCGradeClientVC.m in Sources */,
 				9040F28D2313AC6E005E6B2E /* HXTabBarController.m in Sources */,
 				90C308442331BD6A00A39E78 /* RCChooseMemberVC.m in Sources */,
+				90CC6A152332164D00A49C49 /* RCClientNoteCell.m in Sources */,
 				9014113023307DB400CAEBB3 /* RCReportResultVC.m in Sources */,
 				9040F2572313A839005E6B2E /* HXCacheTool.m in Sources */,
 				90DFA7C82330DE2F005C35A8 /* RCNoticeVC.m in Sources */,
@@ -2235,17 +2623,21 @@
 				90DFA6EC2330AFF0005C35A8 /* RCProfileHeader.m in Sources */,
 				90DFA7012330B963005C35A8 /* RCMyOrganizationVC.m in Sources */,
 				9014110E2330727E00CAEBB3 /* UIButton+DCGroup.m in Sources */,
+				90CC6A3223322C0F00A49C49 /* RCMyStoreCell.m in Sources */,
 				9093411D231F5B9E001A3A6E /* UIView+Extension.m in Sources */,
 				90ED8D7F2330FEA000EF9EB7 /* RCChangeRoleVC.m in Sources */,
 				9040F2322313A839005E6B2E /* LYEmptyBaseView.m in Sources */,
+				90CC69E92332035F00A49C49 /* RCClientGradeCell.m in Sources */,
 				904BB22E231FD7D30060E206 /* YCMenuView.m in Sources */,
 				9014114723307E2100CAEBB3 /* RCReportResultHeader.m in Sources */,
+				904E87B8233324C400A792FD /* RCScoreBarCell.m in Sources */,
 				90ED8D9A2331116000EF9EB7 /* RCAddTaskMemberCell.m in Sources */,
 				90068B29231CB48E00B0D856 /* HXSearchBar.m in Sources */,
 				9014114823307E2100CAEBB3 /* RCReportResultSectionHeader.m in Sources */,
 				9014110F2330727E00CAEBB3 /* UIView+DCGroup.m in Sources */,
 				9014107C233070E500CAEBB3 /* RCHouseCell.m in Sources */,
 				9040F2492313A839005E6B2E /* NSString+HXNExtension.m in Sources */,
+				90CC6A432332326000A49C49 /* RCClientFilterTimeView.m in Sources */,
 				9040F28E2313AC6E005E6B2E /* HXBaseViewController.m in Sources */,
 				9040F2542313A839005E6B2E /* HXTopWindow.m in Sources */,
 				9040F2BF2313F8AF005E6B2E /* RCLoginVC.m in Sources */,

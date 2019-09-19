@@ -21,4 +21,5 @@ target 'XFT' do
     pod "AMap3DMap-NO-IDFA"
     pod "ZFPlayer/AVPlayer"
     pod "ZFPlayer/ControlView"
+    pod "PNChart"
 end

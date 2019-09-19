@@ -17,6 +17,7 @@
 #import "RCTabBar.h"
 #import "RCAddTaskVC.h"
 #import "RCTaskWorkVC.h"
+#import "RCGradeVC.h"
 
 @interface HXTabBarController ()<UITabBarControllerDelegate,RCTabBarDelegate>
 
@@ -55,7 +56,7 @@
     
     // 展厅经理
     [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
-    [self setupChildVc:[[RCClientVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+    [self setupChildVc:[[RCGradeVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
     [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
     [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     
