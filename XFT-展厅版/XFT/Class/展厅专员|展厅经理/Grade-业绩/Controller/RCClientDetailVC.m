@@ -36,7 +36,7 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"客户详情"];
     
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel != 1) {
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel != 2) {
         self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithTarget:self action:@selector(giveOtherClicked) title:@"转移" font:[UIFont systemFontOfSize:16] titleColor:UIColorFromRGB(0x333333) highlightedColor:UIColorFromRGB(0x333333) titleEdgeInsets:UIEdgeInsetsZero];
     }
     
@@ -48,16 +48,16 @@
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?CGRectMake(0, -(205.f), HX_SCREEN_WIDTH, 205.f):CGRectMake(0, -(135.f), HX_SCREEN_WIDTH, 135.f);
+    self.header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?CGRectMake(0, -(205.f), HX_SCREEN_WIDTH, 205.f):CGRectMake(0, -(135.f), HX_SCREEN_WIDTH, 135.f);
 }
 -(RCClientDetailHeader *)header
 {
     if (_header == nil) {
         _header = [RCClientDetailHeader loadXibView];
-        _header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?CGRectMake(0, 0, HX_SCREEN_WIDTH, 205.f):CGRectMake(0, 0, HX_SCREEN_WIDTH, 135.f);
-        _header.clientToolView.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?NO:YES;
-        _header.clientViewHeight.constant = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?70.f:0.f;
-        _header.codeBtn.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?NO:YES;
+        _header.frame = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?CGRectMake(0, 0, HX_SCREEN_WIDTH, 205.f):CGRectMake(0, 0, HX_SCREEN_WIDTH, 135.f);
+        _header.clientToolView.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?NO:YES;
+        _header.clientViewHeight.constant = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?70.f:0.f;
+        _header.codeBtn.hidden = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?NO:YES;
         hx_weakify(self);
         _header.clientDetailCall = ^(NSInteger index) {
             if (index == 0) {
@@ -143,7 +143,7 @@
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
     
-    self.tableView.contentInset = ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) ?UIEdgeInsetsMake(205.f,0, 0, 0):UIEdgeInsetsMake(135.f,0, 0, 0);
+    self.tableView.contentInset = ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) ?UIEdgeInsetsMake(205.f,0, 0, 0):UIEdgeInsetsMake(135.f,0, 0, 0);
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     

@@ -117,7 +117,7 @@ static NSString *const ProfileCell = @"ProfileCell";
 -(NSArray *)titles
 {
     if (_titles == nil) {
-        _titles = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@[@[@"发展经纪人",@"我的小蜜蜂",@"消息中心",@"修改密码",@"版本更新"]]: @[@[@"消息中心",@"修改密码",@"版本更新"]];
+        _titles = ([MSUserManager sharedInstance].curUserInfo.ulevel==2)?@[@[@"发展经纪人",@"我的小蜜蜂",@"消息中心",@"修改密码",@"版本更新"]]: @[@[@"消息中心",@"修改密码",@"版本更新"]];
     }
     return _titles;
 }
@@ -151,11 +151,42 @@ static NSString *const ProfileCell = @"ProfileCell";
     self.tableView.tableHeaderView = self.header;
     self.tableView.tableFooterView = self.footer;
 }
-#pragma mark -- 业务逻辑
+#pragma mark -- UIScrollView代理
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     //该页面呈现时手动调用计算导航栏此时应当显示的颜色
     [self.navBarView changeColor:[UIColor whiteColor] offsetHeight:180-self.HXNavBarHeight withOffsetY:scrollView.contentOffset.y];
+}
+#pragma mark -- 业务逻辑
+-(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
+{
+    [HXNetworkTool uploadImagesWithURL:HXRC_M_URL action:@"sys/sys/dict/getUploadImgReturnUrl.do" parameters:@{} name:@"file" images:@[image] fileNames:nil imageScale:0.8 imageType:@"png" progress:nil success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            completedCall(responseObject[@"data"][@"url"]);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)updateUserPhotoRequest:(NSString *)imageUrl
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"headpic"] = imageUrl;
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:@"http://192.168.199.141:9000/open/api/" action:@"showroom/showroom/userDate/updatePhoto" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
 #pragma mark -- 唤起相机
 - (void)awakeImagePickerController:(NSString *)pickerType {
@@ -227,10 +258,16 @@ static NSString *const ProfileCell = @"ProfileCell";
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    //    hx_weakify(self);
+    hx_weakify(self);
     [picker dismissViewControllerAnimated:YES completion:^{
-        //        hx_strongify(weakSelf);
+        hx_strongify(weakSelf);
         // 显示保存图片
+        [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+            [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic = imageUrl;
+            [[MSUserManager sharedInstance] saveUserInfo];
+            [strongSelf.header.headImg sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+            [strongSelf updateUserPhotoRequest:imageUrl];
+        }];
     }];
 }
 #pragma mark -- UITableView数据源和代理
@@ -272,7 +309,7 @@ static NSString *const ProfileCell = @"ProfileCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel==1) {
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel==2) {
         if (indexPath.row == 0) {
             RCMyBrokerVC *bvc = [RCMyBrokerVC new];
             [self.navigationController pushViewController:bvc animated:YES];

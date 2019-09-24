@@ -48,40 +48,37 @@
     [item setTitleTextAttributes:attrs forState:UIControlStateNormal];
     [item setTitleTextAttributes:selectedAttrs forState:UIControlStateSelected];
     
-    MSUserInfo *info = [[MSUserInfo alloc] init];
-    info.ulevel = 1;
-    [MSUserManager sharedInstance].curUserInfo = info;
-    [[MSUserManager sharedInstance] saveUserInfo];
     // 添加子控制器
-    
-    /*
-    // 小蜜蜂
-    [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
-    [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
-    [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
-    */
-    
-    /*
-    // 展厅经理
-    [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
-    [self setupChildVc:[[RCGradeVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
-    [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
-    [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
-     */
-    
-    // 展厅专员
-    [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
-    [self setupChildVc:[[RCGradeVC2 alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
-    [self setupChildVc:[[RCTaskWorkVC1 alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
-    [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
-    
-    
+    /** 账号角色 1:展厅管理经理 2:展厅顾问专员 3:展厅小蜜蜂 */
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {
+        // 展厅经理
+        [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
+        [self setupChildVc:[[RCGradeVC alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+        [self setupChildVc:[[RCTaskWorkVC alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
+        [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+        // 替换系统tabBar
+        RCTabBar *tab = [[RCTabBar alloc]init];
+        tab.rcDelegate = self;
+        [self setValue:tab forKey:@"tabBar"];
+        
+    }else if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {
+        // 展厅专员
+        [self setupChildVc:[[RCHouseVC alloc] init] title:@"首页房源" image:@"icon_home" selectedImage:@"icon_home_yellow"];
+        [self setupChildVc:[[RCGradeVC2 alloc] init] title:@"客户业绩" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+        [self setupChildVc:[[RCTaskWorkVC1 alloc] init] title:@"任务考勤" image:@"iocn_renwu" selectedImage:@"iocn_renwu_yellow"];
+        [self setupChildVc:[[RCManagerProfileVC alloc] init] title:@"我的更多" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+        
+        // 替换系统tabBar
+        RCTabBar *tab = [[RCTabBar alloc]init];
+        tab.rcDelegate = self;
+        [self setValue:tab forKey:@"tabBar"];
+    }else{
+        // 小蜜蜂
+        [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
+        [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
+        [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
+    }
     self.delegate = self;
-    
-    // 替换系统tabBar
-    RCTabBar *tab = [[RCTabBar alloc]init];
-    tab.rcDelegate = self;
-    [self setValue:tab forKey:@"tabBar"];
     
     // 设置透明度和背景颜色
     [self.tabBar setBarTintColor:[UIColor whiteColor]];

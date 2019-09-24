@@ -18,7 +18,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3a-82-idB">
                     <rect key="frame" x="0.0" y="64" width="414" height="100"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9I-zd-RR0">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t9I-zd-RR0">
                             <rect key="frame" x="15" y="25" width="50" height="50"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -176,6 +176,11 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="headImg" destination="t9I-zd-RR0" id="loc-mZ-wWM"/>
+                <outlet property="jgName" destination="3T1-4E-nZW" id="wfe-vW-nLr"/>
+                <outlet property="name" destination="GPD-fi-wFh" id="lQ4-Be-GbB"/>
+                <outlet property="nickName" destination="aww-zE-jDc" id="cNq-vP-U0z"/>
+                <outlet property="phone" destination="tyU-Bx-F8y" id="Ttw-Q4-9j6"/>
                 <outlet property="topNavBar" destination="vkk-l6-xS2" id="YqR-hI-UDd"/>
             </connections>
             <point key="canvasLocation" x="82.608695652173921" y="377.34375"/>

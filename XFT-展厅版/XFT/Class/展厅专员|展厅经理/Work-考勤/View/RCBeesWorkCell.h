@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^reportCall)(void);
 @interface RCBeesWorkCell : UITableViewCell
-
+/* 报备 */
+@property(nonatomic,copy) reportCall reportCall;
 @end
 
 NS_ASSUME_NONNULL_END

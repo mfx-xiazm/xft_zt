@@ -1,23 +1,18 @@
 //
-//  RCBeesWorkCell.m
+//  RCTaskDetailReportCell.m
 //  XFT
 //
-//  Created by 夏增明 on 2019/9/19.
+//  Created by 夏增明 on 2019/9/20.
 //  Copyright © 2019 夏增明. All rights reserved.
 //
 
-#import "RCBeesWorkCell.h"
+#import "RCTaskDetailReportCell.h"
 
-@implementation RCBeesWorkCell
+@implementation RCTaskDetailReportCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-}
-- (IBAction)reportClicked:(UIButton *)sender {
-    if (self.reportCall) {
-        self.reportCall();
-    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -1,21 +1,18 @@
 //
-//  RCPushVC.m
+//  RCBeesReportVC.m
 //  XFT
 //
-//  Created by 夏增明 on 2019/8/26.
+//  Created by 夏增明 on 2019/9/20.
 //  Copyright © 2019 夏增明. All rights reserved.
 //
 
-#import "RCPushVC.h"
-#import "RCPushHouseVC.h"
+#import "RCBeesReportVC.h"
 #import "HXPlaceholderTextView.h"
 #import "RCAddPhoneCell.h"
 #import "WSDatePickerView.h"
 #import <ZLCollectionViewHorzontalLayout.h>
 #import "RCHouseTagsCell.h"
-#import "RCAddedClientCell.h"
 #import "RCReportResultVC.h"
-#import "RCPushClientEditVC.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "FSActionSheet.h"
@@ -23,51 +20,29 @@
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 static NSString *const HouseTagsCell = @"HouseTagsCell";
-static NSString *const AddedClientCell = @"AddedClientCell";
 
-@interface RCPushVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
+@interface RCBeesReportVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseViewHeight;
-@property (weak, nonatomic) IBOutlet UITableView *clientTableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *clientTableViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *morePhoneViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *morePhoneView;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
 @property (weak, nonatomic) IBOutlet UITextField *appointDate;
 /* 选择的楼盘 */
 @property(nonatomic,strong) NSMutableArray *houses;
-/* 已经添加的推荐 */
-@property(nonatomic,strong) NSMutableArray *clients;
 /* 多加的电话 */
 @property(nonatomic,strong) NSMutableArray *phones;
+
 @end
 
-@implementation RCPushVC
+@implementation RCBeesReportVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备客户"];
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
-        // 如果push进来的不是第一个控制器，就设置其左边的返回键
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateHighlighted];
-        [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        button.hxn_size = CGSizeMake(44, 44);
-        // 让按钮内部的所有内容左对齐
-        //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
-        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    }
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
     [self setUpTableView];
     [self setUpCollectionView];
-}
--(void)back
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(NSMutableArray *)houses
 {
@@ -75,13 +50,6 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         _houses = [NSMutableArray array];
     }
     return _houses;
-}
--(NSMutableArray *)clients
-{
-    if (_clients == nil) {
-        _clients = [NSMutableArray array];
-    }
-    return _clients;
 }
 -(NSMutableArray *)phones
 {
@@ -92,18 +60,6 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 -(void)setUpTableView
 {
-    self.clientTableView.estimatedRowHeight = 0;
-    self.clientTableView.estimatedSectionHeaderHeight = 0;
-    self.clientTableView.estimatedSectionFooterHeight = 0;
-    self.clientTableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.clientTableView.dataSource = self;
-    self.clientTableView.delegate = self;
-    self.clientTableView.showsVerticalScrollIndicator = NO;
-    self.clientTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    // 注册cell
-    [self.clientTableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCAddedClientCell class]) bundle:nil] forCellReuseIdentifier:AddedClientCell];
-    
     self.morePhoneView.estimatedSectionHeaderHeight = 0;
     self.morePhoneView.estimatedSectionFooterHeight = 0;
     self.morePhoneView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -129,13 +85,9 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 #pragma mark -- 点击事件
 - (IBAction)chooseHouseClicked:(UIButton *)sender {
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
-        RCWishHouseVC *hvc = [RCWishHouseVC new];
-        [self.navigationController pushViewController:hvc animated:YES];
-    }else{//小蜜蜂
-        RCPushHouseVC *hvc = [RCPushHouseVC new];
-        [self.navigationController pushViewController:hvc animated:YES];
-    }
+    RCWishHouseVC *hvc = [RCWishHouseVC new];
+    [self.navigationController pushViewController:hvc animated:YES];
+    
     [self.houses addObjectsFromArray:@[@"",@"",@""]];
     self.houseViewHeight.constant = 50.f+60.f;
     hx_weakify(self); dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -192,11 +144,6 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
     self.zh_popupController = [[zhPopupController alloc] init];
     [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
-}
-- (IBAction)pushAgainClicked:(UIButton *)sender {
-    [self.clients addObject:@""];
-    self.clientTableViewHeight.constant = 55.f*self.clients.count;
-    [self.clientTableView reloadData];
 }
 #pragma mark -- 唤起相机
 - (void)awakeImagePickerController:(NSString *)pickerType {
@@ -308,46 +255,29 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (tableView == self.clientTableView)?self.clients.count:self.phones.count;
+    return self.phones.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (tableView == self.clientTableView) {
-        RCAddedClientCell *cell = [tableView dequeueReusableCellWithIdentifier:AddedClientCell forIndexPath:indexPath];
-        //无色
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        hx_weakify(self);
-        cell.cutBtnCall = ^{
-            hx_strongify(weakSelf);
-            [strongSelf.clients removeLastObject];
-            strongSelf.clientTableViewHeight.constant = 55.f*strongSelf.clients.count;
-            [tableView reloadData];
-        };
-        return cell;
-    }else{
-        RCAddPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:AddPhoneCell forIndexPath:indexPath];
-        //无色
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        hx_weakify(self);
-        cell.cutBtnCall = ^{
-            hx_strongify(weakSelf);
-            [strongSelf.phones removeLastObject];
-            strongSelf.morePhoneViewHeight.constant = 50.f*strongSelf.phones.count;
-            [tableView reloadData];
-        };
-        return cell;
-    }
+    RCAddPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:AddPhoneCell forIndexPath:indexPath];
+    //无色
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    hx_weakify(self);
+    cell.cutBtnCall = ^{
+        hx_strongify(weakSelf);
+        [strongSelf.phones removeLastObject];
+        strongSelf.morePhoneViewHeight.constant = 50.f*strongSelf.phones.count;
+        [tableView reloadData];
+    };
+    return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 返回这个模型对应的cell高度
-    return (tableView == self.clientTableView)?55.f:50.f;
+    return 50.f;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.clientTableView) {
-        RCPushClientEditVC *evc = [RCPushClientEditVC new];
-        [self.navigationController pushViewController:evc animated:YES];
-    }
+    
 }
 
 

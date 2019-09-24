@@ -14,6 +14,9 @@
 @interface RCLoginVC ()
 /* 扫描跳转 */
 @property(nonatomic,assign) BOOL isScan;
+@property (weak, nonatomic) IBOutlet UITextField *account;
+@property (weak, nonatomic) IBOutlet UITextField *pwd;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 @end
 
 @implementation RCLoginVC
@@ -32,16 +35,54 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    hx_weakify(self);
+    [self.loginBtn BindingBtnJudgeBlock:^BOOL{
+        hx_strongify(weakSelf);
+        if (![strongSelf.account hasText]) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入账号"];
+            return NO;
+        }
+        if (![strongSelf.pwd hasText]){
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入密码"];
+            return NO;
+        }
+        return YES;
+    } ActionBlock:^(UIButton * _Nullable button) {
+        hx_strongify(weakSelf);
+        [strongSelf loginBtnClicked:button];
+    }];
 }
-- (IBAction)loginBtnClicked:(UIButton *)sender {
-        HXTabBarController *tab = [[HXTabBarController alloc] init];
-        [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+- (void)loginBtnClicked:(UIButton *)sender {
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"accNo"] = self.account.text;
+    data[@"pwd"] = self.pwd.text;
     
-        //推出主界面出来
-        CATransition *ca = [CATransition animation];
-        ca.type = @"movein";
-        ca.duration = 0.5;
-        [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:@"http://192.168.199.141:9000/open/api/" action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
+        [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
+        if ([responseObject[@"code"] integerValue] == 0) {
+            
+            MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
+            [MSUserManager sharedInstance].curUserInfo = userInfo;
+            [[MSUserManager sharedInstance] saveUserInfo];
+            
+            HXTabBarController *tab = [[HXTabBarController alloc] init];
+            [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+            
+            //推出主界面出来
+            CATransition *ca = [CATransition animation];
+            ca.type = @"movein";
+            ca.duration = 0.5;
+            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
+    }];
 }
 - (IBAction)sacnClicked:(UIButton *)sender {
     self.isScan = YES;

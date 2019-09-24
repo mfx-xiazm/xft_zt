@@ -24,8 +24,8 @@ static NSString *const MyClientCell = @"MyClientCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"展厅专员"];
-    self.clientFilterView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1?YES:NO;
-    self.followView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1?NO:YES;
+    self.clientFilterView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2?YES:NO;
+    self.followView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2?NO:YES;
 
     [self setUpTableView];
 }

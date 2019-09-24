@@ -12,6 +12,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCChangePwdVC">
             <connections>
+                <outlet property="checkPwd" destination="52L-SL-Xmp" id="Zax-Ts-Nh2"/>
+                <outlet property="oldPwd" destination="m7u-o3-t21" id="Wz3-5T-ce3"/>
+                <outlet property="reNewPwd" destination="dBc-D1-g0P" id="lRz-Mx-MZK"/>
+                <outlet property="sureBtn" destination="jZS-ei-ON9" id="gn0-JD-HPf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,7 +43,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyr-aN-EUf" userLabel="分割线">
                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>
@@ -81,7 +85,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TKO-Mh-Nj5" userLabel="分割线">
                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>
@@ -123,7 +127,7 @@
                             </constraints>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dvo-wl-935" userLabel="分割线">
                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>

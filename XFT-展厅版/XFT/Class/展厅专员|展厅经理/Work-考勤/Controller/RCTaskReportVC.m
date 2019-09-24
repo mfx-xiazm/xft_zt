@@ -1,13 +1,12 @@
 //
-//  RCPushVC.m
+//  RCTaskReportVC.m
 //  XFT
 //
-//  Created by 夏增明 on 2019/8/26.
+//  Created by 夏增明 on 2019/9/20.
 //  Copyright © 2019 夏增明. All rights reserved.
 //
 
-#import "RCPushVC.h"
-#import "RCPushHouseVC.h"
+#import "RCTaskReportVC.h"
 #import "HXPlaceholderTextView.h"
 #import "RCAddPhoneCell.h"
 #import "WSDatePickerView.h"
@@ -20,12 +19,13 @@
 #import <zhPopupController.h>
 #import "FSActionSheet.h"
 #import "RCWishHouseVC.h"
+#import "RCNavBarView.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 static NSString *const HouseTagsCell = @"HouseTagsCell";
 static NSString *const AddedClientCell = @"AddedClientCell";
 
-@interface RCPushVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
+@interface RCTaskReportVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate,FSActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *clientTableView;
@@ -40,34 +40,50 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 @property(nonatomic,strong) NSMutableArray *clients;
 /* 多加的电话 */
 @property(nonatomic,strong) NSMutableArray *phones;
+/* 导航栏 */
+@property(nonatomic,strong) RCNavBarView *navBarView;
 @end
 
-@implementation RCPushVC
+@implementation RCTaskReportVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"报备客户"];
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
-        // 如果push进来的不是第一个控制器，就设置其左边的返回键
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        
-        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"返回"] forState:UIControlStateHighlighted];
-        [button setTitleColor:UIColorFromRGB(0x666666) forState:UIControlStateNormal];
-        button.hxn_size = CGSizeMake(44, 44);
-        // 让按钮内部的所有内容左对齐
-        //        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
-        [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    }
+    [self.view addSubview:self.navBarView];
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
     [self setUpTableView];
     [self setUpCollectionView];
 }
--(void)back
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    self.navBarView.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, self.HXNavBarHeight);
+}
+-(RCNavBarView *)navBarView
+{
+    if (_navBarView == nil) {
+        _navBarView = [RCNavBarView loadXibView];
+        _navBarView.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, self.HXNavBarHeight);
+        _navBarView.backBtn.hidden = NO;
+        [_navBarView.backBtn setImage:HXGetImage(@"whback") forState:UIControlStateNormal];
+        _navBarView.titleL.text = @"任务打卡";
+        _navBarView.titleL.hidden = NO;
+        _navBarView.titleL.textAlignment = NSTextAlignmentCenter;
+        hx_weakify(self);
+        _navBarView.navBackCall = ^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+    }
+    return _navBarView;
 }
 -(NSMutableArray *)houses
 {
@@ -129,13 +145,8 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 #pragma mark -- 点击事件
 - (IBAction)chooseHouseClicked:(UIButton *)sender {
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
-        RCWishHouseVC *hvc = [RCWishHouseVC new];
-        [self.navigationController pushViewController:hvc animated:YES];
-    }else{//小蜜蜂
-        RCPushHouseVC *hvc = [RCPushHouseVC new];
-        [self.navigationController pushViewController:hvc animated:YES];
-    }
+    RCWishHouseVC *hvc = [RCWishHouseVC new];
+    [self.navigationController pushViewController:hvc animated:YES];
     [self.houses addObjectsFromArray:@[@"",@"",@""]];
     self.houseViewHeight.constant = 50.f+60.f;
     hx_weakify(self); dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -274,6 +285,12 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         // 显示保存图片
     }];
 }
+#pragma mark -- 业务逻辑
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    //该页面呈现时手动调用计算导航栏此时应当显示的颜色
+    [self.navBarView changeColor:[UIColor whiteColor] offsetHeight:180-self.HXNavBarHeight withOffsetY:scrollView.contentOffset.y];
+}
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return self.houses.count;
@@ -349,6 +366,5 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         [self.navigationController pushViewController:evc animated:YES];
     }
 }
-
 
 @end

@@ -86,7 +86,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
         return headerView;
     }else if ([kind isEqualToString : UICollectionElementKindSectionFooter]){
         RCClientFilterTimeView * footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ClientFilterTimeView forIndexPath:indexPath];
-        footerView.visitTimeView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 1 ? NO:YES;
+        footerView.visitTimeView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2 ? NO:YES;
         footerView.filterTimeCall = ^(UITextField * _Nonnull textField) {
             //年-月-日
             WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
@@ -114,7 +114,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
     if (section == 2) {
-        return ([MSUserManager sharedInstance].curUserInfo.ulevel == 1)?CGSizeMake(collectionView.frame.size.width, 200):CGSizeMake(collectionView.frame.size.width, 100);
+        return ([MSUserManager sharedInstance].curUserInfo.ulevel == 2)?CGSizeMake(collectionView.frame.size.width, 200):CGSizeMake(collectionView.frame.size.width, 100);
     }else{
         return CGSizeZero;
     }

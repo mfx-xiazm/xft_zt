@@ -128,6 +128,9 @@
                                                 <state key="normal" title="一键报备">
                                                     <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="reportClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7e6-vh-Q4h"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -8,6 +8,7 @@
 
 #import "RCBeesWorkChildVC.h"
 #import "RCBeesWorkCell.h"
+#import "RCBeesReportVC.h"
 
 static NSString *const BeesWorkCell = @"BeesWorkCell";
 
@@ -60,6 +61,11 @@ static NSString *const BeesWorkCell = @"BeesWorkCell";
     RCBeesWorkCell *cell = [tableView dequeueReusableCellWithIdentifier:BeesWorkCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    hx_weakify(self);
+    cell.reportCall = ^{
+        RCBeesReportVC *rvc = [RCBeesReportVC new];
+        [weakSelf.navigationController pushViewController:rvc animated:YES];
+    };
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

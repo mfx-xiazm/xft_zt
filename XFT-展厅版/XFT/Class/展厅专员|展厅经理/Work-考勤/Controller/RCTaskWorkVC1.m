@@ -12,6 +12,8 @@
 #import "RCBeesWorkVC.h"
 #import "RCPinNoteVC.h"
 #import "RCTaskPinVC.h"
+#import "RCTaskReportVC.h"
+#import "RCTaskDetailVC1.h"
 
 static NSString *const TaskWorkCell1 = @"TaskWorkCell1";
 static NSString *const TaskWorkIngCell1 = @"TaskWorkIngCell1";
@@ -85,6 +87,9 @@ static NSString *const TaskWorkIngCell1 = @"TaskWorkIngCell1";
             if (index == 1) {
                 RCTaskPinVC *pvc = [RCTaskPinVC new];
                 [weakSelf.navigationController pushViewController:pvc animated:YES];
+            }else{
+                RCTaskReportVC *rvc = [RCTaskReportVC new];
+                [weakSelf.navigationController pushViewController:rvc animated:YES];
             }
         };
         return cell;
@@ -105,7 +110,8 @@ static NSString *const TaskWorkIngCell1 = @"TaskWorkIngCell1";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    RCTaskDetailVC1 *dvc = [RCTaskDetailVC1 new];
+    [self.navigationController pushViewController:dvc animated:YES];
 }
 
 @end

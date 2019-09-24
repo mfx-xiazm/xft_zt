@@ -8,6 +8,14 @@
 
 #import "RCManagerProfileHeader.h"
 
+@interface RCManagerProfileHeader ()
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *phone;
+@property (weak, nonatomic) IBOutlet UILabel *nickName;
+@property (weak, nonatomic) IBOutlet UILabel *jgName;
+
+@end
+
 @implementation RCManagerProfileHeader
 
 -(void)awakeFromNib

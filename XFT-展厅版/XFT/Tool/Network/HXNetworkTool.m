@@ -123,7 +123,7 @@ static NSArray *_filtrationCacheKey;
                   failure:(HXHttpRequestFailed)failure {
     
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
-
+    
     //读取缓存
     responseCache!=nil ? responseCache([HXNetworkCache httpCacheForURL:appendUrl parameters:parameters filtrationCacheKey:_filtrationCacheKey]) : nil;
     
@@ -143,17 +143,17 @@ static NSArray *_filtrationCacheKey;
         [[self allSessionTask] removeObject:task];
         failure ? failure(error) : nil;
         
-//        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
-//        if (response.statusCode == 401 && [error.localizedDescription containsString:@"unauthorized"]) {// 登录状态失效
-//            SZLoginVC *lvc = [SZLoginVC new];
-//            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
-//            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//            //推出主界面出来
-//            CATransition *ca = [CATransition animation];
-//            ca.type = @"movein";
-//            ca.duration = 0.25;
-//            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
-//        }
+        //        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+        //        if (response.statusCode == 401 && [error.localizedDescription containsString:@"unauthorized"]) {// 登录状态失效
+        //            SZLoginVC *lvc = [SZLoginVC new];
+        //            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+        //            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+        //            //推出主界面出来
+        //            CATransition *ca = [CATransition animation];
+        //            ca.type = @"movein";
+        //            ca.duration = 0.25;
+        //            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+        //        }
     }];
     // 添加sessionTask到数组
     sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil ;
@@ -170,45 +170,46 @@ static NSArray *_filtrationCacheKey;
                    failure:(HXHttpRequestFailed)failure {
     
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
-
-    NSMutableDictionary *tempAarameters = nil;
-    if (parameters) {
-        tempAarameters = [NSMutableDictionary dictionaryWithDictionary:(NSDictionary *)parameters];
-        tempAarameters[@"version"] = @"V3";
+    
+    if ([MSUserManager sharedInstance].isLogined) {
+        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
+        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
+        HXLog(@"%@  %@",[MSUserManager sharedInstance].curUserInfo.userAccessStr,[MSUserManager sharedInstance].curUserInfo.token);
     }
+    
     //读取缓存
     responseCache!=nil ? responseCache([HXNetworkCache httpCacheForURL:appendUrl parameters:parameters filtrationCacheKey:_filtrationCacheKey]) : nil;
     
-    NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:tempAarameters?tempAarameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+    NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         if (_isOpenLog) {HXLog(@"responseObject = %@",responseObject);}
         [[self allSessionTask] removeObject:task];
-
-//        if ([responseObject[@"status"] integerValue] == 2) {// 登录状态失效
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [JMNotifyView showNotify:@"登录状态已过期，请重新登录"];
-//            });
-//
-//            // 退出IM
-////            [[SPKitExample sharedInstance] exampleLogout];
-//
-//            [[MSUserManager sharedInstance] logout:nil];//退出
-//
-//            BBLoginVC *lvc = [BBLoginVC new];
-//            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
-//            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//            //推出主界面出来
-//            CATransition *ca = [CATransition animation];
-//            ca.type = @"movein";
-//            ca.duration = 0.25;
-//            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
-//        }else{
-            success ? success(responseObject) : nil;
-            //对数据进行异步缓存
-            responseCache!=nil ? [HXNetworkCache setHttpCache:responseObject URL:URL parameters:parameters filtrationCacheKey:_filtrationCacheKey] : nil;
-//        }
+        
+        //        if ([responseObject[@"status"] integerValue] == 2) {// 登录状态失效
+        //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //                [JMNotifyView showNotify:@"登录状态已过期，请重新登录"];
+        //            });
+        //
+        //            // 退出IM
+        ////            [[SPKitExample sharedInstance] exampleLogout];
+        //
+        //            [[MSUserManager sharedInstance] logout:nil];//退出
+        //
+        //            BBLoginVC *lvc = [BBLoginVC new];
+        //            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+        //            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+        //            //推出主界面出来
+        //            CATransition *ca = [CATransition animation];
+        //            ca.type = @"movein";
+        //            ca.duration = 0.25;
+        //            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+        //        }else{
+        success ? success(responseObject) : nil;
+        //对数据进行异步缓存
+        responseCache!=nil ? [HXNetworkCache setHttpCache:responseObject URL:URL parameters:parameters filtrationCacheKey:_filtrationCacheKey] : nil;
+        //        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -379,7 +380,9 @@ static NSArray *_filtrationCacheKey;
 + (void)initialize {
     _sessionManager = [AFHTTPSessionManager manager];
     _sessionManager.requestSerializer.timeoutInterval = 30.f;
-    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil]; 
+    _sessionManager.requestSerializer = [AFJSONRequestSerializer serializer];
+    [_sessionManager.requestSerializer setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    _sessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/plain", @"text/javascript", @"text/xml", @"image/*", nil];
     // 打开状态栏的等待菊花
     [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
 }
