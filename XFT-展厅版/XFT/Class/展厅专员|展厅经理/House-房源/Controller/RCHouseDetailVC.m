@@ -17,7 +17,7 @@
 #import "RCHouseDetailInfoCell.h"
 #import "RCHouseDetailNewsCell.h"
 #import "RCHouseStyleCell.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 #import "RCHouseStyleVC.h"
 #import "RCHouseNewsVC.h"
 #import "RCHouseNearbyVC.h"
@@ -39,7 +39,7 @@ static NSString *const HouseDetailNewsCell = @"HouseDetailNewsCell";
 static NSString *const HouseStyleCell = @"HouseStyleCell";
 static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 
-@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate,JXCategoryViewDelegate>
+@interface RCHouseDetailVC ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate, UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UITableViewDelegate,UITableViewDataSource,QMapViewDelegate,JXCategoryViewDelegate>
 /** 轮播图 */
 @property (weak, nonatomic) IBOutlet TYCyclePagerView *cycleView;
 @property (weak, nonatomic) IBOutlet UILabel *cycleNum;
@@ -62,8 +62,8 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
 @property (weak, nonatomic) IBOutlet UITableView *houseNearbyTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseNearbyViewHeight;
-
-@property (nonatomic, strong) MAMapView *mapView;
+/** 地图 */
+@property (nonatomic, strong) QMapView *mapView;
 @end
 
 @implementation RCHouseDetailVC
@@ -77,20 +77,21 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     [self setUpTableView];
     // 地图
     [self.mapSuperView addSubview:self.mapView];
-    // 设置地图中心点
-    self.mapView.centerCoordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
+    
+    QPointAnnotation *a1 = [[QPointAnnotation alloc] init];
+    a1.coordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
+    a1.title      = @"幸福里项目基地";
+    [self.mapView addAnnotation:a1];// 打标记
+    
+    [self.mapView setCenterCoordinate:a1.coordinate animated:YES];
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.mapSuperView.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.mapSuperView.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 13;
         _mapView.delegate = self;
-        MAPointAnnotation *a1 = [[MAPointAnnotation alloc] init];
-        a1.coordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
-        a1.title      = @"幸福里项目基地";
-        [_mapView addAnnotation:a1];
     }
     return _mapView;
 }
@@ -331,27 +332,31 @@ static NSString *const HouseGoodsCell = @"HouseGoodsCell";
     }
 }
 #pragma mark -- Map Delegate
-/*!
- @brief 根据anntation生成对应的View
- @param mapView 地图View
- @param annotation 指定的标注
- @return 生成的标注View
+/**
+ * @brief 根据anntation生成对应的View
+ * @param mapView 地图View
+ * @param annotation 指定的标注
+ * @return 生成的标注View
  */
-- (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
+- (QAnnotationView *)mapView:(QMapView *)mapView viewForAnnotation:(id <QAnnotation>)annotation;
+{
+    if ([annotation isKindOfClass:[QUserLocation class]]) {
+        return nil;
+    }
+    if ([annotation isKindOfClass:[QPointAnnotation class]]) {
         static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
-        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
-        if (annotationView == nil){
-            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
-                                                          reuseIdentifier:pointReuseIndetifier];
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+        if (annotationView == nil)
+        {
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation
+                                                         reuseIdentifier:pointReuseIndetifier];
         }
-        annotationView.image = [UIImage imageNamed:@"icon_logo"];
+        annotationView.image = [UIImage imageNamed:@"icon_loupan"];
         annotationView.canShowCallout               = YES;
         //设置中心点偏移，使得标注底部中间点成为经纬度对应点
         //annotationView.centerOffset = CGPointMake(0, -18);
         return annotationView;
     }
-    
     return nil;
 }
 #pragma mark -- JXCategoryView代理

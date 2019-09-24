@@ -8,13 +8,13 @@
 
 #import "RCPinNoteVC.h"
 #import "RCPinNoteCell.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 
 static NSString *const PinNoteCell = @"PinNoteCell";
-@interface RCPinNoteVC ()<UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate>
+@interface RCPinNoteVC ()<UITableViewDelegate,UITableViewDataSource,QMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
-@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QMapView *mapView;
 @end
 
 @implementation RCPinNoteVC
@@ -45,19 +45,19 @@ static NSString *const PinNoteCell = @"PinNoteCell";
     [menu addTarget:self action:@selector(dateClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = menu;
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.mapSuperView.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.mapSuperView.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 13;
         _mapView.delegate = self;
         
-        MAPointAnnotation *a1 = [[MAPointAnnotation alloc] init];
+        QPointAnnotation *a1 = [[QPointAnnotation alloc] init];
         a1.coordinate = CLLocationCoordinate2DMake(30.4865508426, 114.3347167969);
         a1.title      = @"幸福里项目基地";
         [_mapView addAnnotation:a1];
-        [_mapView showAnnotations:@[a1] animated:YES];
+        [_mapView setCenterCoordinate:a1.coordinate animated:YES];
     }
     return _mapView;
 }
@@ -93,20 +93,20 @@ static NSString *const PinNoteCell = @"PinNoteCell";
 //    [menuBtn layoutSubviews];
 }
 #pragma mark - Map Delegate
-/*!
- @brief 根据anntation生成对应的View
- @param mapView 地图View
- @param annotation 指定的标注
- @return 生成的标注View
+/**
+ * @brief 根据anntation生成对应的View
+ * @param mapView 地图View
+ * @param annotation 指定的标注
+ * @return 生成的标注View
  */
-- (MAAnnotationView*)mapView:(MAMapView *)mapView viewForAnnotation:(id <MAAnnotation>)annotation {
-    if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
+- (QAnnotationView *)mapView:(QMapView *)mapView viewForAnnotation:(id <QAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[QPointAnnotation class]]) {
         static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
-        MAAnnotationView *annotationView = (MAAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIndetifier];
         if (annotationView == nil)
         {
-            annotationView = [[MAAnnotationView alloc] initWithAnnotation:annotation
-                                                          reuseIdentifier:pointReuseIndetifier];
+            annotationView = [[QAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndetifier];
         }
         annotationView.image = [UIImage imageNamed:@"mappin"];
         annotationView.canShowCallout               = YES;

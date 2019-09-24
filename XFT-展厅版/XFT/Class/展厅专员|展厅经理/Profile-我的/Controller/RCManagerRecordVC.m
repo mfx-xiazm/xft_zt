@@ -7,11 +7,11 @@
 //
 
 #import "RCManagerRecordVC.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 
-@interface RCManagerRecordVC ()<MAMapViewDelegate>
+@interface RCManagerRecordVC ()<QMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
-@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QMapView *mapView;
 
 @end
 
@@ -22,16 +22,16 @@
     [self.navigationItem setTitle:@"外勤签到"];
     [self.mapSuperView addSubview:self.mapView];
     
-    //构造圆
-    MACircle *circle = [MACircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(30.5065508426, 114.3647167969) radius:5000];
-    
-    //在地图上添加圆
+    //构造圆形，半径单位m
+    QCircle *circle = [QCircle circleWithCenterCoordinate:CLLocationCoordinate2DMake(30.5065508426, 114.3647167969) radius:5000];
+    //添加圆形
     [self.mapView addOverlay:circle];
     
     /*
-     MAMapPoint point = MAMapPointForCoordinate(self.mapView.userLocation.coordinate);
-     MAMapPoint center = MAMapPointForCoordinate(CLLocationCoordinate2DMake(30.5065508426, 114.3647167969));
-     MACircleContainsPoint(point, center, 5000)
+     QMapPoint point = QMapPointForCoordinate(self.mapView.userLocation.location.coordinate);
+     QMapPoint center = QMapPointForCoordinate(CLLocationCoordinate2DMake(30.5065508426, 114.3647167969));
+     QMetersBetweenMapPoints(point,center);
+     QMetersBetweenCoordinates(point, center)
      */
 }
 - (void)viewDidLayoutSubviews
@@ -39,27 +39,29 @@
     [super viewDidLayoutSubviews];
     self.mapView.frame = self.mapSuperView.bounds;
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.mapSuperView.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.mapSuperView.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 12;
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;
-        _mapView.userTrackingMode = MAUserTrackingModeFollow;
+        _mapView.userTrackingMode = QUserTrackingModeFollow;
     }
     return _mapView;
 }
-- (MAOverlayRenderer *)mapView:(MAMapView *)mapView rendererForOverlay:(id <MAOverlay>)overlay;
+- (QOverlayView *)mapView:(QMapView *)mapView viewForOverlay:(id<QOverlay>)overlay
 {
-    if ([overlay isKindOfClass:[MACircle class]]) {
-        MACircleRenderer *circleRenderer = [[MACircleRenderer alloc] initWithCircle:overlay];
-        
-        circleRenderer.lineWidth    = 0.f;
-        circleRenderer.strokeColor  = [UIColor clearColor];
-        circleRenderer.fillColor    = HXRGBAColor(255, 159, 8, 0.1);
-        return circleRenderer;
+    if ([overlay isKindOfClass:[QCircle class]]) {
+        QCircleView *circleView = [[QCircleView alloc] initWithCircle:overlay];
+        //设置描边宽度
+        [circleView setLineWidth:0.f];
+        //设置描边色为黑色
+        [circleView setStrokeColor:[UIColor clearColor]];
+        //设置填充色为红色
+        [circleView setFillColor:HXRGBAColor(255, 159, 8, 0.1)];
+        return circleView;
     }
     return nil;
 }

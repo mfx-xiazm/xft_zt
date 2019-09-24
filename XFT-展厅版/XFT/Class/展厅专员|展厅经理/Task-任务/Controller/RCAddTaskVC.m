@@ -7,16 +7,16 @@
 //
 
 #import "RCAddTaskVC.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 #import <ZLCollectionViewVerticalLayout.h>
 #import "RCAddTaskMemberCell.h"
 #import "RCChooseMemberVC.h"
 
 static NSString *const AddTaskMemberCell = @"AddTaskMemberCell";
 
-@interface RCAddTaskVC ()<MAMapViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate>
+@interface RCAddTaskVC ()<QMapViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate>
 @property (weak, nonatomic) IBOutlet UIView *mapSuperView;
-@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QMapView *mapView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *collectionViewHeight;
 
@@ -40,15 +40,15 @@ static NSString *const AddTaskMemberCell = @"AddTaskMemberCell";
     [super viewDidLayoutSubviews];
     self.mapView.frame = self.mapSuperView.bounds;
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:self.mapSuperView.bounds];
+        _mapView = [[QMapView alloc] initWithFrame:self.mapSuperView.bounds];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 12;
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;
-        _mapView.userTrackingMode = MAUserTrackingModeFollow;
+        _mapView.userTrackingMode = QUserTrackingModeFollow;
     }
     return _mapView;
 }

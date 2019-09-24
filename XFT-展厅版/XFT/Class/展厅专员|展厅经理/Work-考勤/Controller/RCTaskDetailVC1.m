@@ -11,15 +11,15 @@
 #import "RCTaskDetailHeader.h"
 #import "RCPinNoteCell.h"
 #import "RCTaskDetailReportCell.h"
-#import <MAMapKit/MAMapKit.h>
+#import <QMapKit/QMapKit.h>
 
 static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
 static NSString *const PinNoteCell = @"PinNoteCell";
 static NSString *const TaskDetailReportCell = @"TaskDetailReportCell";
 
-@interface RCTaskDetailVC1 ()<UITableViewDelegate,UITableViewDataSource,MAMapViewDelegate>
+@interface RCTaskDetailVC1 ()<UITableViewDelegate,UITableViewDataSource,QMapViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) QMapView *mapView;
 @end
 
 @implementation RCTaskDetailVC1
@@ -30,15 +30,15 @@ static NSString *const TaskDetailReportCell = @"TaskDetailReportCell";
     
     [self setUpTableView];
 }
--(MAMapView *)mapView
+-(QMapView *)mapView
 {
     if (_mapView == nil) {
-        _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(15, 10, HX_SCREEN_WIDTH-30, 230)];
+        _mapView = [[QMapView alloc] initWithFrame:CGRectMake(15, 10, HX_SCREEN_WIDTH-30, 230)];
         _mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _mapView.zoomLevel = 12;
         _mapView.delegate = self;
         _mapView.showsUserLocation = YES;
-        _mapView.userTrackingMode = MAUserTrackingModeFollow;
+        _mapView.userTrackingMode = QUserTrackingModeFollow;
     }
     return _mapView;
 }
