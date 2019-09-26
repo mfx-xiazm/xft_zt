@@ -10,6 +10,7 @@
 #import "RCWebContentVC.h"
 #import "HXTabBarController.h"
 #import "RCScanVC.h"
+#import "RCChangeRoleVC.h"
 
 @interface RCLoginVC ()
 /* 扫描跳转 */
@@ -60,22 +61,34 @@
     
     parameters[@"data"] = data;
     
-    [HXNetworkTool POST:@"http://192.168.199.141:9000/open/api/" action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
+    hx_weakify(self);
+    [HXNetworkTool POST:@"http://192.168.200.35:9000/open/api/" action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
-            
-            MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
-            [MSUserManager sharedInstance].curUserInfo = userInfo;
-            [[MSUserManager sharedInstance] saveUserInfo];
-            
-            HXTabBarController *tab = [[HXTabBarController alloc] init];
-            [UIApplication sharedApplication].keyWindow.rootViewController = tab;
-            
-            //推出主界面出来
-            CATransition *ca = [CATransition animation];
-            ca.type = @"movein";
-            ca.duration = 0.5;
-            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+            // 经理
+            if ([responseObject[@"data"][@"showroomLoginInside"][@"accRole"] integerValue] == 1) {
+                RCChangeRoleVC *rvc = [RCChangeRoleVC new];
+                rvc.userInfo = responseObject[@"data"];
+                [weakSelf.navigationController pushViewController:rvc animated:YES];
+            }else if ([responseObject[@"data"][@"showroomLoginInside"][@"accRole"] integerValue] == 2){
+                RCChangeRoleVC *rvc = [RCChangeRoleVC new];
+                rvc.userInfo = responseObject[@"data"];
+                [weakSelf.navigationController pushViewController:rvc animated:YES];
+            }else{
+                MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
+                
+                [MSUserManager sharedInstance].curUserInfo = userInfo;
+                [[MSUserManager sharedInstance] saveUserInfo];
+                
+                HXTabBarController *tab = [[HXTabBarController alloc] init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = tab;
+                
+                //推出主界面出来
+                CATransition *ca = [CATransition animation];
+                ca.type = @"movein";
+                ca.duration = 0.5;
+                [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+            }
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }

@@ -52,7 +52,7 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.199.141:9000/open/api/" action:@"showroom/showroom/userDate/updatePhoto" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:@"http://192.168.199.249:9000/open/api/" action:@"showroom/showroom/userDate/updatePassword" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

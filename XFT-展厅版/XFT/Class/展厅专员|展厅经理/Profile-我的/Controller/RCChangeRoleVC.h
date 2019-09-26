@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCChangeRoleVC : HXBaseViewController
-
+/* 用户信息 */
+@property(nonatomic,strong) NSDictionary *userInfo;
 @end
 
 NS_ASSUME_NONNULL_END

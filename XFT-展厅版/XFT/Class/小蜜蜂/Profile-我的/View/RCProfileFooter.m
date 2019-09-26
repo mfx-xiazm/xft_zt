@@ -15,4 +15,10 @@
     [super awakeFromNib];
 }
 
+- (IBAction)outClicked:(UIButton *)sender {
+    if (self.logOutCall) {
+        self.logOutCall();
+    }
+}
+
 @end

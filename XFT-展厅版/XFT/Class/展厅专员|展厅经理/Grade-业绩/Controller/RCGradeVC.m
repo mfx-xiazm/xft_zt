@@ -17,6 +17,7 @@
 #import "RCClientElementVC.h"
 #import "RCSearchClientVC.h"
 #import "RCScoreAnalyzeVC.h"
+#import "RCMaganerGrade.h"
 
 static NSString *const ClientGradeCell = @"ClientGradeCell";
 static NSString *const MyClientStateCell = @"MyClientStateCell";
@@ -24,8 +25,12 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 @interface RCGradeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *leftTableView;
 @property (weak, nonatomic) IBOutlet UITableView *rightTableView;
-/* 团队 */
+/* 团队切换按键 */
 @property(nonatomic,strong) SPButton *teamBtn;
+/* 团队信息 */
+@property(nonatomic,strong) NSArray *groups;
+/* 左边分组选中的索引 */
+@property(nonatomic,assign) NSInteger selectIndex;
 @end
 
 @implementation RCGradeVC
@@ -35,10 +40,8 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 
     [self setUpNavBar];
     [self setUpTableView];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-    });
+    self.selectIndex = 0;
+    [self getGradeDataRequest];
 }
 -(void)setUpNavBar
 {
@@ -73,8 +76,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         // 不要自动调整inset
         self.automaticallyAdjustsScrollViewInsets = NO;
     }
-    self.rightTableView.estimatedRowHeight = 100;//预估高度
-    self.rightTableView.rowHeight = UITableViewAutomaticDimension;
+    self.rightTableView.rowHeight = 0;
     self.rightTableView.estimatedSectionHeaderHeight = 0;
     self.rightTableView.estimatedSectionFooterHeight = 0;
     
@@ -199,22 +201,64 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     RCMyStoreVC *svc = [RCMyStoreVC new];
     [self.navigationController pushViewController:svc animated:YES];
 }
-
+#pragma mark -- 接口数据请求
+-(void)getGradeDataRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    parameters[@"accUuid"] = @"";//经纪人uuid,最后一级的id
+    parameters[@"showroomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;//展厅id
+    parameters[@"groupUuid"] = @"";//团队uuid
+    parameters[@"teamUuid"] = @"";//小组uuid
+    parameters[@"timeFlag"] = @"";//时间筛选条件 week month year 传空表示全部
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:@"http://192.168.199.131:7007/" action:@"showroom/showroom/searchCusBaobeiNums" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.groups = [NSArray yy_modelArrayWithClass:[RCMaganerGrade class] json:responseObject[@"data"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.leftTableView reloadData];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [strongSelf.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+                });
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    if (tableView == self.leftTableView) {
+        return self.groups.count;
+    }else{
+        return 7;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == self.leftTableView) {
         RCMyClientStateCell *cell = [tableView dequeueReusableCellWithIdentifier:MyClientStateCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        RCMaganerGrade *grade = self.groups[indexPath.row];
+        cell.grade = grade;
         return cell;
     }else{
         RCClientGradeCell *cell = [tableView dequeueReusableCellWithIdentifier:ClientGradeCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        RCMaganerGrade *grade = self.groups[self.selectIndex];
+//        switch (indexPath.row) {
+//            case 0:
+//                <#statements#>
+//                break;
+//                
+//            default:
+//                break;
+//        }
         return cell;
     }
 }
@@ -229,7 +273,10 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == self.rightTableView) {
+    if (tableView == self.leftTableView) {
+        self.selectIndex = indexPath.row;
+        [self.rightTableView reloadData];
+    }else {
         RCGradeNumVC *nvc = [RCGradeNumVC new];
         [self.navigationController pushViewController:nvc animated:YES];
     }

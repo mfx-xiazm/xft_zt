@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCChangeRoleHeader : UIView
+@property (weak, nonatomic) IBOutlet UILabel *roleDesc;
 
 @end
 

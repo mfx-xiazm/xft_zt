@@ -67,6 +67,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="num" destination="UWA-FF-YTS" id="tUX-tY-J19"/>
+                <outlet property="typeName" destination="VtW-E5-WjS" id="DVI-p2-RlI"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

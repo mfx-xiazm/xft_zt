@@ -10,10 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCMaganerGrade;
 @interface RCMyClientStateCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *oneTitleView;
 @property (weak, nonatomic) IBOutlet UIView *twoTitlesView;
-
+/* 团队 */
+@property(nonatomic,strong) RCMaganerGrade *grade;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCClientGradeCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *typeName;
+@property (weak, nonatomic) IBOutlet UILabel *num;
 
 @end
 

@@ -171,11 +171,10 @@ static NSArray *_filtrationCacheKey;
     
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
     
-    if ([MSUserManager sharedInstance].isLogined) {
-        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
-        [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
-        HXLog(@"%@  %@",[MSUserManager sharedInstance].curUserInfo.userAccessStr,[MSUserManager sharedInstance].curUserInfo.token);
-    }
+    [_sessionManager.requestSerializer setValue:[parameters isKindOfClass:[NSString class]]?parameters:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];//在选择角色时还未完成登录流程，特殊处理
+    [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
+    
+    parameters = [parameters isKindOfClass:[NSString class]]?@{}:parameters;//在选择角色时还未完成登录流程，特殊处理
     
     //读取缓存
     responseCache!=nil ? responseCache([HXNetworkCache httpCacheForURL:appendUrl parameters:parameters filtrationCacheKey:_filtrationCacheKey]) : nil;

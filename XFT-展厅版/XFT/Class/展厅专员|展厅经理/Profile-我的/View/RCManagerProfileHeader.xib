@@ -178,10 +178,14 @@
             <connections>
                 <outlet property="headImg" destination="t9I-zd-RR0" id="loc-mZ-wWM"/>
                 <outlet property="jgName" destination="3T1-4E-nZW" id="wfe-vW-nLr"/>
+                <outlet property="managerFlag" destination="BOB-7J-yCl" id="Fb3-FA-mkG"/>
+                <outlet property="managerLabel" destination="4H0-4O-TZN" id="oPA-EH-ugM"/>
                 <outlet property="name" destination="GPD-fi-wFh" id="lQ4-Be-GbB"/>
                 <outlet property="nickName" destination="aww-zE-jDc" id="cNq-vP-U0z"/>
                 <outlet property="phone" destination="tyU-Bx-F8y" id="Ttw-Q4-9j6"/>
                 <outlet property="topNavBar" destination="vkk-l6-xS2" id="YqR-hI-UDd"/>
+                <outlet property="zhuanyuanFlag" destination="C9k-jt-gll" id="VrC-xW-RvR"/>
+                <outlet property="zhuanyuanLabel" destination="BYQ-jD-GLP" id="cPy-5b-rx8"/>
             </connections>
             <point key="canvasLocation" x="82.608695652173921" y="377.34375"/>
         </view>

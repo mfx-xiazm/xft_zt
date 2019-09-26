@@ -172,6 +172,7 @@
 		904E87E923337B6300A792FD /* RCMyBrokerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87E723337B6300A792FD /* RCMyBrokerVC.xib */; };
 		904E87F123337C0D00A792FD /* RCMyBrokerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 904E87EF23337C0D00A792FD /* RCMyBrokerCell.m */; };
 		904E87F223337C0D00A792FD /* RCMyBrokerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 904E87F023337C0D00A792FD /* RCMyBrokerCell.xib */; };
+		905CC715233B97B8002A53E8 /* RCMaganerGrade.m in Sources */ = {isa = PBXBuildFile; fileRef = 905CC714233B97B8002A53E8 /* RCMaganerGrade.m */; };
 		907E381E233462F900756F9B /* RCBeesReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 907E381C233462F900756F9B /* RCBeesReportVC.m */; };
 		907E381F233462F900756F9B /* RCBeesReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 907E381D233462F900756F9B /* RCBeesReportVC.xib */; };
 		907E382323346B0400756F9B /* RCTaskReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 907E382123346B0400756F9B /* RCTaskReportVC.m */; };
@@ -682,6 +683,8 @@
 		904E87EE23337C0D00A792FD /* RCMyBrokerCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMyBrokerCell.h; sourceTree = "<group>"; };
 		904E87EF23337C0D00A792FD /* RCMyBrokerCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMyBrokerCell.m; sourceTree = "<group>"; };
 		904E87F023337C0D00A792FD /* RCMyBrokerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCMyBrokerCell.xib; sourceTree = "<group>"; };
+		905CC713233B97B8002A53E8 /* RCMaganerGrade.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCMaganerGrade.h; sourceTree = "<group>"; };
+		905CC714233B97B8002A53E8 /* RCMaganerGrade.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCMaganerGrade.m; sourceTree = "<group>"; };
 		907E381B233462F900756F9B /* RCBeesReportVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCBeesReportVC.h; sourceTree = "<group>"; };
 		907E381C233462F900756F9B /* RCBeesReportVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCBeesReportVC.m; sourceTree = "<group>"; };
 		907E381D233462F900756F9B /* RCBeesReportVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCBeesReportVC.xib; sourceTree = "<group>"; };
@@ -2157,6 +2160,15 @@
 			name = "发展经纪人";
 			sourceTree = "<group>";
 		};
+		905CC712233B9718002A53E8 /* 展厅经理客户业绩 */ = {
+			isa = PBXGroup;
+			children = (
+				905CC713233B97B8002A53E8 /* RCMaganerGrade.h */,
+				905CC714233B97B8002A53E8 /* RCMaganerGrade.m */,
+			);
+			name = "展厅经理客户业绩";
+			sourceTree = "<group>";
+		};
 		90934112231F5B9E001A3A6E /* WSDatePickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2234,6 +2246,7 @@
 		90C3089C2331FFAE00A39E78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				905CC712233B9718002A53E8 /* 展厅经理客户业绩 */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2944,6 +2957,7 @@
 				902025A123337F1F00FC28AB /* RCBrokerClientVC.m in Sources */,
 				9040F2562313A839005E6B2E /* MSUserManager.m in Sources */,
 				90ED8D9523310B2400EF9EB7 /* RCAddTaskVC.m in Sources */,
+				905CC715233B97B8002A53E8 /* RCMaganerGrade.m in Sources */,
 				907E382823346E8200756F9B /* RCTaskDetailVC1.m in Sources */,
 				90C308982331FC8300A39E78 /* RCTaskTotalCell.m in Sources */,
 				90DFA7962330D568005C35A8 /* RCHouseStyleCell.m in Sources */,

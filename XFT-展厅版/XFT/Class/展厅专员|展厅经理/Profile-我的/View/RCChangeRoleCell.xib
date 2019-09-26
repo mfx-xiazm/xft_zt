@@ -28,6 +28,9 @@
                                     <constraint firstAttribute="width" constant="24" id="hKz-Ww-4DQ"/>
                                 </constraints>
                                 <state key="normal" image="icon_choose_gray"/>
+                                <connections>
+                                    <action selector="selectRoleClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hzC-J5-1tg"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="展厅经理" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSf-Cg-xXo">
                                 <rect key="frame" x="40" y="10" width="62" height="18"/>
@@ -74,6 +77,11 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="name" destination="NSf-Cg-xXo" id="cQa-Ez-bsa"/>
+                <outlet property="selectBtn" destination="S43-9s-3fD" id="9mf-th-wJQ"/>
+                <outlet property="work" destination="V0M-f5-hXh" id="6hZ-oi-GZh"/>
+            </connections>
             <point key="canvasLocation" x="139.13043478260872" y="137.94642857142856"/>
         </tableViewCell>
     </objects>

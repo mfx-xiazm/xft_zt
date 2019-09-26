@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^logOutCall)(void);
 @interface RCProfileFooter : UIView
-
+/* 退出 */
+@property(nonatomic,copy) logOutCall logOutCall;
 @end
 
 NS_ASSUME_NONNULL_END

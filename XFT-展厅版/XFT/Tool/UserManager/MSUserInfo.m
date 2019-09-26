@@ -11,15 +11,12 @@
 @implementation MSUserInfo
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"showroomLoginInside":[MSUserShowInfo class],
-             @"userAccessInfo":[MSUserAccessInfo class],
-             @"responOrgCheck":[MSDropValues class]
+             @"userAccessInfo":[MSUserAccessInfo class]
              };
-}
-+ (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"ulevel"  : @"showroomLoginInside.accRole"};
 }
 -(NSInteger)ulevel
 {
+//    return _showroomLoginInside.accRole;
     return 1;
 }
 -(NSString *)userAccessStr
@@ -59,6 +56,6 @@
 
 @end
 
-@implementation MSDropValues : NSObject
+@implementation MSUserRoles : NSObject
 
 @end

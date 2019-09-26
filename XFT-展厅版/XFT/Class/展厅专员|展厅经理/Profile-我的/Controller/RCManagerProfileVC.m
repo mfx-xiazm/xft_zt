@@ -20,6 +20,8 @@
 #import "RCChangeRoleVC.h"
 #import "RCMyBrokerVC.h"
 #import "RCMyBeesVC.h"
+#import "RCLoginVC.h"
+#import "HXNavigationController.h"
 
 static NSString *const ProfileCell = @"ProfileCell";
 
@@ -111,6 +113,24 @@ static NSString *const ProfileCell = @"ProfileCell";
     if (_footer == nil) {
         _footer = [RCProfileFooter loadXibView];
         _footer.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 100.f);
+        _footer.logOutCall = ^{
+            FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:@"确定要退出登录吗" delegate:nil cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"退出"]];
+            [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
+                if (selectedIndex == 0) {
+                    [[MSUserManager sharedInstance] logout:nil];
+                    
+                    RCLoginVC *lvc = [RCLoginVC new];
+                    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+                    
+                    //推出主界面出来
+                    CATransition *ca = [CATransition animation];
+                    ca.type = @"movein";
+                    ca.duration = 0.5;
+                    [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+                }
+            }];
+        };
     }
     return _footer;
 }
