@@ -7,12 +7,26 @@
 //
 
 #import "RCAddPhoneCell.h"
+#import "RCReportTarget.h"
 
+@interface RCAddPhoneCell ()<UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *phoneNum;
+
+@end
 @implementation RCAddPhoneCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    self.phoneNum.delegate = self;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    _phone.cusPhone = [textField hasText]?textField.text:@"";
+}
+-(void)setPhone:(RCReportPhone *)phone
+{
+    _phone = phone;
+    self.phoneNum.text = _phone.cusPhone;
 }
 - (IBAction)cutBtnClicked:(UIButton *)sender {
     if (self.cutBtnCall) {

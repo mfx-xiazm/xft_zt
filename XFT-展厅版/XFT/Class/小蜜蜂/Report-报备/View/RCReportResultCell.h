@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCReportResult;
 @interface RCReportResultCell : UITableViewCell
-/* 最后一个cell */
-@property(nonatomic,assign) BOOL isLast;
+/* 报备结果 */
+@property(nonatomic,assign) RCReportResult *person;
+@property (weak, nonatomic) IBOutlet UILabel *nnum;
 @end
 
 NS_ASSUME_NONNULL_END

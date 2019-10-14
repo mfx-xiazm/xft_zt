@@ -11,13 +11,9 @@
 @implementation MSUserInfo
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"showroomLoginInside":[MSUserShowInfo class],
-             @"userAccessInfo":[MSUserAccessInfo class]
+             @"userAccessInfo":[MSUserAccessInfo class],
+             @"responseCheckRoles":[MSUserRoles class]
              };
-}
--(NSInteger)ulevel
-{
-//    return _showroomLoginInside.accRole;
-    return 1;
 }
 -(NSString *)userAccessStr
 {

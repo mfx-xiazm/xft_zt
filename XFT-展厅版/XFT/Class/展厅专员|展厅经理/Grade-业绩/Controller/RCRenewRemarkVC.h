@@ -9,9 +9,18 @@
 #import "HXBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void(^renewReamrkCall)(void);
 @interface RCRenewRemarkVC : HXBaseViewController
-
+/* 客户uuid */
+@property(nonatomic,copy) NSString *cusUuid;
+/* 客户名字 */
+@property(nonatomic,copy) NSString *nameStr;
+/* 客户电话 */
+@property(nonatomic,copy) NSString *phoneStr;
+/* 备注时间 */
+@property(nonatomic,copy) NSString *remarkTimeStr;
+/* 备注更新回调 */
+@property(nonatomic,copy) renewReamrkCall renewReamrkCall;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCRenewRemarkVC">
             <connections>
+                <outlet property="name" destination="bUc-ot-NaB" id="10K-AW-Z8W"/>
+                <outlet property="phone" destination="mZd-Py-lnF" id="sk3-Po-vhO"/>
                 <outlet property="remark" destination="Z7f-pB-4GQ" id="YOx-aE-8w1"/>
+                <outlet property="remarkTime" destination="aXq-5p-iYh" id="U5E-TC-xyO"/>
+                <outlet property="submitBtn" destination="pPt-2n-DLm" id="eDL-wZ-sJR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -30,7 +34,7 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zQW-TU-esG">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="210"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到访期限: 7天内需到访" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-yc-XOI">
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="到访期限: 7天内需到访" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-yc-XOI">
                                             <rect key="frame" x="15" y="172" width="384" height="18"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

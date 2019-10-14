@@ -13,6 +13,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCGoHouseVC">
             <connections>
                 <outlet property="codeImg" destination="4Fm-GI-e1X" id="9op-CJ-YeF"/>
+                <outlet property="contentView" destination="sY2-ed-8aK" id="uyN-fk-DR5"/>
+                <outlet property="name" destination="wqD-1o-V2K" id="YMz-DK-HZg"/>
+                <outlet property="phone" destination="fmq-Lu-PcH" id="q8H-pF-ssa"/>
+                <outlet property="proName" destination="k6q-UL-rWT" id="0rP-9j-AMB"/>
+                <outlet property="reportTime" destination="Gjo-il-GSB" id="xhD-DT-5ow"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -13,6 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCMyCardVC">
             <connections>
                 <outlet property="codeImg" destination="tCH-zg-j6V" id="czU-aj-sRP"/>
+                <outlet property="headPic" destination="lKd-Dj-mrk" id="S5O-hS-sKT"/>
+                <outlet property="name" destination="ORf-7e-kPX" id="1mW-k7-dnB"/>
+                <outlet property="phone" destination="xma-42-GqW" id="2wQ-Tk-z1u"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -47,6 +50,9 @@
                             <state key="normal" title="保存到相册" image="icon_down">
                                 <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="saveSnapshotCart" destination="-1" eventType="touchUpInside" id="aY1-br-26M"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -173,6 +179,9 @@
                             <real key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="shareClicked" destination="-1" eventType="touchUpInside" id="1Cn-yy-cIz"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>

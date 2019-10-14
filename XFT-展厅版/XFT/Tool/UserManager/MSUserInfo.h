@@ -12,9 +12,11 @@
 @interface MSUserInfo : NSObject
 @property (nonatomic,strong) MSUserShowInfo *showroomLoginInside;
 @property (nonatomic,strong) MSUserAccessInfo *userAccessInfo;
+@property (nonatomic,strong) NSArray<MSUserRoles *> *responseCheckRoles;
+
 @property (nonatomic,copy) NSString *token;
 @property(nonatomic,copy) NSString *userAccessStr;
-/** 账号角色 1:展厅管理经理 2:展厅顾问专员 3:展厅小蜜蜂 */
+/** 自定义的账号角色 1:展厅管理经理 2 展厅顾问专员 3展厅小蜜蜂 */
 @property (nonatomic,assign) NSInteger ulevel;
 /** 用户切换选择组织角色 */
 @property(nonatomic,strong) MSUserRoles *selectRole;
@@ -22,6 +24,7 @@
 
 @interface MSUserShowInfo : NSObject
 @property (nonatomic, strong) NSString * accNo;
+/** 账号角色 1:展厅管理经理/展厅顾问专员 2:展厅小蜜蜂 */
 @property (nonatomic, assign) NSInteger accRole;
 @property (nonatomic, strong) NSString * addr;
 @property (nonatomic, strong) NSString * bankAccNo;
@@ -64,30 +67,34 @@
 @end
 
 @interface MSUserRoles : NSObject
+/* 展厅归属集团文旅还是区域文旅 1 集团文旅 2 区域文旅 */
+@property (nonatomic, strong) NSString * showRoomType;
 /* 所属展厅名称 */
 @property (nonatomic, strong) NSString * showRoomName;
 /* 所属展厅的uuid */
 @property (nonatomic, strong) NSString * showRoomUuid;
-/* 所属团队名称 */
-@property (nonatomic, strong) NSString * groupName;
-/* 所属团队Uuid */
-@property (nonatomic, strong) NSString * groupUuid;
 /* 所属小组的名称 */
-@property (nonatomic, strong) NSString * teamName;
+@property (nonatomic, strong) NSString * groupName;
 /* 所属小组uuid */
+@property (nonatomic, strong) NSString * groupUuid;
+/* 所属团队名称 */
+@property (nonatomic, strong) NSString * teamName;
+/* 所属团队Uuid */
 @property (nonatomic, strong) NSString * teamUuid;
 /* 是否展厅经理 0 否 1是 */
 @property (nonatomic, assign) NSInteger isManager;
 /* 是否展厅专员 0 否 1是 */
 @property (nonatomic, assign) NSInteger isZy;
+/* 管理角色权限 1展厅经理 2团队经理 3小组经理 */
+@property (nonatomic, assign) NSInteger manageRole;
+/* 是否有看中介渠道权限 0 否 1是 */
 @property (nonatomic, assign) NSInteger isQudaoPem;
 @property (nonatomic, strong) NSString * managerData;
 @property (nonatomic, strong) NSString * managerType;
 @property (nonatomic, strong) NSString * qudaoAgentData;
-
+/* 选定的是经理还是专员 1经理 2专员 */
+@property(nonatomic,assign) NSInteger roleType;
 /* 是否选择该组 */
 @property (nonatomic, assign) BOOL isSelected;
-/* 选择了该组的哪种身份 1经理 2专员*/
-@property (nonatomic, assign) NSInteger roleType;
 
 @end

@@ -62,21 +62,17 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.200.35:9000/open/api/" action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
-            // 经理
+            // 经理/专员
             if ([responseObject[@"data"][@"showroomLoginInside"][@"accRole"] integerValue] == 1) {
-                RCChangeRoleVC *rvc = [RCChangeRoleVC new];
-                rvc.userInfo = responseObject[@"data"];
-                [weakSelf.navigationController pushViewController:rvc animated:YES];
-            }else if ([responseObject[@"data"][@"showroomLoginInside"][@"accRole"] integerValue] == 2){
                 RCChangeRoleVC *rvc = [RCChangeRoleVC new];
                 rvc.userInfo = responseObject[@"data"];
                 [weakSelf.navigationController pushViewController:rvc animated:YES];
             }else{
                 MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
-                
+                userInfo.ulevel = 3;
                 [MSUserManager sharedInstance].curUserInfo = userInfo;
                 [[MSUserManager sharedInstance] saveUserInfo];
                 

@@ -13,8 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCGradeVC2">
             <connections>
                 <outlet property="contentView" destination="Phk-mZ-cL3" id="yx9-hw-2gv"/>
+                <outlet property="firstFilterBtn" destination="gdN-U4-gwK" id="yvT-wF-7Gh"/>
                 <outlet property="leftTableView" destination="hOO-qP-qIp" id="YQX-w6-olc"/>
                 <outlet property="rightTableView" destination="2en-tj-I6k" id="cna-p1-NPo"/>
+                <outlet property="secondFilterBtn" destination="17G-4I-UWb" id="WiK-yv-Kqy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -134,7 +136,7 @@
                             <rect key="frame" x="100" y="94" width="314" height="44"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdN-U4-gwK" customClass="SPButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="104.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="112" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="最后备注" image="icon_qiehuan_moren">
                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -144,12 +146,15 @@
                                             <integer key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
-                                            <real key="value" value="5"/>
+                                            <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="firstFilterBtn:" destination="-1" eventType="touchUpInside" id="TqH-ce-A1w"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17G-4I-UWb" customClass="SPButton">
-                                    <rect key="frame" x="104.5" y="0.0" width="105" height="44"/>
+                                    <rect key="frame" x="112" y="0.0" width="112" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="报备时间" image="icon_qiehuan_moren">
                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,12 +164,18 @@
                                             <integer key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
-                                            <real key="value" value="5"/>
+                                            <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="secondFilterBtn:" destination="-1" eventType="touchUpInside" id="yxc-zd-auV"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TOv-8A-JFF" customClass="SPButton">
-                                    <rect key="frame" x="209.5" y="0.0" width="104.5" height="44"/>
+                                    <rect key="frame" x="224" y="0.0" width="90" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="90" id="lpR-RW-jda"/>
+                                    </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="筛选" image="icon_shaixuan_ce">
                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -174,7 +185,7 @@
                                             <integer key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
-                                            <real key="value" value="5"/>
+                                            <real key="value" value="2"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -191,7 +202,6 @@
                                 <constraint firstItem="gdN-U4-gwK" firstAttribute="top" secondItem="9fb-kJ-dft" secondAttribute="top" id="I2z-KG-JmJ"/>
                                 <constraint firstItem="gdN-U4-gwK" firstAttribute="leading" secondItem="9fb-kJ-dft" secondAttribute="leading" id="bDP-Wy-bU9"/>
                                 <constraint firstAttribute="height" constant="44" id="dXw-rX-gmS"/>
-                                <constraint firstItem="TOv-8A-JFF" firstAttribute="width" secondItem="gdN-U4-gwK" secondAttribute="width" id="iL4-Rz-NdK"/>
                                 <constraint firstAttribute="bottom" secondItem="TOv-8A-JFF" secondAttribute="bottom" id="kVT-Hh-irB"/>
                                 <constraint firstItem="17G-4I-UWb" firstAttribute="leading" secondItem="gdN-U4-gwK" secondAttribute="trailing" id="ohi-Jn-HzV"/>
                                 <constraint firstItem="TOv-8A-JFF" firstAttribute="leading" secondItem="17G-4I-UWb" secondAttribute="trailing" id="sWU-MZ-8jI"/>

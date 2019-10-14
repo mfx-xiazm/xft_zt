@@ -15,6 +15,7 @@ target 'XFT' do
     pod "UMCCommon"
     pod "UMCSecurityPlugins"
     pod "UMCShare/Social/ReducedWeChat"
+    pod "UMCShare/UI"
     pod "JPush"
     pod "TYCyclePagerView"
     pod "ZLCollectionViewFlowLayout"

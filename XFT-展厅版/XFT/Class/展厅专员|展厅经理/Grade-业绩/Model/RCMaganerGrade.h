@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger cusBaoBeiSignNum;
 @property (nonatomic, assign) NSInteger cusBaoBeiSubscribeNum;
 @property (nonatomic, assign) NSInteger cusBaoBeiVisitNum;
+@property (nonatomic, strong) NSString * showroomName;
+@property (nonatomic, strong) NSString * showroomUuid;
 @property (nonatomic, strong) NSString * groupName;
 @property (nonatomic, strong) NSString * groupUuid;
 @property (nonatomic, strong) NSString * teamName;

@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCBrokerClientVC : HXBaseViewController
-
+/* 经纪人id */
+@property(nonatomic,copy) NSString *accUuid;
+/* 标题 */
+@property(nonatomic,copy) NSString *navTitle;
 @end
 
 NS_ASSUME_NONNULL_END

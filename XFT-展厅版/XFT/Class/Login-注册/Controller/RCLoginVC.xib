@@ -38,7 +38,7 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_username_denglu" translatesAutoresizingMaskIntoConstraints="NO" id="cMM-dK-p3r">
                                             <rect key="frame" x="0.0" y="10" width="24" height="24"/>
                                         </imageView>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="13294199207" placeholder="请输入您的账号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZJR-qr-fwL">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的账号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZJR-qr-fwL">
                                             <rect key="frame" x="34" y="2" width="271" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="J73-HU-bmr"/>
@@ -73,7 +73,7 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key" translatesAutoresizingMaskIntoConstraints="NO" id="pEx-2L-ff8">
                                             <rect key="frame" x="0.0" y="10" width="24" height="24"/>
                                         </imageView>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="请输入您的密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-t0-Vqe">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DBr-t0-Vqe">
                                             <rect key="frame" x="34" y="2" width="271" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Ja0-kO-GQC"/>

@@ -198,9 +198,40 @@ static NSString *const ProfileCell = @"ProfileCell";
     
     parameters[@"data"] = data;
     
-    [HXNetworkTool POST:@"http://192.168.199.141:9000/open/api/" action:@"showroom/showroom/userDate/updatePhoto" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/userDate/updatePhoto" parameters:parameters success:^(id responseObject) {
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)queryAppVersionRequest:(void(^)(NSDictionary *version))completedCall
+{
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"applicationMarket"] = @"";
+    NSString *key = @"CFBundleShortVersionString";
+    // 当前软件的版本号（从Info.plist中获得）
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+    data[@"currentVersion"] = currentVersion;
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/appversion/queryAppVersion" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                if (((NSDictionary *)responseObject[@"data"]).allKeys.count) {
+                    if (completedCall) {
+                        completedCall(responseObject[@"data"]);
+                    }
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+                }
+            }
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }
@@ -343,7 +374,19 @@ static NSString *const ProfileCell = @"ProfileCell";
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];
         }else{
-            HXLog(@"版本更新");
+            [self queryAppVersionRequest:^(NSDictionary *version) {
+//                appType app类型1:ios2安卓
+//                currentVersion  最新版本号
+//                downlondUrl 下载地址
+//                name  app名称
+//                upVesion 可升级版本号
+//                upWay  更新渠道
+//                upremark 更新内容
+//                uptime 更新时间
+//                uuid    版本uuid
+                // https://www.xxxx.com/ipa/manifest.plist
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",version[@"downlondUrl"]]]];
+            }];
         }
     }else{
         if (indexPath.row == 0) {
@@ -353,7 +396,19 @@ static NSString *const ProfileCell = @"ProfileCell";
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];
         }else{
-            HXLog(@"版本更新");
+            [self queryAppVersionRequest:^(NSDictionary *version) {
+                //                appType app类型1:ios2安卓
+                //                currentVersion  最新版本号
+                //                downlondUrl 下载地址
+                //                name  app名称
+                //                upVesion 可升级版本号
+                //                upWay  更新渠道
+                //                upremark 更新内容
+                //                uptime 更新时间
+                //                uuid    版本uuid
+                // https://www.xxxx.com/ipa/manifest.plist
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",version[@"downlondUrl"]]]];
+            }];
         }
     }
 }

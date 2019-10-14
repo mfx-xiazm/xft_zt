@@ -8,21 +8,22 @@
 
 #import "RCPushClientEditVC.h"
 #import "RCAddPhoneCell.h"
-#import "WSDatePickerView.h"
 #import "HXPlaceholderTextView.h"
 #import "FSActionSheet.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
+#import "RCReportTarget.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 
-@interface RCPushClientEditVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
+@interface RCPushClientEditVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate,UITextFieldDelegate,UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
+@property (weak, nonatomic) IBOutlet UITextField *idCard;
+@property (weak, nonatomic) IBOutlet UIImageView *headPic;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *morePhoneViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *morePhoneView;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
-@property (weak, nonatomic) IBOutlet UITextField *appointDate;
-/* 多加的电话 */
-@property(nonatomic,strong) NSMutableArray *phones;
 @end
 
 @implementation RCPushClientEditVC
@@ -30,15 +31,13 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备客户"];
+    self.name.delegate = self;
+    self.phone.delegate = self;
+    self.idCard.delegate = self;
+    self.remark.delegate = self;
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
     [self setUpTableView];
-}
--(NSMutableArray *)phones
-{
-    if (_phones == nil) {
-        _phones = [NSMutableArray array];
-    }
-    return _phones;
+    [self showReportClientData];
 }
 -(void)setUpTableView
 {
@@ -55,23 +54,68 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     // 注册cell
     [self.morePhoneView registerNib:[UINib nibWithNibName:NSStringFromClass([RCAddPhoneCell class]) bundle:nil] forCellReuseIdentifier:AddPhoneCell];
 }
-- (IBAction)addPhoneClicked:(UIButton *)sender {
-    [self.phones addObject:@""];
-    self.morePhoneViewHeight.constant = 50.f*self.phones.count;
+-(void)setReportTarget:(RCReportTarget *)reportTarget
+{
+    _reportTarget = reportTarget;
+}
+-(void)showReportClientData
+{
+    self.name.text = self.reportTarget.cusName;
+    self.phone.text = self.reportTarget.cusPhone;
+    self.idCard.text = self.reportTarget.idCard;
+    [self.headPic sd_setImageWithURL:[NSURL URLWithString:self.reportTarget.headPic]];
+    self.remark.text = self.reportTarget.remark;
+    
+    self.morePhoneViewHeight.constant = 50.f*self.reportTarget.morePhones.count;
     [self.morePhoneView reloadData];
 }
-- (IBAction)chooseVisitDateClicked:(UIButton *)sender {
-    //年-月-日
-    hx_weakify(self);
-    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
-        
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-        weakSelf.appointDate.text = dateString;
-    }];
-    datepicker.dateLabelColor = HXControlBg;//年-月-日 颜色
-    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
-    datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
-    [datepicker show];
+#pragma mark -- UITextField代理
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField == self.name) {
+        self.reportTarget.cusName = [textField hasText]?textField.text:@"";
+    }else if (textField == self.phone) {
+        self.reportTarget.cusPhone = [textField hasText]?textField.text:@"";
+    }else{
+        self.reportTarget.idCard = [textField hasText]?textField.text:@"";
+    }
+}
+#pragma mark -- UITextView代理
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    self.reportTarget.remark = [textView hasText]?textView.text:@"";
+}
+#pragma mark -- 点击事件
+
+- (IBAction)editDoneClicked:(UIButton *)sender {
+    BOOL isOK = YES;
+    if (self.reportTarget.morePhones && self.reportTarget.morePhones.count) {
+        for (RCReportPhone *phone in self.reportTarget.morePhones) {
+            if (!phone.cusPhone.length) {
+                isOK = NO;
+                break;
+            }
+        }
+    }
+    if (!isOK || !self.reportTarget.cusName.length || !self.reportTarget.cusPhone.length) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户必填信息不完整"];
+        return;
+    }
+    
+    if (self.editDoneCall) {
+        self.editDoneCall();
+    }
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)addPhoneClicked:(UIButton *)sender {
+    RCReportPhone *phone = [RCReportPhone new];
+    if (!self.reportTarget.morePhones) {
+        self.reportTarget.morePhones = [NSMutableArray array];
+    }
+    [self.reportTarget.morePhones addObject:phone];
+    self.morePhoneViewHeight.constant = 50.f*self.reportTarget.morePhones.count;
+    [self.morePhoneView reloadData];
 }
 - (IBAction)choosePushRoleClicked:(UIButton *)sender {
     FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
@@ -155,26 +199,45 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    //    hx_weakify(self);
+    hx_weakify(self);
     [picker dismissViewControllerAnimated:YES completion:^{
-        //        hx_strongify(weakSelf);
+        hx_strongify(weakSelf);
         // 显示保存图片
+        [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+            [strongSelf.headPic sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+            strongSelf.reportTarget.headPic = imageUrl;
+        }];
+    }];
+}
+#pragma mark -- 业务逻辑
+-(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
+{
+    [HXNetworkTool uploadImagesWithURL:HXRC_M_URL action:@"sys/sys/dict/getUploadImgReturnUrl.do" parameters:@{} name:@"file" images:@[image] fileNames:nil imageScale:0.8 imageType:@"png" progress:nil success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            completedCall(responseObject[@"data"][@"url"]);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
 }
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.phones.count;
+    return self.reportTarget.morePhones.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCAddPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:AddPhoneCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    RCReportPhone *phone = self.reportTarget.morePhones[indexPath.row];
+    cell.phone = phone;
     hx_weakify(self);
     cell.cutBtnCall = ^{
         hx_strongify(weakSelf);
-        [strongSelf.phones removeLastObject];
-        strongSelf.morePhoneViewHeight.constant = 50.f*strongSelf.phones.count;
+        [strongSelf.reportTarget.morePhones removeObjectAtIndex:indexPath.row];
+        strongSelf.morePhoneViewHeight.constant = 50.f*strongSelf.reportTarget.morePhones.count;
         [tableView reloadData];
     };
     return cell;

@@ -13,7 +13,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCGradeClientVC">
             <connections>
                 <outlet property="clientFilterView" destination="93h-Jz-rxw" id="eP5-0x-caN"/>
+                <outlet property="firstFilterBtn" destination="Uqw-gE-Gq8" id="jiO-ad-Aqq"/>
                 <outlet property="followView" destination="BJ8-GW-YLE" id="4dZ-fZ-tib"/>
+                <outlet property="secondFilterBtn" destination="vvZ-L5-uAO" id="pbO-Jg-cO9"/>
                 <outlet property="tableView" destination="Nyd-SK-6MU" id="61q-lq-pCc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,6 +25,23 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJ8-GW-YLE">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已关注24人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUP-xL-nEg">
+                            <rect key="frame" x="15" y="13" width="82" height="18.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="vUP-xL-nEg" firstAttribute="centerY" secondItem="BJ8-GW-YLE" secondAttribute="centerY" id="aHV-V2-0Tl"/>
+                        <constraint firstAttribute="height" constant="44" id="fuO-MV-A6U"/>
+                        <constraint firstItem="vUP-xL-nEg" firstAttribute="leading" secondItem="BJ8-GW-YLE" secondAttribute="leading" constant="15" id="ij3-NB-bUz"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93h-Jz-rxw">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <subviews>
@@ -40,6 +59,9 @@
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="firstFilterBtn:" destination="-1" eventType="touchUpInside" id="iol-pJ-EeJ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvZ-L5-uAO" customClass="SPButton">
                             <rect key="frame" x="207" y="0.0" width="207" height="44"/>
@@ -55,6 +77,9 @@
                                     <real key="value" value="5"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="secondFilterBtn:" destination="-1" eventType="touchUpInside" id="LPn-FI-NDP"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -68,23 +93,6 @@
                         <constraint firstAttribute="height" constant="44" id="ijj-Ud-yCH"/>
                         <constraint firstItem="vvZ-L5-uAO" firstAttribute="leading" secondItem="Uqw-gE-Gq8" secondAttribute="trailing" id="wd8-gX-k8K"/>
                         <constraint firstItem="Uqw-gE-Gq8" firstAttribute="leading" secondItem="93h-Jz-rxw" secondAttribute="leading" id="yyy-zn-G53"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJ8-GW-YLE">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已关注24人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUP-xL-nEg">
-                            <rect key="frame" x="15" y="13" width="82" height="18.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="vUP-xL-nEg" firstAttribute="centerY" secondItem="BJ8-GW-YLE" secondAttribute="centerY" id="aHV-V2-0Tl"/>
-                        <constraint firstAttribute="height" constant="44" id="fuO-MV-A6U"/>
-                        <constraint firstItem="vUP-xL-nEg" firstAttribute="leading" secondItem="BJ8-GW-YLE" secondAttribute="leading" constant="15" id="ij3-NB-bUz"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nyd-SK-6MU">

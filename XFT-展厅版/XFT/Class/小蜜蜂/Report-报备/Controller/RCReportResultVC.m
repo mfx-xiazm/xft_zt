@@ -10,6 +10,7 @@
 #import "RCReportResultHeader.h"
 #import "RCReportResultCell.h"
 #import "RCReportResultSectionHeader.h"
+#import "RCReportResult.h"
 
 static NSString *const ReportResultSectionHeader = @"ReportResultSectionHeader";
 static NSString *const ReportResultCell = @"ReportResultCell";
@@ -17,7 +18,10 @@ static NSString *const ReportResultCell = @"ReportResultCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 头视图 */
 @property(nonatomic,strong) RCReportResultHeader *header;
-
+/* 成功数组 */
+@property(nonatomic,strong) NSArray *successList;
+/* 失败数组 */
+@property(nonatomic,strong) NSArray *errorList;
 @end
 
 @implementation RCReportResultVC
@@ -26,17 +30,28 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备结果"];
     [self setUpTableView];
-    [self setUpTableHeaderView];
+    hx_weakify(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.tableView reloadData];
+    });
 }
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
     self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 145);
 }
+-(void)setResults:(NSDictionary *)results
+{
+    _results = results;
+    self.successList = [NSArray yy_modelArrayWithClass:[RCReportResult class] json:_results[@"successList"]];
+    self.errorList = [NSArray yy_modelArrayWithClass:[RCReportResult class] json:_results[@"errorList"]];
+    
+}
 -(RCReportResultHeader *)header
 {
     if (_header == nil) {
         _header = [RCReportResultHeader loadXibView];
+        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 145);
     }
     return _header;
 }
@@ -66,9 +81,7 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultCell class]) bundle:nil] forCellReuseIdentifier:ReportResultCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultSectionHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:ReportResultSectionHeader];
-}
--(void)setUpTableHeaderView
-{
+    
     self.tableView.tableHeaderView = self.header;
 }
 #pragma mark -- 点击事件
@@ -79,27 +92,53 @@ static NSString *const ReportResultCell = @"ReportResultCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0) {
+        return self.successList.count;
+    }else{
+        return self.errorList.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCReportResultCell *cell = [tableView dequeueReusableCellWithIdentifier:ReportResultCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.nnum.text = [NSString stringWithFormat:@"%zd.",indexPath.row+1];
+    if (indexPath.section == 0) {
+        RCReportResult *person = self.successList[indexPath.row];
+        cell.person = person;
+    }else{
+        RCReportResult *person = self.errorList[indexPath.row];
+        cell.person = person;
+    }
+    return cell;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 44.f;
+    if (section == 0) {
+        return self.successList.count?44.f:0.f;
+    }else{
+        return self.errorList.count?44.f:0.f;
+    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     RCReportResultSectionHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:ReportResultSectionHeader];
     if (!header) {
         header = [[RCReportResultSectionHeader alloc] initWithReuseIdentifier:ReportResultSectionHeader];
+    }
+    if (section == 0) {
+        header.resultTitle.text = @"报备成功";
+        header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.successList.count];
+        return self.successList.count?header:nil;
+    }else{
+        header.resultTitle.text = @"报备失败";
+        header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.errorList.count];
+        return self.errorList.count?header:nil;
     }
     return header;
 }

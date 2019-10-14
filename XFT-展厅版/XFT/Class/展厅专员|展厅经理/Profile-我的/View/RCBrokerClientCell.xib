@@ -121,6 +121,14 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="cusState" destination="KHi-2r-FfT" id="umy-zB-yAT"/>
+                <outlet property="headPic" destination="COr-ap-fKU" id="PqE-PQ-LjW"/>
+                <outlet property="name" destination="C8w-0k-3Ct" id="q7U-7N-6q2"/>
+                <outlet property="phone" destination="A9m-bO-JFs" id="Ztt-ty-2SN"/>
+                <outlet property="time1" destination="PFr-kH-dcH" id="r1O-HU-eUV"/>
+                <outlet property="time2" destination="yPI-4Q-gHB" id="QXI-67-8Nq"/>
+            </connections>
             <point key="canvasLocation" x="141.30434782608697" y="160.71428571428569"/>
         </tableViewCell>
     </objects>

@@ -46,6 +46,7 @@
             </constraints>
             <size key="customSize" width="179" height="50"/>
             <connections>
+                <outlet property="delImg" destination="Gba-u1-JhR" id="KRX-8T-I6V"/>
                 <outlet property="name" destination="NUk-xG-4PF" id="Yg5-Kb-dcR"/>
             </connections>
             <point key="canvasLocation" x="-45.652173913043484" y="34.821428571428569"/>

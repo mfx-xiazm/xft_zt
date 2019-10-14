@@ -39,6 +39,9 @@ PODS:
   - UMCShare/Social/ReducedWeChat (6.9.6):
     - UMCCommon
     - UMCShare/Core
+  - UMCShare/UI (6.9.6):
+    - UMCCommon
+    - UMCShare/Core
   - YYCache (1.0.4)
   - YYModel (1.0.4)
   - ZFPlayer/AVPlayer (3.2.13):
@@ -65,6 +68,7 @@ DEPENDENCIES:
   - UMCCommon
   - UMCSecurityPlugins
   - UMCShare/Social/ReducedWeChat
+  - UMCShare/UI
   - YYCache
   - YYModel
   - ZFPlayer/AVPlayer
@@ -124,6 +128,6 @@ SPEC CHECKSUMS:
   ZLCollectionViewFlowLayout: 44293c96b7fd275f107b321ba1dc3f95869c3860
   ZLPhotoBrowser: 8975b83f53dbcec1399ef8d1badffc0e09aa9422
 
-PODFILE CHECKSUM: 3a75e3dd18062ba41f3b597a61d2b0195916b485
+PODFILE CHECKSUM: 8ece32ec7b7b884cb945be286b989d9df575f194
 
 COCOAPODS: 1.6.1

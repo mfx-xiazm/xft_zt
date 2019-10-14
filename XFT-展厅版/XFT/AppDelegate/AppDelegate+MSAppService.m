@@ -21,10 +21,10 @@
 -(void)initService{
     
 //    /* ————— 友盟 初始化 ————— */
-//    [[UMSocialManager defaultManager] openLog:NO];
-//    [UMConfigure initWithAppkey:HXUMengKey channel:@"App Store"];
-//
-//    [self configUSharePlatforms];
+    [[UMSocialManager defaultManager] openLog:YES];
+    [UMConfigure initWithAppkey:HXUMengKey channel:@"App Store"];
+
+    [self configUSharePlatforms];
     
     /* ————— 腾讯地图 ————— */
     [QMapServices sharedServices].APIKey = HXQMapKey;

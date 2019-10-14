@@ -88,15 +88,17 @@
 }
 -(void)tabBarDidClickPlusButton:(RCTabBar *)tabBar
 {
-//    // 新增任务
-//    RCAddTaskVC *tvc = [RCAddTaskVC new];
-//    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
-//    [self.selectedViewController presentViewController:nav animated:YES completion:nil];
-    
-    // 报备客户
-    RCPushVC *pvc = [RCPushVC new];
-    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
-    [self.selectedViewController presentViewController:nav animated:YES completion:nil];
+    // 新增任务
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//展厅经理
+        RCAddTaskVC *tvc = [RCAddTaskVC new];
+        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
+        [self.selectedViewController presentViewController:nav animated:YES completion:nil];
+    }else{
+        // 报备客户
+        RCPushVC *pvc = [RCPushVC new];
+        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
+        [self.selectedViewController presentViewController:nav animated:YES completion:nil];
+    }
 }
 /**
  * 初始化子控制器

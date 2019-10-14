@@ -9,7 +9,6 @@
 #import "HXBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
 @interface RCMyCardVC : HXBaseViewController
 
 @end

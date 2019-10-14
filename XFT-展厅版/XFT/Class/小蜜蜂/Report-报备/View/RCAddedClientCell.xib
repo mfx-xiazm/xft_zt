@@ -71,6 +71,9 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="name" destination="Mjn-4q-P3t" id="s4B-NB-jdg"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>

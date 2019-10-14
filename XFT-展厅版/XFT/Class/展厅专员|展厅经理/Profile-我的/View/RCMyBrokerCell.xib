@@ -41,11 +41,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text=" 业主经纪人 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRN-d5-CHz">
-                                <rect key="frame" x="126" y="29" width="68.5" height="16"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text=" 业主经纪人 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRN-d5-CHz">
+                                <rect key="frame" x="129" y="28" width="68.5" height="18"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="aEY-f2-noh"/>
+                                    <constraint firstAttribute="height" constant="18" id="aEY-f2-noh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,7 +74,25 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEu-cO-aTX">
                                 <rect key="frame" x="277" y="80.5" width="24" height="24"/>
                                 <state key="normal" image="icon_tellphone"/>
+                                <connections>
+                                    <action selector="phoneClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="l7t-lg-fXb"/>
+                                </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text=" 业主经纪人 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdV-w0-iss">
+                                <rect key="frame" x="202.5" y="28" width="68.5" height="18"/>
+                                <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Xfk-LA-sWq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -82,12 +100,14 @@
                             <constraint firstItem="FvE-wp-hU5" firstAttribute="centerY" secondItem="90F-q3-fdW" secondAttribute="centerY" id="4CE-IT-YFX"/>
                             <constraint firstItem="WHB-Zb-f8Z" firstAttribute="leading" secondItem="KQb-Pu-72J" secondAttribute="leading" id="4JQ-i9-tZG"/>
                             <constraint firstItem="WHB-Zb-f8Z" firstAttribute="trailing" secondItem="KQb-Pu-72J" secondAttribute="trailing" id="8tz-GZ-ntw"/>
+                            <constraint firstItem="pdV-w0-iss" firstAttribute="centerY" secondItem="wRN-d5-CHz" secondAttribute="centerY" id="FbJ-cy-eEz"/>
                             <constraint firstAttribute="trailing" secondItem="KQb-Pu-72J" secondAttribute="trailing" constant="15" id="Gkx-jO-XBZ"/>
                             <constraint firstItem="90F-q3-fdW" firstAttribute="leading" secondItem="ouK-Wi-Sab" secondAttribute="leading" constant="15" id="HIL-D4-HQr"/>
                             <constraint firstItem="KQb-Pu-72J" firstAttribute="top" secondItem="90F-q3-fdW" secondAttribute="bottom" constant="5" id="RCQ-fW-kXg"/>
                             <constraint firstItem="3eU-k3-PRT" firstAttribute="leading" secondItem="90F-q3-fdW" secondAttribute="trailing" constant="12" id="Zl5-9X-Z43"/>
                             <constraint firstItem="KQb-Pu-72J" firstAttribute="leading" secondItem="90F-q3-fdW" secondAttribute="trailing" constant="15" id="bqU-aX-Rks"/>
-                            <constraint firstItem="wRN-d5-CHz" firstAttribute="leading" secondItem="3eU-k3-PRT" secondAttribute="trailing" constant="7" id="ifE-9A-9JI"/>
+                            <constraint firstItem="pdV-w0-iss" firstAttribute="leading" secondItem="wRN-d5-CHz" secondAttribute="trailing" constant="5" id="g7P-ny-yMA"/>
+                            <constraint firstItem="wRN-d5-CHz" firstAttribute="leading" secondItem="3eU-k3-PRT" secondAttribute="trailing" constant="10" id="ifE-9A-9JI"/>
                             <constraint firstItem="wRN-d5-CHz" firstAttribute="centerY" secondItem="3eU-k3-PRT" secondAttribute="centerY" id="iko-91-E1d"/>
                             <constraint firstAttribute="trailing" secondItem="FvE-wp-hU5" secondAttribute="trailing" constant="15" id="iqC-3M-m15"/>
                             <constraint firstAttribute="bottom" secondItem="mEu-cO-aTX" secondAttribute="bottom" constant="10" id="jK5-Gm-Zjp"/>
@@ -123,6 +143,14 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="headPic" destination="90F-q3-fdW" id="aFV-ea-Ylk"/>
+                <outlet property="name" destination="3eU-k3-PRT" id="GfY-6e-wWx"/>
+                <outlet property="num" destination="WHB-Zb-f8Z" id="7Vu-LT-Gfg"/>
+                <outlet property="time" destination="KQb-Pu-72J" id="saA-mP-dco"/>
+                <outlet property="type" destination="wRN-d5-CHz" id="fTG-EH-7bL"/>
+                <outlet property="type2" destination="pdV-w0-iss" id="rZ7-k9-Fre"/>
+            </connections>
             <point key="canvasLocation" x="208.69565217391306" y="83.035714285714278"/>
         </tableViewCell>
     </objects>

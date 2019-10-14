@@ -27,7 +27,22 @@ static NSString *const ChangeRoleCell = @"ChangeRoleCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"切换角色"];
     [self setUpTableView];
-    [self getUserRolesRequest];
+
+    if (self.userInfo) {
+        self.roles = [NSArray yy_modelArrayWithClass:[MSUserRoles class] json:self.userInfo[@"responseCheckRoles"]];
+    }else{
+        self.roles = [MSUserManager sharedInstance].curUserInfo.responseCheckRoles;
+        
+        for (MSUserRoles *role in self.roles) {
+            if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid isEqualToString:role.showRoomUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid isEqualToString:role.groupUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid isEqualToString:role.teamUuid]) {
+                role.isSelected = YES;
+                role.roleType = [MSUserManager sharedInstance].curUserInfo.selectRole.roleType;
+                self.selectRole = role;
+                break;
+            }
+        }
+    }
+    [self.tableView reloadData];
 }
 - (void)viewDidLayoutSubviews
 {
@@ -67,24 +82,35 @@ static NSString *const ChangeRoleCell = @"ChangeRoleCell";
     headerImg.image = HXGetImage(@"logo");
     
     self.tableView.tableHeaderView = headerImg;
-    
-    self.tableView.hidden = YES;
 }
 #pragma mark -- 点击事件
 - (IBAction)sureRoleClicked:(UIButton *)sender {
+    if (!self.selectRole) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选定角色"];
+        return;
+    }
     
     if (self.userInfo) {
         MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:self.userInfo];
         userInfo.selectRole = self.selectRole;
-        // 切换角色之后要更改用户accRole
-        userInfo.showroomLoginInside.accRole = userInfo.selectRole.roleType;
+        // 切换角色更换用户角色
+        if (self.selectRole.roleType==1) {
+            userInfo.ulevel = 1;
+        }else{
+            userInfo.ulevel = 2;
+        }
         
         [MSUserManager sharedInstance].curUserInfo = userInfo;
         [[MSUserManager sharedInstance] saveUserInfo];
     }else{
         [MSUserManager sharedInstance].curUserInfo.selectRole = self.selectRole;
-        // 切换角色之后要更改用户accRole
-        [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole = [MSUserManager sharedInstance].curUserInfo.selectRole.roleType;
+        // 切换角色更换用户角色
+        if (self.selectRole.roleType == 1) {
+            [MSUserManager sharedInstance].curUserInfo.ulevel = 1;
+        }else{
+            [MSUserManager sharedInstance].curUserInfo.ulevel = 2;
+        }
+        
         [[MSUserManager sharedInstance] saveUserInfo];
     }
     HXTabBarController *tab = [[HXTabBarController alloc] init];
@@ -96,36 +122,35 @@ static NSString *const ChangeRoleCell = @"ChangeRoleCell";
     ca.duration = 0.5;
     [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
 }
-#pragma mark -- 接口请求
--(void)getUserRolesRequest
-{
-    hx_weakify(self);
-    [HXNetworkTool POST:@"http://192.168.200.35:9000/open/api/" action:@"showroom/showroom/system/checkRole" parameters:self.userInfo?[NSString stringWithFormat:@"{\"domain\":\"org-app-ios\",\"loginId\":\"%@\"}",self.userInfo[@"userAccessInfo"][@"loginId"]]:@{} success:^(id responseObject) {
-        hx_strongify(weakSelf);
-        if ([responseObject[@"code"] integerValue] == 0) {
-            strongSelf.roles = [NSArray yy_modelArrayWithClass:[MSUserRoles class] json:responseObject[@"data"]];
-            if (!strongSelf.userInfo) {// 登录进来的切换需要先遍历出上一次的选中
-                for (MSUserRoles *role in strongSelf.roles) {
-                    if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid isEqualToString:role.showRoomUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid isEqualToString:role.groupUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid isEqualToString:role.teamUuid]) {
-                        role.isSelected = YES;
-                        role.roleType = [MSUserManager sharedInstance].curUserInfo.selectRole.roleType;
-                        
-                        strongSelf.selectRole = role;
-                        break;
-                    }
-                }
-            }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                strongSelf.tableView.hidden = NO;
-                [strongSelf.tableView reloadData];
-            });
-        }else{
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-        }
-    } failure:^(NSError *error) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-    }];
-}
+//#pragma mark -- 接口请求
+//-(void)getUserRolesRequest
+//{
+//    hx_weakify(self);
+//    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/system/checkRole" parameters:self.userInfo?[NSString stringWithFormat:@"{\"domain\":\"org-app-ios\",\"loginId\":\"%@\"}",self.userInfo[@"userAccessInfo"][@"loginId"]]:@{} success:^(id responseObject) {
+//        hx_strongify(weakSelf);
+//        if ([responseObject[@"code"] integerValue] == 0) {
+//            strongSelf.roles = [NSArray yy_modelArrayWithClass:[MSUserRoles class] json:responseObject[@"data"]];
+//            if (!strongSelf.userInfo) {// 登录进来的切换需要先遍历出上一次的选中
+//                for (MSUserRoles *role in strongSelf.roles) {
+//                    if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid isEqualToString:role.showRoomUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid isEqualToString:role.groupUuid] && [[MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid isEqualToString:role.teamUuid]) {
+//                        role.isSelected = YES;
+//
+//                        strongSelf.selectRole = role;
+//                        break;
+//                    }
+//                }
+//            }
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                strongSelf.tableView.hidden = NO;
+//                [strongSelf.tableView reloadData];
+//            });
+//        }else{
+//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+//    }];
+//}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -189,8 +214,9 @@ static NSString *const ChangeRoleCell = @"ChangeRoleCell";
         // 先重置上一次的选中
         self.selectRole.isSelected = NO;
         self.selectRole.roleType = 0;
-        
+
         role.isSelected = YES;
+        
         if (role.isManager == 1 && role.isZy == 1) {
             if (indexPath.row) {
                 role.roleType = 2;

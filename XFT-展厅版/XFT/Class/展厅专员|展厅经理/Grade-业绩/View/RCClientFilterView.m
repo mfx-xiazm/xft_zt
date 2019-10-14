@@ -13,6 +13,8 @@
 #import <ZLCollectionViewVerticalLayout.h>
 #import <zhPopupController.h>
 #import "WSDatePickerView.h"
+#import "RCShowRoomFilter.h"
+#import "RCShowRoomProject.h"
 
 static NSString *const SearchTagCell = @"SearchTagCell";
 static NSString *const SearchTagHeader = @"SearchTagHeader";
@@ -26,8 +28,8 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 @property (weak, nonatomic) UITextField *visitEndTime;
 //是否显示
 @property (nonatomic, assign) BOOL show;
-/* 测试数据 */
-@property(nonatomic,strong) NSArray *testArrs;
+/* 客户等级 */
+@property(nonatomic,strong) NSArray *cusLevels;
 @end
 @implementation RCClientFilterView
 
@@ -35,7 +37,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 {
     [super awakeFromNib];
     
-    self.testArrs = @[@"全部",@"武汉融公馆",@"门店1",@"报备人1",@"经纪人1"];
+    self.cusLevels = @[@"A",@"B",@"C",@"D"];
     
     ZLCollectionViewVerticalLayout *flowLayout = [[ZLCollectionViewVerticalLayout alloc] init];
     flowLayout.delegate = self;
@@ -50,43 +52,158 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RCSearchTagHeader class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SearchTagHeader];
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RCClientFilterTimeView class]) bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ClientFilterTimeView];
 }
+-(void)setFilterModel:(RCShowRoomFilter *)filterModel
+{
+    _filterModel = filterModel;
+    
+    // 初始化选中
+    for (RCShowRoomProject *pro in _filterModel.projects) {
+        if (pro.isSelected) {
+            _filterModel.selectPro = pro;
+            break;
+        }
+    }
+    [self.collectionView reloadData];
+}
+
 - (IBAction)resetClicked:(UIButton *)sender {
-    HXLog(@"重置-选项归为全部、时间清空");
+    // 清空时间
+    self.reportBeginTime.text = nil;
+    self.reportEndTime.text = nil;
+    self.visitBeginTime.text = nil;
+    self.visitEndTime.text = nil;
+    
+    self.filterModel.reportStartStr = @"";
+    self.filterModel.reportEndStr = @"";
+    self.filterModel.visitStartStr = @"";
+    self.filterModel.visitEndStr = @"";
+    
+    self.filterModel.reportStart = 0;
+    self.filterModel.reportEnd = 0;
+    self.filterModel.visitStart = 0;
+    self.filterModel.visitEnd = 0;
+
+    // 清空选择
+    self.filterModel.cusLevel = @"";
+    
+    self.filterModel.selectPro.isSelected = NO;
+    self.filterModel.selectPro = nil;
+    [self.collectionView reloadData];
 }
 - (IBAction)confirmClicked:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(filterDidConfirm:beginTime:endTime:)]) {
-//        [self.delegate filterDidConfirm:self beginTime:self.beginTime.text endTime:self.endTime.text];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"yyyy-MM-dd";
+    if ([self.reportBeginTime hasText]) {
+        NSDate *date = [formatter dateFromString:self.reportBeginTime.text];
+        self.filterModel.reportStart = [date timeIntervalSince1970];
+        self.filterModel.reportStartStr = self.reportBeginTime.text;
+    }else{
+        self.filterModel.reportStart = 0;
+        self.filterModel.reportStartStr = @"";
+    }
+    
+    if ([self.reportEndTime hasText]) {
+        NSDate *date = [formatter dateFromString:self.reportEndTime.text];
+        self.filterModel.reportEnd = [date timeIntervalSince1970];
+        self.filterModel.reportEndStr = self.reportEndTime.text;
+    }else{
+        self.filterModel.reportEnd = 0;
+        self.filterModel.reportEndStr = @"";
+    }
+    
+    if ([self.visitBeginTime hasText]) {
+        NSDate *date = [formatter dateFromString:self.visitBeginTime.text];
+        self.filterModel.visitStart = [date timeIntervalSince1970];
+        self.filterModel.visitStartStr = self.visitBeginTime.text;
+    }else{
+        self.filterModel.visitStart = 0;
+        self.filterModel.visitStartStr = @"";
+    }
+    
+    if ([self.visitEndTime hasText]) {
+        NSDate *date = [formatter dateFromString:self.visitEndTime.text];
+        self.filterModel.visitEnd = [date timeIntervalSince1970];
+        self.filterModel.visitEndStr = self.visitEndTime.text;
+    }else{
+        self.filterModel.visitEnd = 0;
+        self.filterModel.visitEndStr = @"";
+    }
+    
+    
+    if ([self.delegate respondsToSelector:@selector(filterDidConfirm:cusLevel:selectProId:reportBeginTime:reportEndTime:visitBeginTime:visitEndTime:)]) {
+        [self.delegate filterDidConfirm:self cusLevel:@"" selectProId:self.filterModel.selectPro.uuid reportBeginTime:self.filterModel.reportStart reportEndTime:self.filterModel.reportEnd visitBeginTime:self.filterModel.visitStart visitEndTime:self.filterModel.visitEnd];
     }
 }
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 3;
+    return 2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.testArrs.count;
+    if (section == 0) {
+        return self.cusLevels.count;
+    }else{
+        return self.filterModel.projects.count;
+    }
 }
 - (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
     return LabelLayout;
 }
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     RCSearchTagCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:SearchTagCell forIndexPath:indexPath];
-    cell.contentText.text = self.testArrs[indexPath.item];
-    cell.contentText.backgroundColor = HXGlobalBg;
+    if (indexPath.section == 0) {
+        NSString *cusLevel = self.cusLevels[indexPath.item];
+        cell.contentText.text = cusLevel;
+        cell.contentText.backgroundColor = [cusLevel isEqualToString:self.filterModel.cusLevel]?HXControlBg:HXGlobalBg;
+        cell.contentText.textColor = [cusLevel isEqualToString:self.filterModel.cusLevel]?[UIColor whiteColor]:[UIColor lightGrayColor];
+    }else{
+        RCShowRoomProject *pro = self.filterModel.projects[indexPath.item];
+        cell.contentText.text = pro.name;
+        cell.contentText.backgroundColor = pro.isSelected?HXControlBg:HXGlobalBg;
+        cell.contentText.textColor = pro.isSelected?[UIColor whiteColor]:[UIColor lightGrayColor];
+    }
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    if (indexPath.section == 0) {
+        NSString *cusLevel = self.cusLevels[indexPath.item];
+        self.filterModel.cusLevel = cusLevel;
+        [collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+    }else{
+        self.filterModel.selectPro.isSelected = NO;
+        RCShowRoomProject *pro = self.filterModel.projects[indexPath.item];
+        pro.isSelected = YES;
+        self.filterModel.selectPro = pro;
+        [collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
+    }
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if ([kind isEqualToString : UICollectionElementKindSectionHeader]){
         RCSearchTagHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:SearchTagHeader forIndexPath:indexPath];
         headerView.tabText.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
+        if (indexPath.section == 0) {
+            headerView.tabText.text = @"客户等级";
+        }else{
+            headerView.tabText.text = @"报备项目";
+        }
         headerView.locationBtn.hidden = YES;
         return headerView;
     }else if ([kind isEqualToString : UICollectionElementKindSectionFooter]){
         RCClientFilterTimeView * footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:ClientFilterTimeView forIndexPath:indexPath];
         footerView.visitTimeView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2 ? NO:YES;
+        if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {
+            if (self.cusType == 0) {//已报备
+                footerView.visitTimeView.hidden = YES;
+            }else{
+                footerView.visitTimeView.hidden = NO;
+            }
+        }else {
+            footerView.visitTimeView.hidden = YES;
+        }
+        footerView.reportBeginTime.text = self.filterModel.reportStartStr;
+        footerView.reportEndTime.text = self.filterModel.reportEndStr;
+        footerView.visitBeginTime.text = self.filterModel.visitStartStr;
+        footerView.visitEndTime.text = self.filterModel.visitEndStr;
         footerView.filterTimeCall = ^(UITextField * _Nonnull textField) {
             //年-月-日
             WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
@@ -99,7 +216,7 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
             datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
             [datepicker show];
         };
-        if (indexPath.section == 2) {
+        if (indexPath.section == 1) {
             self.reportBeginTime = footerView.reportBeginTime;
             self.reportEndTime = footerView.reportEndTime;
             self.visitBeginTime = footerView.visitBeginTime;
@@ -113,8 +230,16 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
-    if (section == 2) {
-        return ([MSUserManager sharedInstance].curUserInfo.ulevel == 2)?CGSizeMake(collectionView.frame.size.width, 200):CGSizeMake(collectionView.frame.size.width, 100);
+    if (section == 1) {
+        if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {
+            if (self.cusType == 0) {//已报备
+                 return  CGSizeMake(collectionView.frame.size.width, 100);
+            }else{
+                 return  CGSizeMake(collectionView.frame.size.width, 200);
+            }
+        }else {
+            return  CGSizeMake(collectionView.frame.size.width, 100);
+        }
     }else{
         return CGSizeZero;
     }
@@ -123,7 +248,12 @@ static NSString *const ClientFilterTimeView = @"ClientFilterTimeView";
     return CGSizeMake(collectionView.frame.size.width, 44);
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake([self.testArrs[indexPath.item] boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    if (indexPath.section == 0) {
+        return CGSizeMake([self.cusLevels[indexPath.item] boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    }else{
+        RCShowRoomProject *pro = self.filterModel.projects[indexPath.item];
+        return CGSizeMake([pro.name boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 30, 30);
+    }
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 10.f;
