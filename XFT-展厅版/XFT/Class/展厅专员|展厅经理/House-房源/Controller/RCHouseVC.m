@@ -15,6 +15,8 @@
 #import "RCNoticeVC.h"
 #import "RCManagerMsgVC.h"
 #import "RCReportClientVC.h"
+#import "zhAlertView.h"
+#import <zhPopupController/zhPopupController.h>
 
 static NSString *const HouseCell = @"HouseCell";
 
@@ -32,6 +34,7 @@ static NSString *const HouseCell = @"HouseCell";
     [self setUpNavBar];
     [self setUpTableView];
     [self setUpTableHeaderView];
+    [self queryAppVersion];
 }
 -(void)viewDidLayoutSubviews
 {
@@ -114,18 +117,84 @@ static NSString *const HouseCell = @"HouseCell";
 #pragma mark -- 点击事件
 -(void)cityClicked
 {
-    RCSearchCityVC *hvc = [RCSearchCityVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
+//    RCSearchCityVC *hvc = [RCSearchCityVC new];
+//    [self.navigationController pushViewController:hvc animated:YES];
 }
 -(void)searchClicked
 {
-    RCSearchHouseVC *hvc = [RCSearchHouseVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
+//    RCSearchHouseVC *hvc = [RCSearchHouseVC new];
+//    [self.navigationController pushViewController:hvc animated:YES];
 }
 -(void)messageClicked
 {
-    RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-    [self.navigationController pushViewController:mvc animated:YES];
+//    RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+//    [self.navigationController pushViewController:mvc animated:YES];
+}
+#pragma mark -- 业务逻辑
+-(void)queryAppVersion
+{
+    hx_weakify(self);
+    [self queryAppVersionRequest:^(NSDictionary *version) {
+        hx_strongify(weakSelf);
+        //                currentVersion  最新版本号
+        //                downlondUrl 下载地址
+        //                isForce    是否强制更新 0不强制 1强制
+        //                upremark 更新内容
+        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"更新版本" message:[NSString stringWithFormat:@"%@",version[@"upremark"]] constantWidth:HX_SCREEN_WIDTH - 50*2];
+        zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+        }];
+        zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"下载" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",version[@"downlondUrl"]]]];
+        }];
+        cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+        
+        strongSelf.zh_popupController = [[zhPopupController alloc] init];
+        if ([version[@"isForce"] integerValue] == 0) {
+            strongSelf.zh_popupController.dismissOnMaskTouched = YES;
+            [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+        }else{
+            strongSelf.zh_popupController.dismissOnMaskTouched = NO;
+            [alert addAction:okButton];
+        }
+        [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+    }];
+}
+-(void)queryAppVersionRequest:(void(^)(NSDictionary *version))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"applicationMarket"] = @"";
+    NSString *key = @"CFBundleShortVersionString";
+    // 当前软件的版本号（从Info.plist中获得）
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+    data[@"currentVersion"] = currentVersion;
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/appversion/queryAppVersion" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                if (((NSDictionary *)responseObject[@"data"]).allKeys.count) {
+                    if (![(NSString *)responseObject[@"data"][@"upVesion"] isEqualToString:currentVersion]) {
+                        if (completedCall) {
+                            completedCall(responseObject[@"data"]);
+                        }
+                    }
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+                }
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -43,7 +43,7 @@
         self.codeBtn.hidden = YES;
     }
     
-    [self.headPic sd_setImageWithURL:[NSURL URLWithString:_client.headpic]];
+    [self.headPic sd_setImageWithURL:[NSURL URLWithString:_client.headpic] placeholderImage:HXGetImage(@"pic_header")];
     self.name.text = _client.name;
     if (_client.cusLevel && _client.cusLevel.length) {
         self.state2.hidden = NO;

@@ -33,6 +33,18 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:self.isScan animated:animated];
 }
+- (IBAction)changeYuMing:(UIButton *)sender {
+    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
+
+    if ([ipKey isEqualToString:@"dev"]) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"uat环境域名"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"uat" forKey:@"RCIPkey"];
+    }else{
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"dev环境域名"];
+        [[NSUserDefaults standardUserDefaults] setObject:@"dev" forKey:@"RCIPkey"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

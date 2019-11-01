@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCClientNoteCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *buttomLine;
 @property (weak, nonatomic) IBOutlet UIImageView *tagImg;
+@property (weak, nonatomic) IBOutlet UIView *bgView;
 /* 客户轨迹 */
 @property(nonatomic,strong) RCMyClientNote *note;
 @end

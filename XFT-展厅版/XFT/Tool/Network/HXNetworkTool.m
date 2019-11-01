@@ -9,8 +9,9 @@
 #import "HXNetworkTool.h"
 #import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
-//#import "BBLoginVC.h"
-//#import "HXNavigationController.h"
+#import "RCLoginVC.h"
+#import "HXNavigationController.h"
+//#import "JHRequestDebugView.h"
 
 #define NSStringFormat(format,...) [NSString stringWithFormat:format,##__VA_ARGS__]
 
@@ -169,6 +170,13 @@ static NSArray *_filtrationCacheKey;
                    success:(HXHttpRequestSuccess)success
                    failure:(HXHttpRequestFailed)failure {
     
+    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
+    if ([ipKey isEqualToString:@"uat"]) {
+        URL = @"http://msalesuat.sunac.com.cn/open/api/";
+    }else{
+        URL = @"http://msalesdev.sunac.com.cn/open/api/";
+    }
+    
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
     
     [_sessionManager.requestSerializer setValue:[parameters isKindOfClass:[NSString class]]?parameters:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];//在选择角色时还未完成登录流程，特殊处理
@@ -182,33 +190,34 @@ static NSArray *_filtrationCacheKey;
     NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+//#if DEBUG
+//        // save for debug.
+//        [[JHRequestDebugView defaultDebugView] jh_store_history:appendUrl parameter:parameters response:responseObject];
+//#endif
         if (_isOpenLog) {HXLog(@"responseObject = %@",responseObject);}
         [[self allSessionTask] removeObject:task];
         
-        //        if ([responseObject[@"status"] integerValue] == 2) {// 登录状态失效
-        //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        //                [JMNotifyView showNotify:@"登录状态已过期，请重新登录"];
-        //            });
-        //
-        //            // 退出IM
-        ////            [[SPKitExample sharedInstance] exampleLogout];
-        //
-        //            [[MSUserManager sharedInstance] logout:nil];//退出
-        //
-        //            BBLoginVC *lvc = [BBLoginVC new];
-        //            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
-        //            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-        //            //推出主界面出来
-        //            CATransition *ca = [CATransition animation];
-        //            ca.type = @"movein";
-        //            ca.duration = 0.25;
-        //            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
-        //        }else{
-        success ? success(responseObject) : nil;
-        //对数据进行异步缓存
-        responseCache!=nil ? [HXNetworkCache setHttpCache:responseObject URL:URL parameters:parameters filtrationCacheKey:_filtrationCacheKey] : nil;
-        //        }
+        if ([responseObject[@"code"] integerValue] == -6 || [responseObject[@"code"] integerValue] == -7) {// 登录状态失效
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"登录状态过期，请重新登录"];
+            });
+            
+            [[MSUserManager sharedInstance] logout:nil];//退出
+            
+            RCLoginVC *lvc = [RCLoginVC new];
+            HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+            
+            //推出主界面出来
+            CATransition *ca = [CATransition animation];
+            ca.type = @"movein";
+            ca.duration = 0.25;
+            [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+        }else{
+            success ? success(responseObject) : nil;
+            //对数据进行异步缓存
+            responseCache!=nil ? [HXNetworkCache setHttpCache:responseObject URL:URL parameters:parameters filtrationCacheKey:_filtrationCacheKey] : nil;
+        }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
@@ -217,6 +226,7 @@ static NSArray *_filtrationCacheKey;
         failure ? failure(error) : nil;
     }];
     
+//    [[JHRequestDebugView defaultDebugView] jh_set_POST_task:sessionTask parameter:parameters];
     // 添加最新的sessionTask到数组
     sessionTask ? [[self allSessionTask] addObject:sessionTask] : nil ;
     return sessionTask;
@@ -272,7 +282,17 @@ static NSArray *_filtrationCacheKey;
                                   success:(HXHttpRequestSuccess)success
                                   failure:(HXHttpRequestFailed)failure {
     
+    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
+    if ([ipKey isEqualToString:@"uat"]) {
+        URL = @"http://msalesuat.sunac.com.cn/open/api/";
+    }else{
+        URL = @"http://msalesdev.sunac.com.cn/open/api/";
+    }
+    
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
+    
+    [_sessionManager.requestSerializer setValue:[parameters isKindOfClass:[NSString class]]?parameters:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
+    [_sessionManager.requestSerializer setValue:[MSUserManager sharedInstance].curUserInfo.token forHTTPHeaderField:@"Authorization"];
     
     NSURLSessionTask *sessionTask = [_sessionManager POST:appendUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         

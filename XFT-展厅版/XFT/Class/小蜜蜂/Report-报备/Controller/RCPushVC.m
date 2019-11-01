@@ -209,6 +209,10 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     }
 }
 - (IBAction)addPhoneClicked:(UIButton *)sender {
+    if (self.currentReportTarget.morePhones && self.currentReportTarget.morePhones.count==2) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"1个客户最多3个电话"];
+        return;
+    }
     RCReportPhone *phone = [RCReportPhone new];
     if (!self.currentReportTarget.morePhones) {
         self.currentReportTarget.morePhones = [NSMutableArray array];
@@ -262,6 +266,12 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择楼盘"];
         return;
     }
+    
+    if (self.clients && self.clients.count == 4) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"1次最多报备5个客户"];
+        return;
+    }
+    
     BOOL isOK = YES;
     if (self.currentReportTarget.morePhones && self.currentReportTarget.morePhones.count) {
         for (RCReportPhone *phone in self.currentReportTarget.morePhones) {
@@ -410,7 +420,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         [cusInfo addObject:@{@"name":target.cusName,//客户姓名
                              @"phone":phones,//客户手机号
                              @"idNo":(target.idCard && target.idCard.length)?target.idCard:@"", // 身份证号
-                             @"cusPicInfo":@[target.headPic],
+                             @"cusPicInfo":(target.headPic && target.headPic.length)?@[target.headPic]:@[],
                              @"remark":(target.remark && target.remark.length) ?target.remark:@"",//客户备注
                              @"twoQudaoName":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"",//报备人所属机构名称
                              @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"",//报备人所属机构id
@@ -442,10 +452,10 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     }
     data[@"accType"] = @"4";//报备人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一报备人 6 门店管理员
     if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomType isEqualToString:@"1"]) {//1 集团文旅 2 区域文旅
-        data[@"oneQudaoUuid"] = @"K-0018";//一级渠道id
+        data[@"oneQudaoCode"] = @"K-0018";//一级渠道id
         data[@"oneQudaoName"] = @"集团文旅";//一级渠道名称
     }else{
-        data[@"oneQudaoUuid"] = @"K-0019";//一级渠道id
+        data[@"oneQudaoCode"] = @"K-0019";//一级渠道id
         data[@"oneQudaoName"] = @"区域文旅";//一级渠道名称
     }
     parameters[@"data"] = data;

@@ -53,7 +53,7 @@ static NSString *const ClientNoteCell = @"ClientNoteCell";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // 设置背景色为clear
-    self.tableView.backgroundColor = HXGlobalBg;
+    self.tableView.backgroundColor = [UIColor whiteColor];
     
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCClientNoteCell class]) bundle:nil] forCellReuseIdentifier:ClientNoteCell];
@@ -92,6 +92,7 @@ static NSString *const ClientNoteCell = @"ClientNoteCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.tagImg.image = indexPath.row ?HXGetImage(@"circle_jindu_gray"):HXGetImage(@"circle_jindu_yellow");
     cell.buttomLine.hidden = (indexPath.row == self.clientNotes.count-1)?YES:NO;
+    cell.bgView.backgroundColor = indexPath.row?UIColorFromRGB(0xf5f5f5):[UIColor whiteColor];
     RCMyClientNote *note = self.clientNotes[indexPath.row];
     cell.note = note;
     return cell;

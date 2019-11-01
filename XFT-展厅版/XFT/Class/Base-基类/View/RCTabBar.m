@@ -35,9 +35,7 @@
 -(void)layoutSubviews {
     
     [super layoutSubviews];
-    self.plusBtn.hxn_centerX = self.hxn_width *0.5;
-    self.plusBtn.hxn_y = 0;
-    CGFloat tabBarButtonW  = self.hxn_width / 5;
+    CGFloat tabBarButtonW  = HX_SCREEN_WIDTH / 5;
     self.plusBtn.hxn_width = tabBarButtonW;
     self.plusBtn.hxn_height = self.hxn_height;
 
@@ -53,5 +51,7 @@
             }
         }
     }
+    self.plusBtn.hxn_centerX = HX_SCREEN_WIDTH * 0.5;
+    self.plusBtn.hxn_y = 0;
 }
 @end

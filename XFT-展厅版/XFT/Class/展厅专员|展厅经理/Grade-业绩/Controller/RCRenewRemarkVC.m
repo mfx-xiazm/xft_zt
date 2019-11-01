@@ -28,6 +28,10 @@
     self.remark.placeholder = @"填写更新的备注内容";
     [self.view addSubview:self.navBarView];
     
+    self.name.text = [NSString stringWithFormat:@"姓名：%@",self.nameStr];
+    self.phone.text = [NSString stringWithFormat:@"手机：%@",self.phoneStr];
+    self.remarkTime.text = [NSString stringWithFormat:@"最后备注：%@",self.remarkTimeStr];
+
     hx_weakify(self);
     [self.submitBtn BindingBtnJudgeBlock:^BOOL{
         hx_strongify(weakSelf);
@@ -88,7 +92,7 @@
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
             if (strongSelf.renewReamrkCall) {
-                strongSelf.renewReamrkCall();
+                strongSelf.renewReamrkCall([NSString stringWithFormat:@"%.f",[[NSDate date] timeIntervalSince1970]],strongSelf.remark.text);
             }
             [strongSelf.navigationController popViewControllerAnimated:YES];
         }else{

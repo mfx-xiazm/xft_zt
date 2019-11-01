@@ -24,8 +24,12 @@
 -(void)setPerson:(RCReportResult *)person
 {
     _person = person;
-    self.anme.text = _person.cusName;
-    self.mag.text = _person.msg;
+    self.anme.text = [NSString stringWithFormat:@"%@-%@\n报备项目：%@",_person.cusName,_person.cusPhone,_person.proName];
+    if (self.isSuccess) {
+        self.mag.text = @"";
+    }else{
+        self.mag.text = [NSString stringWithFormat:@"原因：%@",_person.msg];
+    }
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

@@ -60,6 +60,18 @@
                             <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
                                 <real key="value" value="6"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="6"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.10000000000000001"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="0.0"/>
+                            </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wKK-2Z-OLM">
@@ -99,6 +111,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
             <connections>
+                <outlet property="bgView" destination="Azj-Pt-ZL0" id="ka9-MT-yX9"/>
                 <outlet property="buttomLine" destination="Sib-Bs-ApE" id="Xdr-ss-uwz"/>
                 <outlet property="cusState" destination="Os7-Dv-91R" id="SH1-HR-nLI"/>
                 <outlet property="remark" destination="wKK-2Z-OLM" id="Mbz-z0-c2P"/>

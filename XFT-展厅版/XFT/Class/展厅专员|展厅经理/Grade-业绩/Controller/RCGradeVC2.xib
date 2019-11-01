@@ -138,7 +138,7 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdN-U4-gwK" customClass="SPButton">
                                     <rect key="frame" x="0.0" y="0.0" width="112" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title="最后备注" image="icon_qiehuan_moren">
+                                    <state key="normal" title="报备时间" image="icon_qiehuan_moren">
                                         <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -153,7 +153,7 @@
                                         <action selector="firstFilterBtn:" destination="-1" eventType="touchUpInside" id="TqH-ce-A1w"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17G-4I-UWb" customClass="SPButton">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="17G-4I-UWb" customClass="SPButton">
                                     <rect key="frame" x="112" y="0.0" width="112" height="44"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="报备时间" image="icon_qiehuan_moren">

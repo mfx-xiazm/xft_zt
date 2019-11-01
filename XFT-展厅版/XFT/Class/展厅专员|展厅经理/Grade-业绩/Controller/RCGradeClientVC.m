@@ -326,7 +326,20 @@ static NSString *const MyClientCell = @"MyClientCell";
     RCClientDetailVC *dvc = [RCClientDetailVC new];
     RCMyClient *client = self.clients[indexPath.row];
     dvc.cusType = self.cusType;
-    dvc.cusUuid = client.cusUuid;
+    if (self.cusType == 0) {// 如果是报备客户传报备uuid
+        dvc.cusUuid = client.uuid;
+    }else{// 如果不是报备客户
+        if (self.cusType == 6) {// 失效客户传报备uuid
+            dvc.cusUuid = client.uuid;
+        }else{//其他状态 传cusUuid
+            dvc.cusUuid = client.cusUuid;
+        }
+    }
+    dvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+        client.remarkTime = remarkTime;
+        client.remark = remark;
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    };
     [self.navigationController pushViewController:dvc animated:YES];
 }
 

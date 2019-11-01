@@ -39,8 +39,6 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 @property(nonatomic,copy) NSString *sankType;
 /* 筛选状态值 */
 @property(nonatomic,copy) NSString *sankValue;
-/* 团队 */
-@property(nonatomic,strong) SPButton *teamBtn;
 /* 团队信息 */
 @property(nonatomic,strong) NSArray *groups;
 /* 左边分组选中的索引 */
@@ -65,6 +63,10 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 
     [self getClientStateRuquest];
 }
+-(void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+}
 -(NSMutableArray *)clients
 {
     if (_clients == nil) {
@@ -76,16 +78,30 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 {
     [self.navigationItem setTitle:nil];
     
-    SPButton *menu = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionRight];
-    menu.hxn_size = CGSizeMake(200 , 44);
-    menu.imageTitleSpace = 5.f;
-    menu.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-    [menu setTitleColor:UIColorFromRGB(0x1A1A1A) forState:UIControlStateNormal];
-    [menu setTitle:[NSString stringWithFormat:@"%@-%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName,[MSUserManager sharedInstance].curUserInfo.selectRole.groupName] forState:UIControlStateNormal];
-    [menu setImage:HXGetImage(@"Shape") forState:UIControlStateNormal];
-    [menu addTarget:self action:@selector(teamClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.teamBtn = menu;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+    UIView *btnBg = [UIView new];
+    btnBg.hxn_size = CGSizeMake(300, 44);
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+    label.textColor = [UIColor blackColor];
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupName && [MSUserManager sharedInstance].curUserInfo.selectRole.groupName.length) {
+        [label setText:[NSString stringWithFormat:@"%@-%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName,[MSUserManager sharedInstance].curUserInfo.selectRole.groupName]];
+    }else if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
+        [label setText:[NSString stringWithFormat:@"%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName]];
+    }else{
+        [label setText:[NSString stringWithFormat:@"%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName]];
+    }
+    CGSize size = [label sizeThatFits:CGSizeZero];
+    if (size.width >= 300) {
+        label.hxn_size = CGSizeMake(300, size.height);
+    }else{
+        label.hxn_size = size;
+    }
+    label.hxn_x = 0;
+    label.hxn_centerY = 22.0;
+    [btnBg addSubview:label];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnBg];
     
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);
@@ -153,9 +169,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     self.rightTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         hx_strongify(weakSelf);
         [strongSelf.rightTableView.mj_footer resetNoMoreData];
-        [strongSelf getClientDataRequest:YES completeCall:^{
-            [strongSelf.rightTableView reloadData];
-        }];
+        [strongSelf getClientStateRuquest];
     }];
     //追加尾部刷新
     self.rightTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -168,10 +182,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 #pragma mark -- 点击事件
 -(void)teamClicked:(SPButton *)menuBtn
 {
-//    RCClientDetailVC *cvc = [RCClientDetailVC new];
-//    cvc.cusType = 5;
-//    cvc.cusUuid = @"1073";
-//    [self.navigationController pushViewController:cvc animated:YES];
+
 }
 -(void)searchClicked
 {
@@ -184,22 +195,26 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     [self.navigationController pushViewController:cvc animated:YES];
 }
 - (IBAction)clientFenxiClicked:(SPButton *)sender {
-    RCClientElementVC *evc = [RCClientElementVC new];
-    [self.navigationController pushViewController:evc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCClientElementVC *evc = [RCClientElementVC new];
+//    [self.navigationController pushViewController:evc animated:YES];
 }
 
 - (IBAction)followClientClicked:(SPButton *)sender {
-    RCGradeClientVC *cvc = [RCGradeClientVC new];
-    [self.navigationController pushViewController:cvc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCGradeClientVC *cvc = [RCGradeClientVC new];
+//    [self.navigationController pushViewController:cvc animated:YES];
 }
 - (IBAction)myScoreClicked:(SPButton *)sender {
-    RCMyScoreVC *avc = [RCMyScoreVC new];
-    [self.navigationController pushViewController:avc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCMyScoreVC *avc = [RCMyScoreVC new];
+//    [self.navigationController pushViewController:avc animated:YES];
 }
 
 - (IBAction)zhongjieStoreClicked:(SPButton *)sender {
-    RCMyStoreVC *svc = [RCMyStoreVC new];
-    [self.navigationController pushViewController:svc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCMyStoreVC *svc = [RCMyStoreVC new];
+//    [self.navigationController pushViewController:svc animated:YES];
 }
 - (IBAction)firstFilterBtn:(SPButton *)sender {
     if (self.selectFilterBtn != sender) {//如果前面选中的不是这个排序，就重置排序条件
@@ -218,7 +233,8 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     }
     /* 用户状态 0报备 1到访 2认筹 3认购 4签约 5退房 6失效 */
     if (self.selectIndex == 0) {
-        self.sankValue = @"remarkTime";//最近报备
+        //self.sankValue = @"remarkTime";//最近备注
+        self.sankValue = @"baobeiTime";
     }else if (self.selectIndex == 1) {
         self.sankValue = @"lastVistTime";//最近到访
     }else if (self.selectIndex == 2) {
@@ -293,9 +309,11 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         
         [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroom/getProByShowroomUuid" parameters:parameters success:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 0) {
-                NSArray *projects = [NSArray yy_modelArrayWithClass:[RCShowRoomProject class] json:responseObject[@"data"]];
-                strongSelf.filterModel = [[RCShowRoomFilter alloc] init];
-                strongSelf.filterModel.projects = projects;
+                if (!strongSelf.filterModel) {
+                    NSArray *projects = [NSArray yy_modelArrayWithClass:[RCShowRoomProject class] json:responseObject[@"data"]];
+                    strongSelf.filterModel = [[RCShowRoomFilter alloc] init];
+                    strongSelf.filterModel.projects = projects;
+                }
             }else{
                 [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
             }
@@ -581,12 +599,25 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
                 [[UIApplication sharedApplication] openURL:url];
             }else if (index == 4) {
                 RCGoHouseVC *hvc = [RCGoHouseVC new];
-                hvc.cusUuid = client.cusUuid;
+                hvc.cusUuid = client.uuid;
                 [strongSelf.navigationController pushViewController:hvc animated:YES];
             }else{
                 RCClientDetailVC *nvc = [RCClientDetailVC new];
                 nvc.cusType = strongSelf.selectIndex;
-                nvc.cusUuid = client.uuid;
+                if (strongSelf.selectIndex == 0) {// 如果是报备客户传报备uuid
+                    nvc.cusUuid = client.uuid;
+                }else{// 如果不是报备客户
+                    if (strongSelf.selectIndex == 6) {//失效客户
+                        nvc.cusUuid = client.uuid;
+                    }else{//其他状态客户
+                        nvc.cusUuid = client.cusUuid;
+                    }
+                }
+                nvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+                    client.remarkTime = remarkTime;
+                    client.remark = remark;
+                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                };
                 [strongSelf.navigationController pushViewController:nvc animated:YES];
             }
         };
@@ -608,11 +639,11 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         self.selectIndex = indexPath.row;
         switch (indexPath.row) {
             case 0:{
-                [self.firstFilterBtn setTitle:@"最后备注" forState:UIControlStateNormal];
+                [self.firstFilterBtn setTitle:@"报备时间" forState:UIControlStateNormal];
             }
                 break;
             case 1:{
-                [self.firstFilterBtn setTitle:@"最近到访" forState:UIControlStateNormal];
+                [self.firstFilterBtn setTitle:@"到访时间" forState:UIControlStateNormal];
             }
                 break;
             case 2:{
@@ -654,12 +685,24 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
             hx_strongify(weakSelf);
             [strongSelf.rightTableView reloadData];
         }];
-        
     }else {
         RCMyClient *client = self.clients[indexPath.row];
         RCClientDetailVC *nvc = [RCClientDetailVC new];
         nvc.cusType = self.selectIndex;
-        nvc.cusUuid = client.uuid;
+        if (self.selectIndex == 0) {// 如果是报备客户传报备uuid
+             nvc.cusUuid = client.uuid;
+        }else{// 如果不是报备客户
+            if (self.selectIndex == 6) {//失效客户
+                nvc.cusUuid = client.uuid;
+            }else{//其他状态客户
+                nvc.cusUuid = client.cusUuid;
+            }
+        }
+        nvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+            client.remarkTime = remarkTime;
+            client.remark = remark;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
         [self.navigationController pushViewController:nvc animated:YES];
     }
 }

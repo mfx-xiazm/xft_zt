@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @class RCReportResult;
 @interface RCReportResultCell : UITableViewCell
 /* 报备结果 */
+@property(nonatomic,assign) BOOL isSuccess;
+/* 报备结果 */
 @property(nonatomic,assign) RCReportResult *person;
 @property (weak, nonatomic) IBOutlet UILabel *nnum;
 @end

@@ -32,13 +32,38 @@
     self.phone.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.regPhone;
     
    // self.codeImg.image = [SGQRCodeObtain generateQRCodeWithData:@"来一个字符串" size:self.codeImg.hxn_width];
-    [self getShareInfoRequest];
+    [self addShareInfoRequest];
 }
--(void)getShareInfoRequest
+-(void)addShareInfoRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"proSmUuid"]  = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;//展厅uuid
+    data[@"recommendUuid"]  = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人UUID
+    data[@"registeredType"]  = @"3";//注册类型:1.推荐注册,2.自己注册,3:app分享注册
+    data[@"roleType"]  = @"2";//上级推荐角色类型 1:顾问2：专员
+    data[@"type"]  = @"3";//类型 1:泛营销 2:案场 3:展厅
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/share/addShareInfo" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [strongSelf getShareInfoRequest:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"uuid"]]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+    
+}
+-(void)getShareInfoRequest:(NSString *)codeStr
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     data[@"showRoomuuid"]  = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;
+    data[@"incompleteLoginId"] = codeStr;
     parameters[@"data"] = data;
     
     hx_weakify(self);
@@ -46,6 +71,7 @@
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             strongSelf.shareInfo = [NSDictionary dictionaryWithDictionary:responseObject[@"data"]];
+            [strongSelf.codeImg sd_setImageWithURL:[NSURL URLWithString:strongSelf.shareInfo[@"thumbData"]]];
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }
@@ -107,17 +133,17 @@
 {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-    UMShareMiniProgramObject *shareObject = [UMShareMiniProgramObject shareObjectWithTitle:self.shareInfo[@"title"] descr:self.shareInfo[@"description"] thumImage:self.shareInfo[@"thumbData"]];
+    UMShareMiniProgramObject *shareObject = [UMShareMiniProgramObject shareObjectWithTitle:self.shareInfo[@"title"] descr:self.shareInfo[@"description"] thumImage:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WechatIMG806" ofType:@"png"]]];
     /* 低版本微信网页链接 */
-    shareObject.webpageUrl = @"https://www.jianshu.com/p/c75ba7561011";//self.shareInfo[@"webpageUrl"]
+    shareObject.webpageUrl = self.shareInfo[@"webpageUrl"];
     /* 小程序username */
     shareObject.userName = self.shareInfo[@"userName"];
     /* 小程序页面的路径 */
     shareObject.path = self.shareInfo[@"path"];
     /* 小程序新版本的预览图 128k */
-    shareObject.hdImageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.shareInfo[@"thumbData"]]];
-    /* 分享小程序的版本（正式，开发，体验）*/
+    shareObject.hdImageData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"WechatIMG806" ofType:@"png"]];//[NSData dataWithContentsOfURL:[NSURL URLWithString:self.shareInfo[@"thumbData"]]]
     
+    /* 分享小程序的版本（正式，开发，体验）*/
     NSInteger miniprogramType = [self.shareInfo[@"miniprogramType"] integerValue];//正式版:0，测试版:1，体验版:2
     if (miniprogramType == 0) {
         shareObject.miniProgramType = UShareWXMiniProgramTypeRelease;

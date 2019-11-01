@@ -118,11 +118,12 @@ static NSString *const MyStoreCell = @"MyStoreCell";
 {
     if ([textField hasText]) {
         self.keyword = textField.text;
+        [self getSearchDataRequest:YES];
+        return YES;
     }else{
-        self.keyword = @"";
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请输入搜索内容"];
+        return NO;
     }
-    [self getSearchDataRequest:YES];
-    return YES;
 }
 #pragma mark -- 接口请求
 -(void)getSearchDataRequest:(BOOL)isRefresh
@@ -229,12 +230,25 @@ static NSString *const MyStoreCell = @"MyStoreCell";
                 [[UIApplication sharedApplication] openURL:url];
             }else if (index == 4) {
                 RCGoHouseVC *hvc = [RCGoHouseVC new];
-                hvc.cusUuid = client.cusUuid;
+                hvc.cusUuid = client.uuid;
                 [strongSelf.navigationController pushViewController:hvc animated:YES];
             }else{
                 RCClientDetailVC *dvc = [RCClientDetailVC new];
                 dvc.cusType = client.cusType;
-                dvc.cusUuid = client.cusUuid;
+                if (client.cusType == 0) {// 如果是报备客户传报备uuid
+                    dvc.cusUuid = client.uuid;
+                }else{// 如果不是报备客户
+                    if (client.cusType == 6) {// 失效客户传报备uuid
+                        dvc.cusUuid = client.uuid;
+                    }else{//其他状态 传cusUuid
+                        dvc.cusUuid = client.cusUuid;
+                    }
+                }
+                dvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+                    client.remarkTime = remarkTime;
+                    client.remark = remark;
+                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                };
                 [strongSelf.navigationController pushViewController:dvc animated:YES];
             }
         };
@@ -290,8 +304,21 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     if (self.dataType == 1) {
         RCClientDetailVC *dvc = [RCClientDetailVC new];
         RCMyClient *client = self.results[indexPath.row];
+        if (client.cusType == 0) {// 如果是报备客户传报备uuid
+            dvc.cusUuid = client.uuid;
+        }else{// 如果不是报备客户
+            if (client.cusType == 6) {// 失效客户传报备uuid
+                dvc.cusUuid = client.uuid;
+            }else{//其他状态 传cusUuid
+                dvc.cusUuid = client.cusUuid;
+            }
+        }
         dvc.cusType = client.cusType;
-        dvc.cusUuid = client.cusUuid;
+        dvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+            client.remarkTime = remarkTime;
+            client.remark = remark;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
         [self.navigationController pushViewController:dvc animated:YES];
     }
 }

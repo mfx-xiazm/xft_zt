@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *cusName;
 @property(nonatomic,copy) NSString *baoBeiState;
 @property(nonatomic,copy) NSString *msg;
+@property(nonatomic,copy) NSString *proUuid;
+@property(nonatomic,copy) NSString *proName;
 @end
 
 NS_ASSUME_NONNULL_END

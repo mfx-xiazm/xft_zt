@@ -162,21 +162,112 @@
 #pragma mark -- 请求客户详情
 -(void)getClientDetailRequest
 {
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    // 执行循序1
-    hx_weakify(self);
-    dispatch_group_async(group, queue, ^{
-        hx_strongify(weakSelf);
+    if (self.cusType !=0 && self.cusType !=6) {// 不是报备客户和失效客户
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        // 执行循序1
+        hx_weakify(self);
+        dispatch_group_async(group, queue, ^{
+            hx_strongify(weakSelf);
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+            NSMutableDictionary *data = [NSMutableDictionary dictionary];
+            data[@"cusUuid"] = strongSelf.cusUuid;
+            data[@"isManager"] = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@(1):@(0);;
+            parameters[@"data"] = data;
+            
+            NSString *actionPath = nil;
+            switch (strongSelf.cusType) {
+                case 0:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusBaobei";
+                }
+                    break;
+                case 1:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusVisit";
+                }
+                    break;
+                case 2:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusRecognition";
+                }
+                    break;
+                case 3:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusSubscribe";
+                }
+                    break;
+                case 4:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusSign";
+                }
+                    break;
+                case 5:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusAbolish";
+                }
+                    break;
+                case 6:{
+                    actionPath = @"cus/cus/cusbaobeilist/showroomCusInvalid";
+                }
+                    break;
+            }
+            [HXNetworkTool POST:HXRC_M_URL action:actionPath parameters:parameters success:^(id responseObject) {
+                if ([responseObject[@"code"] integerValue] == 0) {
+                    strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
+                    strongSelf.clientInfo.cusType = strongSelf.cusType;
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+                }
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSError *error) {
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+                dispatch_semaphore_signal(semaphore);
+            }];
+        });
+        // 执行循序2
+        dispatch_group_async(group, queue, ^{
+            // 请求客户轨迹的接口
+            hx_strongify(weakSelf);
+            NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+            
+            NSMutableDictionary *data = [NSMutableDictionary dictionary];
+            data[@"cusUuid"] = self.cusType?self.cusUuid:@"";
+            
+            NSMutableDictionary *page = [NSMutableDictionary dictionary];
+            page[@"current"] = @(1);//第几页
+            page[@"size"] = @"800";
+            parameters[@"data"] = data;
+            parameters[@"page"] = page;
+            
+            [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/cusbaobeilist/showroomCusCir" parameters:parameters success:^(id responseObject) {
+                if ([responseObject[@"code"] integerValue] == 0) {
+                    strongSelf.clientNotes = [NSArray yy_modelArrayWithClass:[RCMyClientNote class] json:responseObject[@"data"]];
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+                }
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSError *error) {
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+                dispatch_semaphore_signal(semaphore);
+            }];
+        });
+        dispatch_group_notify(group, queue, ^{
+            // 执行循序4
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            // 执行顺序6
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            
+            // 执行顺序10
+            hx_strongify(weakSelf);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf handleClientInfo];
+            });
+        });
+    }else{// 报备状态客户
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
-        data[@"cusUuid"] = strongSelf.cusUuid;
+        data[@"cusUuid"] = self.cusUuid;
         data[@"isManager"] = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@(1):@(0);;
         parameters[@"data"] = data;
         
         NSString *actionPath = nil;
-        switch (strongSelf.cusType) {
+        switch (self.cusType) {
             case 0:{
                 actionPath = @"cus/cus/cusbaobeilist/showroomCusBaobei";
             }
@@ -206,52 +297,23 @@
             }
                 break;
         }
+        hx_weakify(self);
         [HXNetworkTool POST:HXRC_M_URL action:actionPath parameters:parameters success:^(id responseObject) {
+            hx_strongify(weakSelf);
             if ([responseObject[@"code"] integerValue] == 0) {
                 strongSelf.clientInfo = [RCMyClient yy_modelWithDictionary:responseObject[@"data"]];
                 strongSelf.clientInfo.cusType = strongSelf.cusType;
+                strongSelf.clientNotes = @[];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf handleClientInfo];
+                });
             }else{
                 [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
             }
-            dispatch_semaphore_signal(semaphore);
         } failure:^(NSError *error) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-            dispatch_semaphore_signal(semaphore);
         }];
-    });
-    // 执行循序2
-    dispatch_group_async(group, queue, ^{
-        // 请求客户轨迹的接口
-        hx_strongify(weakSelf);
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        NSMutableDictionary *data = [NSMutableDictionary dictionary];
-        data[@"cusUuid"] = self.cusUuid;
-        parameters[@"data"] = data;
-        
-        [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/cusInfo/getCusTrackInfo" parameters:parameters success:^(id responseObject) {
-            if ([responseObject[@"code"] integerValue] == 0) {
-                strongSelf.clientNotes = [NSArray yy_modelArrayWithClass:[RCMyClientNote class] json:responseObject[@"data"]];
-            }else{
-                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-            }
-            dispatch_semaphore_signal(semaphore);
-        } failure:^(NSError *error) {
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-            dispatch_semaphore_signal(semaphore);
-        }];
-    });
-    dispatch_group_notify(group, queue, ^{
-        // 执行循序4
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        // 执行顺序6
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        
-        // 执行顺序10
-        hx_strongify(weakSelf);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [strongSelf handleClientInfo];
-        });
-    });
+    }
 }
 -(void)handleClientInfo
 {
@@ -295,7 +357,10 @@
             rvc.nameStr = strongSelf.clientInfo.name;
             rvc.phoneStr = strongSelf.clientInfo.phone;
             rvc.remarkTimeStr = strongSelf.clientInfo.remarkTime;
-            rvc.renewReamrkCall = ^{
+            rvc.renewReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
+                if (strongSelf.updateReamrkCall) {
+                    strongSelf.updateReamrkCall(remarkTime, remark);
+                }
                 [strongSelf getClientDetailRequest];
             };
             [weakSelf.navigationController pushViewController:rvc animated:YES];

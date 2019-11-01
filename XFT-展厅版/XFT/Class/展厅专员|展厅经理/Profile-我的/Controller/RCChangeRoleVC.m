@@ -246,7 +246,14 @@ static NSString *const ChangeRoleCell = @"ChangeRoleCell";
 {
     RCChangeRoleHeader *header = [RCChangeRoleHeader loadXibView];
     MSUserRoles *role = self.roles[section];
-    header.roleDesc.text = [NSString stringWithFormat:@"%@-%@-%@",role.showRoomName,role.teamName,role.groupName];
+    if (role.groupName && role.groupName.length) {
+        header.roleDesc.text = [NSString stringWithFormat:@"%@-%@-%@",role.showRoomName,role.teamName,role.groupName];
+    }else if (role.teamName && role.teamName.length) {
+        header.roleDesc.text = [NSString stringWithFormat:@"%@-%@",role.showRoomName,role.teamName];
+    }else{
+        header.roleDesc.text = role.showRoomName;
+    }
+    
     return header;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

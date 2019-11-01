@@ -29,6 +29,30 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRr-EE-dzB">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phu-Ne-zlP">
+                                    <rect key="frame" x="280" y="34" width="80" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="80" id="4hU-nW-Cyp"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="切换域名">
+                                        <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                            <real key="value" value="2"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
+                                            <color key="value" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layerBoderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="changeYuMing:" destination="-1" eventType="touchUpInside" id="u0w-7u-0K0"/>
+                                    </connections>
+                                </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gld-y0-gU7">
                                     <rect key="frame" x="93.5" y="95" width="188" height="56"/>
                                 </imageView>
@@ -152,6 +176,8 @@
                                 <constraint firstAttribute="trailing" secondItem="g9h-E9-vZ7" secondAttribute="trailing" constant="30" id="Vaz-iQ-Lmi"/>
                                 <constraint firstItem="gld-y0-gU7" firstAttribute="centerX" secondItem="kRr-EE-dzB" secondAttribute="centerX" id="b13-JG-WTX"/>
                                 <constraint firstItem="vFv-md-Lyy" firstAttribute="centerX" secondItem="kRr-EE-dzB" secondAttribute="centerX" id="cW4-bY-g13"/>
+                                <constraint firstAttribute="trailing" secondItem="Phu-Ne-zlP" secondAttribute="trailing" constant="15" id="e8M-xR-YKA"/>
+                                <constraint firstItem="Phu-Ne-zlP" firstAttribute="top" secondItem="kRr-EE-dzB" secondAttribute="top" constant="34" id="hTk-h9-Mc9"/>
                                 <constraint firstItem="8sc-02-1hm" firstAttribute="top" secondItem="33A-3w-zpd" secondAttribute="bottom" constant="15" id="kIs-Vv-Cy4"/>
                                 <constraint firstItem="g9h-E9-vZ7" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="30" id="ntJ-W7-v3F"/>
                                 <constraint firstItem="8sc-02-1hm" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="15" id="oLe-Zs-YYD"/>

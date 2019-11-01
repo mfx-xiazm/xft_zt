@@ -35,7 +35,8 @@ static NSString *const ProfileCell = @"ProfileCell";
 @property(nonatomic,strong) RCProfileFooter *footer;
 /* titles */
 @property(nonatomic,strong) NSArray *titles;
-
+/* 更新字典 */
+@property(nonatomic,strong) NSDictionary *updateDict;
 @end
 
 @implementation RCManagerProfileVC
@@ -44,6 +45,7 @@ static NSString *const ProfileCell = @"ProfileCell";
     [super viewDidLoad];
     [self.view addSubview:self.navBarView];
     [self setUpTableView];
+    [self queryAppVersion];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -73,10 +75,11 @@ static NSString *const ProfileCell = @"ProfileCell";
         _navBarView.titleL.hidden = NO;
         _navBarView.moreBtn.hidden = NO;
         [_navBarView.moreBtn setImage:HXGetImage(@"icon_daka") forState:UIControlStateNormal];
-        hx_weakify(self);
+//        hx_weakify(self);
         _navBarView.navMoreCall = ^{
-            RCManagerRecordVC *rvc = [RCManagerRecordVC new];
-            [weakSelf.navigationController pushViewController:rvc animated:YES];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//            RCManagerRecordVC *rvc = [RCManagerRecordVC new];
+//            [weakSelf.navigationController pushViewController:rvc animated:YES];
         };
     }
     return _navBarView;
@@ -118,11 +121,11 @@ static NSString *const ProfileCell = @"ProfileCell";
             [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
                 if (selectedIndex == 0) {
                     [[MSUserManager sharedInstance] logout:nil];
-                    
+
                     RCLoginVC *lvc = [RCLoginVC new];
                     HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
                     [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-                    
+
                     //推出主界面出来
                     CATransition *ca = [CATransition animation];
                     ca.type = @"movein";
@@ -208,9 +211,22 @@ static NSString *const ProfileCell = @"ProfileCell";
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
 }
+-(void)queryAppVersion
+{
+    hx_weakify(self);
+    [self queryAppVersionRequest:^(NSDictionary *version) {
+        hx_strongify(weakSelf);
+        //                currentVersion  最新版本号
+        //                downlondUrl 下载地址
+        //                isForce    是否强制更新 0不强制 1强制
+        //                upremark 更新内容
+        strongSelf.updateDict = [NSDictionary dictionaryWithDictionary:version];
+        RCProfileCell *cell = [strongSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:((NSArray *)self.titles[0]).count-1 inSection:0]];
+        cell.isUpdeta.hidden = NO;
+    }];
+}
 -(void)queryAppVersionRequest:(void(^)(NSDictionary *version))completedCall
 {
-    
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     data[@"applicationMarket"] = @"";
@@ -225,8 +241,10 @@ static NSString *const ProfileCell = @"ProfileCell";
         if ([responseObject[@"code"] integerValue] == 0) {
             if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
                 if (((NSDictionary *)responseObject[@"data"]).allKeys.count) {
-                    if (completedCall) {
-                        completedCall(responseObject[@"data"]);
+                    if (![(NSString *)responseObject[@"data"][@"upVesion"] isEqualToString:currentVersion]) {
+                        if (completedCall) {
+                            completedCall(responseObject[@"data"]);
+                        }
                     }
                 }else{
                     [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
@@ -365,50 +383,81 @@ static NSString *const ProfileCell = @"ProfileCell";
             RCMyBrokerVC *bvc = [RCMyBrokerVC new];
             [self.navigationController pushViewController:bvc animated:YES];
         }else if (indexPath.row == 1){
-            RCMyBeesVC *bvc = [RCMyBeesVC new];
-            [self.navigationController pushViewController:bvc animated:YES];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//            RCMyBeesVC *bvc = [RCMyBeesVC new];
+//            [self.navigationController pushViewController:bvc animated:YES];
         }else if (indexPath.row == 2) {
-            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-            [self.navigationController pushViewController:mvc animated:YES];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+//            [self.navigationController pushViewController:mvc animated:YES];
         }else if (indexPath.row == 3) {
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];
         }else{
-            [self queryAppVersionRequest:^(NSDictionary *version) {
-//                appType app类型1:ios2安卓
-//                currentVersion  最新版本号
-//                downlondUrl 下载地址
-//                name  app名称
-//                upVesion 可升级版本号
-//                upWay  更新渠道
-//                upremark 更新内容
-//                uptime 更新时间
-//                uuid    版本uuid
-                // https://www.xxxx.com/ipa/manifest.plist
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",version[@"downlondUrl"]]]];
-            }];
+            if (self.updateDict) {
+                hx_weakify(self);
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"更新版本" message:[NSString stringWithFormat:@"%@",self.updateDict[@"upremark"]] constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"下载" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strongSelf.updateDict[@"downlondUrl"]]]];
+                }];
+                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                
+                self.zh_popupController = [[zhPopupController alloc] init];
+                if ([self.updateDict[@"isForce"] integerValue] == 0) {
+                    self.zh_popupController.dismissOnMaskTouched = YES;
+                    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                }else{
+                    self.zh_popupController.dismissOnMaskTouched = NO;
+                    [alert addAction:okButton];
+                }
+                [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }
         }
     }else{
         if (indexPath.row == 0) {
-            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-            [self.navigationController pushViewController:mvc animated:YES];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+//            [self.navigationController pushViewController:mvc animated:YES];
         }else if (indexPath.row == 1) {
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];
         }else{
-            [self queryAppVersionRequest:^(NSDictionary *version) {
-                //                appType app类型1:ios2安卓
-                //                currentVersion  最新版本号
-                //                downlondUrl 下载地址
-                //                name  app名称
-                //                upVesion 可升级版本号
-                //                upWay  更新渠道
-                //                upremark 更新内容
-                //                uptime 更新时间
-                //                uuid    版本uuid
-                // https://www.xxxx.com/ipa/manifest.plist
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"itms-services://?action=download-manifest&url=%@",version[@"downlondUrl"]]]];
-            }];
+            if (self.updateDict) {
+                hx_weakify(self);
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"更新版本" message:[NSString stringWithFormat:@"%@",self.updateDict[@"upremark"]] constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"下载" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strongSelf.updateDict[@"downlondUrl"]]]];
+                }];
+                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                
+                self.zh_popupController = [[zhPopupController alloc] init];
+                if ([self.updateDict[@"isForce"] integerValue] == 0) {
+                    self.zh_popupController.dismissOnMaskTouched = YES;
+                    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                }else{
+                    self.zh_popupController.dismissOnMaskTouched = NO;
+                    [alert addAction:okButton];
+                }
+                [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }
         }
     }
 }

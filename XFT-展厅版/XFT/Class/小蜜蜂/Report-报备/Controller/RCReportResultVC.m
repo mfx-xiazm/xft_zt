@@ -108,9 +108,11 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.nnum.text = [NSString stringWithFormat:@"%zd.",indexPath.row+1];
     if (indexPath.section == 0) {
+        cell.isSuccess = YES;
         RCReportResult *person = self.successList[indexPath.row];
         cell.person = person;
     }else{
+        cell.isSuccess = NO;
         RCReportResult *person = self.errorList[indexPath.row];
         cell.person = person;
     }

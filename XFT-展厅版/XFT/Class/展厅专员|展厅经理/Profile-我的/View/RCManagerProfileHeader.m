@@ -30,7 +30,14 @@
     self.phone.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.regPhone;
     self.nickName.text = [NSString stringWithFormat:@"用户名：%@",[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.nick];
     
-    self.jgName.text = [NSString stringWithFormat:@"%@-%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName,[MSUserManager sharedInstance].curUserInfo.selectRole.groupName];
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupName && [MSUserManager sharedInstance].curUserInfo.selectRole.groupName.length) {
+        self.jgName.text = [NSString stringWithFormat:@"%@-%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName,[MSUserManager sharedInstance].curUserInfo.selectRole.groupName];
+    }else if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
+        self.jgName.text = [NSString stringWithFormat:@"%@-%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName,[MSUserManager sharedInstance].curUserInfo.selectRole.teamName];
+    }else{
+        self.jgName.text = [NSString stringWithFormat:@"%@",[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName];
+    }
+    
     if ([MSUserManager sharedInstance].curUserInfo.selectRole.isManager == 1 && [MSUserManager sharedInstance].curUserInfo.selectRole.isZy == 1) {
         self.managerLabel.text = @"展厅经理";
         self.managerLabel.hidden = NO;

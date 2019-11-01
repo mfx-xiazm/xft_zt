@@ -18,7 +18,6 @@
 #import "RCSearchClientVC.h"
 #import "RCScoreAnalyzeVC.h"
 #import "RCMaganerGrade.h"
-#import "RCClientDetailVC.h"
 #import "RCGradeClientVC.h"
 
 static NSString *const ClientGradeCell = @"ClientGradeCell";
@@ -173,22 +172,26 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     }];
 }
 - (IBAction)clientFenxiClicked:(SPButton *)sender {
-    RCClientElementVC *evc = [RCClientElementVC new];
-    [self.navigationController pushViewController:evc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCClientElementVC *evc = [RCClientElementVC new];
+//    [self.navigationController pushViewController:evc animated:YES];
 }
 
 - (IBAction)moveClientClicked:(SPButton *)sender {
-    RCMoveClientFromVC *fvc = [RCMoveClientFromVC new];
-    [self.navigationController pushViewController:fvc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCMoveClientFromVC *fvc = [RCMoveClientFromVC new];
+//    [self.navigationController pushViewController:fvc animated:YES];
 }
 - (IBAction)scoreFenxiClicked:(SPButton *)sender {
-    RCScoreAnalyzeVC *avc = [RCScoreAnalyzeVC new];
-    [self.navigationController pushViewController:avc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCScoreAnalyzeVC *avc = [RCScoreAnalyzeVC new];
+//    [self.navigationController pushViewController:avc animated:YES];
 }
 
 - (IBAction)zhongjieStoreClicked:(SPButton *)sender {
-    RCMyStoreVC *svc = [RCMyStoreVC new];
-    [self.navigationController pushViewController:svc animated:YES];
+    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
+//    RCMyStoreVC *svc = [RCMyStoreVC new];
+//    [self.navigationController pushViewController:svc animated:YES];
 }
 #pragma mark -- 接口数据请求
 -(void)getGradeDataRequest
@@ -230,7 +233,29 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         hx_strongify(weakSelf);
         
         if ([responseObject[@"code"] integerValue] == 0) {
-            strongSelf.groups = [NSArray yy_modelArrayWithClass:[RCMaganerGrade class] json:responseObject[@"data"]];
+            NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMaganerGrade class] json:responseObject[@"data"]];
+            RCMaganerGrade *totalGrade = [RCMaganerGrade new];
+            totalGrade.showroomName = @"全部展厅";
+            totalGrade.teamName = @"全部团队";
+            totalGrade.groupName = @"全部小组";
+            totalGrade.zyName = @"全部专员";
+            for (RCMaganerGrade *grade in arrt) {
+                totalGrade.showroomUuid = grade.showroomUuid;
+                totalGrade.teamUuid = grade.teamUuid;
+                totalGrade.groupUuid = grade.groupUuid;
+                
+                totalGrade.totalNum += grade.totalNum;
+                totalGrade.cusBaoBeiReportNum += grade.cusBaoBeiReportNum;
+                totalGrade.cusBaoBeiVisitNum += grade.cusBaoBeiVisitNum;
+                totalGrade.cusBaoBeiRecognitionNum += grade.cusBaoBeiRecognitionNum;
+                totalGrade.cusBaoBeiSubscribeNum += grade.cusBaoBeiSubscribeNum;
+                totalGrade.cusBaoBeiSignNum += grade.cusBaoBeiSignNum;
+                totalGrade.cusBaoBeiAbolishNum += grade.cusBaoBeiAbolishNum;
+                totalGrade.cusBaoBeiInvalidNum += grade.cusBaoBeiInvalidNum;
+            }
+            NSMutableArray *result = [NSMutableArray arrayWithArray:arrt];
+            [result insertObject:totalGrade atIndex:0];
+            strongSelf.groups = result;
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }
@@ -337,8 +362,12 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         if ([MSUserManager sharedInstance].curUserInfo.selectRole.manageRole == 1) {//展厅经理
             RCGradeNumVC *nvc = [RCGradeNumVC new];
             RCMaganerGrade *grade = self.groups[self.selectIndex];
-            nvc.showroomUuid = grade.showroomUuid;
-            nvc.teamUuid = grade.teamUuid;
+            if (self.selectIndex == 0) {
+                nvc.showroomUuid = grade.showroomUuid;
+            }else{
+                nvc.showroomUuid = grade.showroomUuid;
+                nvc.teamUuid = grade.teamUuid;
+            }
             nvc.cusType = indexPath.row;
             switch (indexPath.row) {
                 case 0:{
@@ -377,9 +406,14 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         }else if ([MSUserManager sharedInstance].curUserInfo.selectRole.manageRole == 2){//团队经理
             RCGradeNumVC *nvc = [RCGradeNumVC new];
             RCMaganerGrade *grade = self.groups[self.selectIndex];
-            nvc.showroomUuid = grade.showroomUuid;
-            nvc.teamUuid = grade.teamUuid;
-            nvc.groupUuid = grade.groupUuid;
+            if (self.selectIndex == 0) {
+                nvc.showroomUuid = grade.showroomUuid;
+                nvc.teamUuid = grade.teamUuid;
+            }else{
+                nvc.showroomUuid = grade.showroomUuid;
+                nvc.teamUuid = grade.teamUuid;
+                nvc.groupUuid = grade.groupUuid;
+            }
             nvc.cusType = indexPath.row;
             switch (indexPath.row) {
                 case 0:{
@@ -415,16 +449,58 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
                     break;
             }
             [self.navigationController pushViewController:nvc animated:YES];
-        } else{//专员
-            RCGradeClientVC *cvc = [RCGradeClientVC new];
+        } else{//小组经理
             RCMaganerGrade *grade = self.groups[self.selectIndex];
-            cvc.showroomUuid = grade.showroomUuid;
-            cvc.teamUuid = grade.teamUuid;
-            cvc.groupUuid = grade.groupUuid;
-            cvc.zyUuid = grade.zyUuid;
-            cvc.navTitle = grade.zyName;
-            cvc.cusType = indexPath.row;
-            [self.navigationController pushViewController:cvc animated:YES];
+            if (self.selectIndex == 0) {
+                RCGradeNumVC *nvc = [RCGradeNumVC new];
+                nvc.showroomUuid = grade.showroomUuid;
+                nvc.teamUuid = grade.teamUuid;
+                nvc.groupUuid = grade.groupUuid;
+                nvc.cusType = indexPath.row;
+                switch (indexPath.row) {
+                    case 0:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@报备客户",grade.zyName];
+                    }
+                        break;
+                    case 1:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@到访客户",grade.zyName];
+                    }
+                        break;
+                    case 2:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@认筹客户",grade.zyName];
+                    }
+                        break;
+                    case 3:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@认购客户",grade.zyName];
+                    }
+                        break;
+                    case 4:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@签约客户",grade.zyName];
+                    }
+                        break;
+                    case 5:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@退房客户",grade.zyName];
+                    }
+                        break;
+                    case 6:{
+                        nvc.navTitle = [NSString stringWithFormat:@"%@失效客户",grade.zyName];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                [self.navigationController pushViewController:nvc animated:YES];
+            }else{
+                RCGradeClientVC *cvc = [RCGradeClientVC new];
+                cvc.showroomUuid = grade.showroomUuid;
+                cvc.teamUuid = grade.teamUuid;
+                cvc.groupUuid = grade.groupUuid;
+                cvc.zyUuid = grade.zyUuid;
+                cvc.navTitle = grade.zyName;
+                cvc.cusType = indexPath.row;
+                [self.navigationController pushViewController:cvc animated:YES];
+            }
         }
     }
 }
