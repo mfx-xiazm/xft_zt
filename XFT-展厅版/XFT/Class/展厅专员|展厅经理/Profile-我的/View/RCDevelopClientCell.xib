@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="KGk-i7-Jjw" customClass="RCDevelopClientCell">
+            <rect key="frame" x="0.0" y="0.0" width="329" height="73"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="329" height="73"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="派单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDL-Qo-bmW">
+                        <rect key="frame" x="10" y="5" width="309" height="63"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layerBoderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="boderColor">
+                                <color key="value" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="0.98123899650000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLa-Zd-t0J">
+                        <rect key="frame" x="256" y="5" width="63" height="63"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="fLa-Zd-t0J" secondAttribute="height" multiplier="1:1" id="utR-Gm-1L9"/>
+                        </constraints>
+                        <state key="normal" image="icon_del_client"/>
+                        <connections>
+                            <action selector="delClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XLO-jr-eX4"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="mDL-Qo-bmW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="1cA-Td-uMU"/>
+                    <constraint firstAttribute="bottom" secondItem="mDL-Qo-bmW" secondAttribute="bottom" constant="5" id="8uU-Yr-EJl"/>
+                    <constraint firstItem="fLa-Zd-t0J" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="8vl-Av-9Wm"/>
+                    <constraint firstAttribute="trailing" secondItem="fLa-Zd-t0J" secondAttribute="trailing" constant="10" id="LSU-SB-F6M"/>
+                    <constraint firstAttribute="trailing" secondItem="mDL-Qo-bmW" secondAttribute="trailing" constant="10" id="Ln4-7F-5lv"/>
+                    <constraint firstItem="mDL-Qo-bmW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Okw-3b-g5b"/>
+                    <constraint firstAttribute="bottom" secondItem="fLa-Zd-t0J" secondAttribute="bottom" constant="5" id="c41-IP-ygc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="delBtn" destination="fLa-Zd-t0J" id="t0n-LR-ZZh"/>
+                <outlet property="name" destination="mDL-Qo-bmW" id="a58-gK-lGZ"/>
+            </connections>
+            <point key="canvasLocation" x="144.20289855072465" y="128.23660714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="icon_del_client" width="21" height="21"/>
+    </resources>
+</document>

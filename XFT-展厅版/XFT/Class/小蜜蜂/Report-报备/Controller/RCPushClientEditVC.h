@@ -14,6 +14,8 @@ typedef void(^editDoneCall)(void);
 @interface RCPushClientEditVC : HXBaseViewController
 /* 编辑客户 */
 @property(nonatomic,strong) RCReportTarget *reportTarget;
+/* 拓客方式 */
+@property(nonatomic,strong) NSArray *clientTypes;
 /* 客户编辑完成 */
 @property(nonatomic,copy) editDoneCall editDoneCall;
 @end

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="334" height="47"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="334" height="46.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="334" height="47"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ieU-bD-Czt">
-                        <rect key="frame" x="0.0" y="0.0" width="334" height="46.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="334" height="47"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6N5-TA-e7v">
-                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="46.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="83.5" height="47"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="打卡" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gTA-F4-Bs8">
                                         <rect key="frame" x="0.0" y="14.5" width="83.5" height="18"/>
@@ -40,7 +38,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvT-hz-koc">
-                                <rect key="frame" x="83.5" y="0.0" width="83.5" height="46.5"/>
+                                <rect key="frame" x="83.5" y="0.0" width="83.5" height="47"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="打卡" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqb-Yi-fIW">
                                         <rect key="frame" x="0.0" y="14.5" width="83.5" height="18"/>
@@ -57,7 +55,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0G-FG-FXq">
-                                <rect key="frame" x="167" y="0.0" width="83.5" height="46.5"/>
+                                <rect key="frame" x="167" y="0.0" width="83.5" height="47"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_place1" translatesAutoresizingMaskIntoConstraints="NO" id="YaT-oV-eI8">
                                         <rect key="frame" x="27" y="8.5" width="30" height="30"/>
@@ -78,10 +76,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g77-HC-hnS">
-                                <rect key="frame" x="250.5" y="0.0" width="83.5" height="46.5"/>
+                                <rect key="frame" x="250.5" y="0.0" width="83.5" height="47"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Eia-ur-s83">
-                                        <rect key="frame" x="19" y="6" width="46" height="34.5"/>
+                                        <rect key="frame" x="18.5" y="6" width="46.5" height="35"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Eia-ur-s83" secondAttribute="height" multiplier="4:3" id="wRD-9X-eQP"/>
@@ -101,7 +99,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fER-2a-umb" userLabel="分割线">
-                                <rect key="frame" x="15" y="45.5" width="304" height="1"/>
+                                <rect key="frame" x="15" y="46" width="304" height="1"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="eSW-74-l2q"/>
@@ -143,6 +141,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="num" destination="aWb-iF-u39" id="CnW-C1-0Bo"/>
+                <outlet property="photo" destination="Eia-ur-s83" id="cPh-z5-fE9"/>
+                <outlet property="time" destination="Fqb-Yi-fIW" id="1RF-l5-U6T"/>
+                <outlet property="type" destination="gTA-F4-Bs8" id="Eub-ba-ejb"/>
+            </connections>
             <point key="canvasLocation" x="189.85507246376812" y="72.65625"/>
         </tableViewCell>
     </objects>

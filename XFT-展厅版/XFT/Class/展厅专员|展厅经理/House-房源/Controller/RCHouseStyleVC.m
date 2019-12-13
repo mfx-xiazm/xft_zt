@@ -14,6 +14,8 @@
 #import "zhAlertView.h"
 #import "RCHouseLoanVC.h"
 #import "RCReportClientVC.h"
+#import "RCHouseInfo.h"
+#import "RCHouseDetail.h"
 
 static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 
@@ -21,7 +23,12 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 头视图 */
 @property(nonatomic,strong) RCHouseStyleHeader *header;
+/** 免费咨询+房源推荐视图 */
+@property (weak, nonatomic) IBOutlet UIView *reportView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *reportViewHeight;
 
+/* 户型详情 */
+@property(nonatomic,strong) RCHouseInfo *houseInfo;
 @end
 
 @implementation RCHouseStyleVC
@@ -29,22 +36,37 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"户型详情"];
-    [self setUpNavBar];
+//    [self setUpNavBar];
     [self setUpTableView];
+    /** 自定义的账号角色 1:展厅管理经理 2 展厅顾问专员 3展厅小蜜蜂 */
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {
+        self.reportView.hidden = NO;
+        self.reportViewHeight.constant = 64.f;
+    }else{//中介经纪人不可以选择其他，默认自己
+        self.reportView.hidden = YES;
+        self.reportViewHeight.constant = CGFLOAT_MIN;
+    }
+    [self startShimmer];
+    [self getHouseStyleDetailRequest];
 }
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 280);
+    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 130);
 }
 -(RCHouseStyleHeader *)header
 {
     if (_header == nil) {
         _header = [RCHouseStyleHeader loadXibView];
-        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 280);
+        _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 130);
         hx_weakify(self);
         _header.loanDetailCall = ^{
             RCHouseLoanVC *lvc = [RCHouseLoanVC new];
+            lvc.proName = weakSelf.houseDetail.baseInfoVo.name;
+            lvc.buldArea = weakSelf.houseInfo.buldArea;
+            lvc.roomArea = weakSelf.houseInfo.roomArea;
+            lvc.hxName = weakSelf.houseInfo.name;
+            lvc.hxUuid = weakSelf.uuid;
             [weakSelf.navigationController pushViewController:lvc animated:YES];
         };
     }
@@ -109,11 +131,13 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
 }
 - (IBAction)reportClicked:(UIButton *)sender {
     RCReportClientVC *rvc = [RCReportClientVC new];
+    rvc.houseUuid = self.houseDetail.baseInfoVo.uuid;
+    rvc.houseName = self.houseDetail.baseInfoVo.name;
     [self.navigationController pushViewController:rvc animated:YES];
 }
 - (IBAction)consultClicked:(UIButton *)sender {
     hx_weakify(self);
-    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"027-27549123" constantWidth:HX_SCREEN_WIDTH - 50*2];
+    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:self.housePhone constantWidth:HX_SCREEN_WIDTH - 50*2];
     zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
@@ -121,7 +145,7 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
-        //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",@"13496755975"]]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",strongSelf.housePhone]]];
     }];
     cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
     [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
@@ -131,16 +155,44 @@ static NSString *const HouseStyleDetailCell = @"HouseStyleDetailCell";
     self.zh_popupController = [[zhPopupController alloc] init];
     [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
 }
-
+#pragma mark -- 接口请求
+-(void)getHouseStyleDetailRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"uuid"] = self.uuid;
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/apartment/ByUuid" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        [strongSelf stopShimmer];
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.houseInfo = [RCHouseInfo yy_modelWithDictionary:responseObject[@"data"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            strongSelf.tableView.hidden = NO;
+            strongSelf.header.houseInfo = strongSelf.houseInfo;
+            [strongSelf.tableView reloadData];
+        });
+    } failure:^(NSError *error) {
+        hx_strongify(weakSelf);
+        [strongSelf stopShimmer];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCHouseStyleDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseStyleDetailCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.picUrl = self.houseInfo.housePic;
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

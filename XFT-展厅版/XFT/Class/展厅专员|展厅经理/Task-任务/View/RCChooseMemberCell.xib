@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="325" height="53"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="325" height="52.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="325" height="53"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H6O-kA-ehp">
-                        <rect key="frame" x="15" y="0.0" width="295" height="52.5"/>
+                        <rect key="frame" x="15" y="0.0" width="295" height="53"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="展厅专员1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LP7-id-uyS">
                                 <rect key="frame" x="10" y="17.5" width="68" height="18"/>
@@ -34,9 +32,19 @@
                                 <state key="normal" image="icon_choose_gray">
                                     <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <state key="selected" image="icon_choose_yellow"/>
+                                <connections>
+                                    <action selector="selectClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ddr-lY-xJg"/>
+                                </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="转出方" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hiz-o6-C9d">
+                                <rect key="frame" x="234" y="17.5" width="46" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqy-Pa-NnY" userLabel="分割线">
-                                <rect key="frame" x="10" y="51.5" width="275" height="1"/>
+                                <rect key="frame" x="10" y="52" width="275" height="1"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Lq6-W7-F1c"/>
@@ -45,7 +53,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Hiz-o6-C9d" secondAttribute="trailing" constant="15" id="95q-he-swJ"/>
                             <constraint firstAttribute="trailing" secondItem="7ep-f4-mb3" secondAttribute="trailing" constant="10" id="FYg-x7-IjQ"/>
+                            <constraint firstItem="Hiz-o6-C9d" firstAttribute="centerY" secondItem="H6O-kA-ehp" secondAttribute="centerY" id="UFG-KR-Rc2"/>
                             <constraint firstItem="7ep-f4-mb3" firstAttribute="centerY" secondItem="H6O-kA-ehp" secondAttribute="centerY" id="a5c-QN-Qn3"/>
                             <constraint firstAttribute="trailing" secondItem="lqy-Pa-NnY" secondAttribute="trailing" constant="10" id="adH-3w-ycn"/>
                             <constraint firstAttribute="bottom" secondItem="lqy-Pa-NnY" secondAttribute="bottom" id="ggf-Wx-VLM"/>
@@ -65,10 +75,16 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="formLabel" destination="Hiz-o6-C9d" id="sjW-yi-OLr"/>
+                <outlet property="name" destination="LP7-id-uyS" id="6vL-jz-Zh4"/>
+                <outlet property="selBtn" destination="7ep-f4-mb3" id="mIz-Dd-BC9"/>
+            </connections>
             <point key="canvasLocation" x="141.30434782608697" y="116.85267857142857"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="icon_choose_gray" width="24" height="24"/>
+        <image name="icon_choose_yellow" width="24" height="24"/>
     </resources>
 </document>

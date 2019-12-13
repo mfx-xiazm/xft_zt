@@ -47,4 +47,18 @@
  *  @return 圆形图片
  */
 + (UIImage *)circleImage:(UIImage *)originImage borderColor:(UIColor *)borderColor borderWidth:(CGFloat)borderWidth;
+
+/**
+ 图片添加文字
+
+ @param image 图片
+ @param text 文字
+ @param point 位置
+ @param attributed 文字样式
+ @return 新图片
+ */
++ (UIImage *)imageSetString_image:(UIImage *)image
+                             text:(NSString *)text
+                        textPoint:(CGPoint)point
+                 attributedString:(NSDictionary * )attributed;
 @end

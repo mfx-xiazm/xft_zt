@@ -25,7 +25,7 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic]];
+    [self.headImg sd_setImageWithURL:[NSURL URLWithString:[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic] placeholderImage:HXGetImage(@"pic_header")];
     self.name.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;
     self.phone.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.regPhone;
     self.nickName.text = [NSString stringWithFormat:@"用户名：%@",[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.nick];

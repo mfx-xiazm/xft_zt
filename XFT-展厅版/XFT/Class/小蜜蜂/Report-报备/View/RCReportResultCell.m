@@ -24,7 +24,7 @@
 -(void)setPerson:(RCReportResult *)person
 {
     _person = person;
-    self.anme.text = [NSString stringWithFormat:@"%@-%@\n报备项目：%@",_person.cusName,_person.cusPhone,_person.proName];
+    self.anme.text = [NSString stringWithFormat:@"%@-%@\n推荐项目：%@",_person.cusName,_person.cusPhone,_person.proName];
     if (self.isSuccess) {
         self.mag.text = @"";
     }else{

@@ -49,10 +49,13 @@
     data[@"checkPassword"] = self.checkPwd.text;
     data[@"newPassword"] = self.reNewPwd.text;
     data[@"oldPassword"] = self.oldPwd.text;
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 3) {
+        data[@"operator"] = @"changePwd";
+    }
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/userDate/updatePassword" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:([MSUserManager sharedInstance].curUserInfo.ulevel == 3)?@"showroom/showroom/showroomBeeLoginInside/updatePassword":@"showroom/showroom/userDate/updatePassword" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCRegisterVC">
             <connections>
+                <outlet property="bankName" destination="Rfa-U0-gop" id="f2h-pg-MZJ"/>
+                <outlet property="bankNo" destination="1tA-wb-hKV" id="j9Y-hI-ahD"/>
+                <outlet property="code" destination="vZ2-le-dC2" id="fWc-sq-wXB"/>
+                <outlet property="idCard" destination="jBR-2G-b7d" id="Lv8-Ri-bF5"/>
+                <outlet property="name" destination="z57-y6-ak9" id="bmP-pF-pkB"/>
+                <outlet property="phone" destination="CR3-5S-o9f" id="Hqy-kC-sJz"/>
+                <outlet property="sureBtn" destination="FaB-0z-Nr7" id="fIF-Lt-Cvp"/>
+                <outlet property="upRole" destination="g0m-Uy-lnX" id="TDF-Zr-Ow9"/>
                 <outlet property="view" destination="iN0-l3-epB" id="6Yg-Qx-CBM"/>
             </connections>
         </placeholder>
@@ -30,7 +36,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0i-34-tHI">
-                                            <rect key="frame" x="15" y="17" width="80" height="16"/>
+                                            <rect key="frame" x="15" y="16" width="80" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="Pzo-2s-ajt"/>
                                             </constraints>
@@ -70,12 +76,11 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="z57-y6-ak9">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入姓名" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="z57-y6-ak9">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="cmk-kn-snG"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -126,14 +131,13 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-5S-o9f">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="CR3-5S-o9f">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="RUv-P0-ONg"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZY-nz-tsb" userLabel="分割线">
                                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>
@@ -182,14 +186,13 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vZ2-le-dC2">
-                                            <rect key="frame" x="105" y="5" width="50" height="40"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vZ2-le-dC2">
+                                            <rect key="frame" x="105" y="5" width="194" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="VTM-bl-Axs"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
                                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJu-PQ-00j">
                                             <rect key="frame" x="309" y="10" width="90" height="30"/>
@@ -206,7 +209,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="registerHandleClicked:" destination="-1" eventType="touchUpInside" id="8Hz-aV-ibO"/>
+                                                <action selector="getCodeClicked:" destination="-1" eventType="touchUpInside" id="490-h6-Qcd"/>
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnS-7s-Lib" userLabel="分割线">
@@ -228,6 +231,7 @@
                                         <constraint firstItem="vZ2-le-dC2" firstAttribute="leading" secondItem="DSR-PP-yfz" secondAttribute="trailing" constant="10" id="dtk-JO-DNO"/>
                                         <constraint firstItem="XnS-7s-Lib" firstAttribute="leading" secondItem="HWo-k4-2e3" secondAttribute="leading" id="fox-7t-cgv"/>
                                         <constraint firstItem="nJu-PQ-00j" firstAttribute="centerY" secondItem="HWo-k4-2e3" secondAttribute="centerY" id="g15-1I-iKi"/>
+                                        <constraint firstItem="nJu-PQ-00j" firstAttribute="leading" secondItem="vZ2-le-dC2" secondAttribute="trailing" constant="10" id="oIc-Om-8hs"/>
                                         <constraint firstItem="vZ2-le-dC2" firstAttribute="centerY" secondItem="HWo-k4-2e3" secondAttribute="centerY" id="wy7-dJ-K96"/>
                                     </constraints>
                                 </view>
@@ -257,12 +261,11 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="g0m-Uy-lnX">
+                                        <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入上级" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="g0m-Uy-lnX">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="14b-8X-Sk5"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -291,7 +294,7 @@
                                     <rect key="frame" x="0.0" y="250" width="414" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人事信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2sJ-AU-mwz">
-                                            <rect key="frame" x="15" y="17" width="80" height="16"/>
+                                            <rect key="frame" x="15" y="16" width="80" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="HXy-Kf-DGx"/>
                                             </constraints>
@@ -319,7 +322,7 @@
                                     <rect key="frame" x="0.0" y="300" width="414" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="身份证号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-8f-kA7">
-                                            <rect key="frame" x="15" y="17.5" width="80" height="15"/>
+                                            <rect key="frame" x="15" y="16.5" width="80" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="7Wj-uX-zb4"/>
                                             </constraints>
@@ -327,14 +330,13 @@
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-2G-b7d">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入身份证号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jBR-2G-b7d">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Nxm-eT-cIJ"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7b-pD-K0w" userLabel="分割线">
                                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>
@@ -361,7 +363,7 @@
                                     <rect key="frame" x="0.0" y="350" width="414" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开户行" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBk-5Y-F4e">
-                                            <rect key="frame" x="15" y="17.5" width="80" height="15"/>
+                                            <rect key="frame" x="15" y="16.5" width="80" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="1O8-2g-CZ4"/>
                                             </constraints>
@@ -369,12 +371,11 @@
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rfa-U0-gop">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入银行卡开户行" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Rfa-U0-gop">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="u0E-cb-5da"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
@@ -403,7 +404,7 @@
                                     <rect key="frame" x="0.0" y="400" width="414" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="银行卡号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RNA-EO-VZ0">
-                                            <rect key="frame" x="15" y="17.5" width="80" height="15"/>
+                                            <rect key="frame" x="15" y="16.5" width="80" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="LTw-Tq-5ME"/>
                                             </constraints>
@@ -411,14 +412,13 @@
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1tA-wb-hKV">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入银行卡号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="1tA-wb-hKV">
                                             <rect key="frame" x="105" y="5" width="294" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="yda-sN-4AA"/>
                                             </constraints>
-                                            <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v65-ME-V8I" userLabel="分割线">
                                             <rect key="frame" x="0.0" y="49" width="414" height="1"/>
@@ -496,9 +496,6 @@
                             <real key="value" value="6"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="registerHandleClicked:" destination="-1" eventType="touchUpInside" id="Cq7-WD-tY1"/>
-                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

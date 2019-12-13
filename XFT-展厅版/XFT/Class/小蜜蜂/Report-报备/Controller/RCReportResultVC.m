@@ -11,6 +11,8 @@
 #import "RCReportResultCell.h"
 #import "RCReportResultSectionHeader.h"
 #import "RCReportResult.h"
+#import "RCReportClientVC.h"
+#import "RCBeesReportVC.h"
 
 static NSString *const ReportResultSectionHeader = @"ReportResultSectionHeader";
 static NSString *const ReportResultCell = @"ReportResultCell";
@@ -22,15 +24,28 @@ static NSString *const ReportResultCell = @"ReportResultCell";
 @property(nonatomic,strong) NSArray *successList;
 /* 失败数组 */
 @property(nonatomic,strong) NSArray *errorList;
+/** vc控制器 */
+@property (nonatomic,strong) NSMutableArray *controllers;
 @end
 
 @implementation RCReportResultVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"报备结果"];
-    [self setUpTableView];
+    [self.navigationItem setTitle:@"推荐结果"];
+    
     hx_weakify(self);
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[RCReportClientVC class]] || [obj isKindOfClass:[RCBeesReportVC class]]) {
+            hx_strongify(weakSelf);
+            [strongSelf.controllers removeObjectAtIndex:idx];
+            *stop = YES;
+        }
+    }];
+    [self.navigationController setViewControllers:self.controllers];
+    
+    [self setUpTableView];
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakSelf.tableView reloadData];
     });
@@ -39,6 +54,12 @@ static NSString *const ReportResultCell = @"ReportResultCell";
 {
     [super viewDidLayoutSubviews];
     self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 145);
+}
+- (NSMutableArray *)controllers {
+    if (!_controllers) {
+        _controllers = [[NSMutableArray alloc] initWithArray:self.navigationController.viewControllers];
+    }
+    return _controllers;
 }
 -(void)setResults:(NSDictionary *)results
 {
@@ -82,7 +103,19 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultCell class]) bundle:nil] forCellReuseIdentifier:ReportResultCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCReportResultSectionHeader class]) bundle:nil] forHeaderFooterViewReuseIdentifier:ReportResultSectionHeader];
     
-    self.tableView.tableHeaderView = self.header;
+    if (self.successList.count && !self.errorList.count) {
+        // 展示头部
+        self.header.header_img.image = HXGetImage(@"icon_complete");
+        self.header.header_title.text = @"推荐成功";
+        self.tableView.tableHeaderView = self.header;
+    }else if (!self.successList.count && self.errorList.count) {
+        // 展示头部
+        self.header.header_img.image = HXGetImage(@"icon_complete_er");
+        self.header.header_title.text = @"推荐失败";
+        self.tableView.tableHeaderView = self.header;
+    }else{
+        // 不展示头部
+    }
 }
 #pragma mark -- 点击事件
 -(void)sureClickd
@@ -134,11 +167,13 @@ static NSString *const ReportResultCell = @"ReportResultCell";
         header = [[RCReportResultSectionHeader alloc] initWithReuseIdentifier:ReportResultSectionHeader];
     }
     if (section == 0) {
-        header.resultTitle.text = @"报备成功";
+        header.resultTitle.text = @"已推荐";
+        header.resultTitle.textColor = HXControlBg;
         header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.successList.count];
         return self.successList.count?header:nil;
     }else{
-        header.resultTitle.text = @"报备失败";
+        header.resultTitle.text = @"推荐失败";
+        header.resultTitle.textColor = [UIColor redColor];
         header.resultNum.text = [NSString stringWithFormat:@"%zd人",self.errorList.count];
         return self.errorList.count?header:nil;
     }

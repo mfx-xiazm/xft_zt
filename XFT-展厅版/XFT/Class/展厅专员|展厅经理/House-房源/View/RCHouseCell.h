@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@class RCHouseList;
 typedef void(^reportCall)(void);
 @interface RCHouseCell : UITableViewCell
-/* 报备 */
+/* 推荐 */
 @property(nonatomic,copy) reportCall reportCall;
+/* 房源 */
+@property(nonatomic,strong) RCHouseList *house;
 @end
 
 NS_ASSUME_NONNULL_END

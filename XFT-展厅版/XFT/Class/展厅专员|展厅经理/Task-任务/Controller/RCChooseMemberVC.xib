@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,18 +20,39 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ai3-Iu-XHI">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="754"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phv-mg-Gyg">
+                    <rect key="frame" x="15" y="808" width="384" height="44"/>
+                    <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Qdy-cW-HX6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="确定"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layerBoderCorner">
+                            <real key="value" value="6"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="sureClicked:" destination="-1" eventType="touchUpInside" id="rwn-EA-EO8"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Phv-mg-Gyg" firstAttribute="top" secondItem="ai3-Iu-XHI" secondAttribute="bottom" constant="10" id="0kz-1w-vNW"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ai3-Iu-XHI" secondAttribute="trailing" id="1KO-qh-3BD"/>
-                <constraint firstItem="ai3-Iu-XHI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Ta4-Dv-lXk"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="ai3-Iu-XHI" secondAttribute="bottom" id="fBN-3j-zHS"/>
+                <constraint firstItem="Phv-mg-Gyg" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="3I6-Ls-rB7"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Phv-mg-Gyg" secondAttribute="bottom" constant="10" id="Kte-RH-PhH"/>
                 <constraint firstItem="ai3-Iu-XHI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="fBV-7t-fPX"/>
+                <constraint firstItem="ai3-Iu-XHI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="o2D-rp-H9q"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Phv-mg-Gyg" secondAttribute="trailing" constant="15" id="uFL-1e-ZhM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="114"/>
         </view>
     </objects>
 </document>

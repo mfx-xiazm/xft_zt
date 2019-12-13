@@ -20,7 +20,7 @@ static NSString *const WishHouseCell = @"WishHouseCell";
 @property(nonatomic,strong) RCWishHouseFilterView *filterView;
 /* 头部视图 */
 @property(nonatomic,strong) RCWishHouseHeader *header;
-/* 选择的报备楼盘 */
+/* 选择的推荐楼盘 */
 @property(nonatomic,strong) NSMutableArray *reportHouses;
 /* 罗盘列表 */
 @property(nonatomic,strong) NSMutableArray *houses;
@@ -164,7 +164,7 @@ static NSString *const WishHouseCell = @"WishHouseCell";
 -(void)sureClickd
 {
     if (!self.reportHouses.count) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择报备房源"];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择推荐房源"];
         return;
     }
     if (self.wishHouseCall) {
@@ -195,12 +195,12 @@ static NSString *const WishHouseCell = @"WishHouseCell";
                 }
             }
         }else{
-            if (strongSelf.isBatchReport) {// 批量报备只能选择一个
+            if (strongSelf.isBatchReport) {// 批量推荐只能选择一个
                 if (strongSelf.reportHouses.count == 1) {
                     [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"只能选择一个楼盘"];
                     return;
                 }
-            }else{//单个报备最多三个
+            }else{//单个推荐最多三个
                 if (strongSelf.reportHouses.count == 3) {
                     [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"最多选择三个楼盘"];
                     return;

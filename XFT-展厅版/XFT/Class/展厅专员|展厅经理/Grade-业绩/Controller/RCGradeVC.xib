@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,26 +28,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UUh-gs-jag">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xou-eH-27M" customClass="SPButton">
-                                    <rect key="frame" x="0.0" y="0.0" width="103.5" height="84"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                    <state key="normal" title="客户分析" image="icon-khfx">
-                                        <color key="titleColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
-                                            <integer key="value" value="2"/>
-                                        </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
-                                            <real key="value" value="5"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="clientFenxiClicked:" destination="-1" eventType="touchUpInside" id="Iom-L8-Jkx"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWO-gj-h7p" customClass="SPButton">
-                                    <rect key="frame" x="103.5" y="0.0" width="103.5" height="84"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="138" height="84"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="客户转移" image="icon_khzy">
                                         <color key="titleColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,7 +47,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHE-7q-0mv" customClass="SPButton">
-                                    <rect key="frame" x="207" y="0.0" width="103.5" height="84"/>
+                                    <rect key="frame" x="138" y="0.0" width="138" height="84"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="业绩分析" image="icon_yjfx">
                                         <color key="titleColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -85,7 +65,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUL-3N-bdP" customClass="SPButton">
-                                    <rect key="frame" x="310.5" y="0.0" width="103.5" height="84"/>
+                                    <rect key="frame" x="276" y="0.0" width="138" height="84"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <state key="normal" title="合作中介" image="icon_hzzj">
                                         <color key="titleColor" white="0.10000000000000001" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -105,23 +85,19 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="uHE-7q-0mv" firstAttribute="width" secondItem="AWO-gj-h7p" secondAttribute="width" id="3Yv-7J-gpx"/>
                                 <constraint firstItem="uHE-7q-0mv" firstAttribute="top" secondItem="UUh-gs-jag" secondAttribute="top" id="6qv-th-Azq"/>
-                                <constraint firstItem="uHE-7q-0mv" firstAttribute="width" secondItem="Xou-eH-27M" secondAttribute="width" id="7ZX-CP-9sc"/>
-                                <constraint firstItem="LUL-3N-bdP" firstAttribute="width" secondItem="Xou-eH-27M" secondAttribute="width" id="8dN-UY-jWV"/>
-                                <constraint firstItem="AWO-gj-h7p" firstAttribute="leading" secondItem="Xou-eH-27M" secondAttribute="trailing" id="9dv-gM-NOf"/>
-                                <constraint firstItem="AWO-gj-h7p" firstAttribute="width" secondItem="Xou-eH-27M" secondAttribute="width" id="Fqr-nd-U58"/>
                                 <constraint firstAttribute="bottom" secondItem="AWO-gj-h7p" secondAttribute="bottom" id="GZf-g3-ucK"/>
-                                <constraint firstAttribute="bottom" secondItem="Xou-eH-27M" secondAttribute="bottom" id="WlB-lA-Meh"/>
                                 <constraint firstItem="AWO-gj-h7p" firstAttribute="top" secondItem="UUh-gs-jag" secondAttribute="top" id="XOA-Kg-Vod"/>
                                 <constraint firstItem="uHE-7q-0mv" firstAttribute="leading" secondItem="AWO-gj-h7p" secondAttribute="trailing" id="Y0p-5a-nV2"/>
+                                <constraint firstItem="LUL-3N-bdP" firstAttribute="width" secondItem="AWO-gj-h7p" secondAttribute="width" id="c2V-4F-C1y"/>
                                 <constraint firstAttribute="trailing" secondItem="LUL-3N-bdP" secondAttribute="trailing" id="cY6-uS-07F"/>
                                 <constraint firstItem="LUL-3N-bdP" firstAttribute="top" secondItem="UUh-gs-jag" secondAttribute="top" id="gh8-hL-PaL"/>
                                 <constraint firstAttribute="bottom" secondItem="LUL-3N-bdP" secondAttribute="bottom" id="ipH-FY-c3l"/>
                                 <constraint firstItem="LUL-3N-bdP" firstAttribute="leading" secondItem="uHE-7q-0mv" secondAttribute="trailing" id="qWN-FO-rRM"/>
                                 <constraint firstAttribute="bottom" secondItem="uHE-7q-0mv" secondAttribute="bottom" id="sXY-as-pYm"/>
                                 <constraint firstAttribute="height" constant="84" id="x0C-Er-aak"/>
-                                <constraint firstItem="Xou-eH-27M" firstAttribute="top" secondItem="UUh-gs-jag" secondAttribute="top" id="xM7-Bj-5oI"/>
-                                <constraint firstItem="Xou-eH-27M" firstAttribute="leading" secondItem="UUh-gs-jag" secondAttribute="leading" id="z18-Av-OEi"/>
+                                <constraint firstItem="AWO-gj-h7p" firstAttribute="leading" secondItem="UUh-gs-jag" secondAttribute="leading" id="zW0-pd-qWu"/>
                             </constraints>
                         </view>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gLy-Ma-jR9">
@@ -135,13 +111,13 @@
                             <rect key="frame" x="100" y="94" width="314" height="45"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="按报备时间筛选" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ju-Ef-YdW">
-                                    <rect key="frame" x="15" y="12.5" width="118.5" height="20"/>
+                                    <rect key="frame" x="15" y="13.5" width="107.5" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRY-Ad-B15">
-                                    <rect key="frame" x="244" y="12.5" width="34" height="20"/>
+                                    <rect key="frame" x="247" y="13.5" width="31" height="18"/>
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.54901960780000003" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -207,7 +183,6 @@
     </objects>
     <resources>
         <image name="Shape" width="16" height="16"/>
-        <image name="icon-khfx" width="24" height="24"/>
         <image name="icon_hzzj" width="24" height="24"/>
         <image name="icon_khzy" width="24" height="24"/>
         <image name="icon_yjfx" width="24" height="24"/>

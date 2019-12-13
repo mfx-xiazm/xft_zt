@@ -10,8 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTaskAgentMember;
+typedef void(^selectedCall)(void);
 @interface RCChooseMemberCell : UITableViewCell
-
+/* 专员 */
+@property(nonatomic,strong) RCTaskAgentMember *agentMember;
+/* 选择的要转移的专员 */
+@property(nonatomic,strong) RCTaskAgentMember *selectMoveAgent;
+/* 点击 */
+@property(nonatomic,copy) selectedCall selectedCall;
 @end
 
 NS_ASSUME_NONNULL_END

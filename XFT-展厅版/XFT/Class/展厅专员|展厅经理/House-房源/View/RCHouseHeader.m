@@ -11,6 +11,8 @@
 #import <TYCyclePagerView/TYCyclePagerView.h>
 #import <TYCyclePagerView/TYPageControl.h>
 #import "LMJHorizontalScrollText.h"
+#import "RCHouseBanner.h"
+#import "RCHouseNotice.h"
 
 @interface RCHouseHeader ()<TYCyclePagerViewDataSource, TYCyclePagerViewDelegate>
 @property (weak, nonatomic) IBOutlet TYCyclePagerView *cycleView;
@@ -52,11 +54,8 @@
     self.scrollText.textColor          = [UIColor lightGrayColor];
     self.scrollText.textFont           = [UIFont systemFontOfSize:15];
     self.scrollText.speed              = 0.07;
-    self.scrollText.moveDirection      = LMJTextScrollMoveLeft;
-    self.scrollText.moveMode           = LMJTextScrollContinuous;
     
     [self.scrollTextView addSubview:self.scrollText];
-    [self.scrollText move];
 }
 -(void)layoutSubviews
 {
@@ -67,6 +66,25 @@
         weakSelf.scrollText.frame = weakSelf.scrollTextView.bounds;
     });
 }
+-(void)setBanners:(NSArray *)banners
+{
+    _banners = banners;
+    self.pageControl.numberOfPages = _banners.count;
+    [self.cycleView reloadData];
+}
+-(void)setNotices:(NSArray *)notices
+{
+    _notices = notices;
+    if (_notices && _notices.count) {
+        RCHouseNotice *notice = _notices.firstObject;
+        self.scrollText.text = notice.title;
+    }else{
+        self.scrollText.text = @"";
+    }
+    self.scrollText.moveDirection      = LMJTextScrollMoveLeft;
+    self.scrollText.moveMode           = LMJTextScrollContinuous;
+    [self.scrollText move];
+}
 - (IBAction)noticeClicked:(UIButton *)sender {
     if (self.houseHeaderBtnClicked) {
         self.houseHeaderBtnClicked(0,0);
@@ -75,13 +93,15 @@
 
 #pragma mark -- TYCyclePagerView代理
 - (NSInteger)numberOfItemsInPagerView:(TYCyclePagerView *)pageView {
-    return 3;
+    return _banners.count;
 }
 
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     RCBannerCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"BannerCell" forIndex:index];
     cell.contentImg.layer.cornerRadius = 6.f;
     cell.contentImg.layer.masksToBounds = YES;
+    RCHouseBanner *banner = _banners[index];
+    cell.banner = banner;
     return cell;
 }
 

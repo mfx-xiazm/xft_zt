@@ -8,6 +8,7 @@
 
 #import "UIImage+HXNExtension.h"
 #import <Accelerate/Accelerate.h>
+#import "UIImage+HXNExtension.h"
 
 @implementation UIImage (HXNExtension)
 
@@ -129,4 +130,24 @@
     UIGraphicsEndImageContext();
     return resultImage;
 }
+
++ (UIImage *)imageSetString_image:(UIImage *)image
+                             text:(NSString *)text
+                        textPoint:(CGPoint)point
+                 attributedString:(NSDictionary * )attributed
+{
+    //1.开启上下文
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, [UIScreen mainScreen].scale);
+    //2.绘制图片
+    [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
+    //添加水印文字
+    [text drawAtPoint:point withAttributes:attributed];
+    //3.从上下文中获取新图片
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    //4.关闭图形上下文
+    UIGraphicsEndImageContext();
+    //返回图片
+    return img;
+}
+
 @end

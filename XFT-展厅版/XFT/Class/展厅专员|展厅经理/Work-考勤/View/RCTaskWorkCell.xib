@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +14,11 @@
             <rect key="frame" x="0.0" y="0.0" width="366" height="179"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="366" height="178.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="366" height="179"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7L-3L-Yli">
-                        <rect key="frame" x="15" y="7.5" width="336" height="163.5"/>
+                        <rect key="frame" x="15" y="7.5" width="336" height="164"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x0x-5D-IAP">
                                 <rect key="frame" x="0.0" y="0.0" width="336" height="40"/>
@@ -58,16 +56,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3xt-DB-Y0a">
-                                <rect key="frame" x="0.0" y="40" width="336" height="48.5"/>
+                                <rect key="frame" x="0.0" y="40" width="336" height="49"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地点: 北京市朝阳区望京路888号" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAw-DP-T9M">
-                                        <rect key="frame" x="15" y="10" width="306" height="12"/>
+                                        <rect key="frame" x="15" y="10" width="306" height="13.5"/>
                                         <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="12"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="时间: 2019-08-01 12:00 至 2019-08-03 12:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2aH-qB-8OC">
-                                        <rect key="frame" x="15" y="26.5" width="306" height="12"/>
+                                        <rect key="frame" x="15" y="25.5" width="306" height="13.5"/>
                                         <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="12"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -84,7 +82,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8u-Gn-oWc">
-                                <rect key="frame" x="0.0" y="88.5" width="336" height="75"/>
+                                <rect key="frame" x="0.0" y="89" width="336" height="75"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6x-vp-o10" userLabel="0">
                                         <rect key="frame" x="0.0" y="0.0" width="336" height="41"/>
@@ -285,6 +283,17 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="address" destination="kAw-DP-T9M" id="4y3-Hy-R89"/>
+                <outlet property="count" destination="rog-ND-ER2" id="1TX-vF-CeV"/>
+                <outlet property="haveVolume" destination="6aE-0f-0xm" id="PeG-Ri-odE"/>
+                <outlet property="progressTap" destination="nsk-9Y-8Hj" id="XZp-sv-wD1"/>
+                <outlet property="prorerss" destination="gtK-J3-i7F" id="aS5-jK-cVx"/>
+                <outlet property="state" destination="RSW-vy-MGo" id="DRe-Do-Jt4"/>
+                <outlet property="time" destination="2aH-qB-8OC" id="YxL-sD-bcu"/>
+                <outlet property="title" destination="GEN-Vb-FDV" id="x63-MI-KJN"/>
+                <outlet property="volume" destination="b9h-F5-cxP" id="ws6-E5-sSO"/>
+            </connections>
             <point key="canvasLocation" x="171.01449275362319" y="159.04017857142856"/>
         </tableViewCell>
     </objects>

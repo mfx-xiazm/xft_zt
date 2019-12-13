@@ -124,8 +124,7 @@
  *  @return 返回字典
  */
 - (NSDictionary *)dictionaryWithJsonString{
-    if (self == nil)
-    {
+    if (self == nil) {
         return nil;
     }
     
@@ -292,10 +291,9 @@
 - (NSString *)getTimeFromTimestamp:(NSString *)formatterStr{
     
     //将对象类型的时间转换为NSDate类型
-    
     NSInteger time = [self integerValue];
     
-    NSDate * myDate=[NSDate dateWithTimeIntervalSince1970:time];
+    NSDate * myDate= [NSDate dateWithTimeIntervalSince1970:time];
     
     //设置时间格式
     
@@ -309,5 +307,12 @@
     
     return timeStr;
     
+}
+
+- (NSDate *)dateWithFormatter:(NSString *)formatterStr;
+{
+    NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
+    [formatter setDateFormat:formatterStr];
+    return [formatter dateFromString:self];
 }
 @end

@@ -27,7 +27,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.isScanResult = NO;
+//    self.isScanResult = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     // 二维码开启方法
     [obtain startRunningWithBefore:nil completion:nil];
@@ -40,7 +40,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:!self.isScanResult animated:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 
     [self.scanView removeTimer];
     [self removeFlashlightBtn];
@@ -78,10 +78,18 @@
             
             [obtain stopRunning];
             [obtain playSoundName:@"SGQRCode.bundle/sound.caf"];
-            
-            RCRegisterVC *rvc = [RCRegisterVC  new];
-            [weakSelf.navigationController pushViewController:rvc animated:YES];
-            
+            if ([result dictionaryWithJsonString]) {
+                NSDictionary *resultDict = [result dictionaryWithJsonString];
+                if ([resultDict[@"isShowRoomAddBee"] integerValue] == 1) {
+                    RCRegisterVC *rvc = [RCRegisterVC  new];
+                    rvc.codeStr = result;
+                    [weakSelf.navigationController pushViewController:rvc animated:YES];
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请扫描融客+展厅版APP专员二维码"];
+                }
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请扫描融客+展厅版APP专员二维码"];
+            }
         }
     }];
     [obtain setBlockWithQRCodeObtainScanBrightness:^(SGQRCodeObtain *obtain, CGFloat brightness) {

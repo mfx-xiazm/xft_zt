@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCTaskPinVC">
             <connections>
+                <outlet property="address" destination="gOo-FZ-En7" id="brd-XL-Wy7"/>
                 <outlet property="mapSuperView" destination="45l-dZ-Tbi" id="aN1-F4-exs"/>
+                <outlet property="sureBtn" destination="4mx-Bi-5co" id="9Tm-qW-4hf"/>
+                <outlet property="tadkImg" destination="mzn-Ro-1tK" id="isF-nv-apj"/>
+                <outlet property="taskTitle" destination="quA-0k-Xfa" id="k3M-KP-f4D"/>
+                <outlet property="time" destination="ye4-WZ-cTg" id="Rao-YQ-zrx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -141,7 +144,7 @@
                                         <constraint firstItem="Lxy-Ug-zHU" firstAttribute="centerY" secondItem="ZOT-EC-c7M" secondAttribute="centerY" id="n7h-Nm-Rz8"/>
                                     </constraints>
                                 </view>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_addpic" translatesAutoresizingMaskIntoConstraints="NO" id="mzn-Ro-1tK">
+                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_addpic" translatesAutoresizingMaskIntoConstraints="NO" id="mzn-Ro-1tK">
                                     <rect key="frame" x="15" y="628" width="100" height="85"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -214,6 +217,7 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="4mx-Bi-5co" secondAttribute="bottom" constant="15" id="qtd-jr-8NO"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="114"/>
         </view>
     </objects>
     <resources>

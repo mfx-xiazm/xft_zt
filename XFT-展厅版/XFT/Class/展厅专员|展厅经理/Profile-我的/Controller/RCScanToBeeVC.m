@@ -12,6 +12,8 @@
 
 @interface RCScanToBeeVC ()
 @property (weak, nonatomic) IBOutlet UIImageView *codeImg;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+
 /* 导航栏 */
 @property(nonatomic,strong) RCNavBarView *navBarView;
 @end
@@ -21,7 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.navBarView];
-    self.codeImg.image = [SGQRCodeObtain generateQRCodeWithData:@"来一个字符串" size:self.codeImg.hxn_width];
+    self.name.text = [NSString stringWithFormat:@"%@-展厅专员专属码",[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name];
+    self.codeImg.image = [SGQRCodeObtain generateQRCodeWithData:[@{@"isShowRoomAddBee":@"1",@"name":[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name,@"uuid":[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid,@"xqzyAccUuid":[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid} yy_modelToJSONString] size:self.codeImg.hxn_width];
 }
 -(void)viewWillAppear:(BOOL)animated
 {

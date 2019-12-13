@@ -10,29 +10,21 @@
 #import "HXPlaceholderTextView.h"
 #import "RCAddPhoneCell.h"
 #import "WSDatePickerView.h"
-#import <ZLCollectionViewHorzontalLayout.h>
-#import "RCHouseTagsCell.h"
 #import "RCReportResultVC.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "FSActionSheet.h"
-#import "RCWishHouseVC.h"
+#import "RCBeesWork.h"
+#import "RCReportHouse.h"
 
-static NSString *const AddPhoneCell = @"AddPhoneCell";
-static NSString *const HouseTagsCell = @"HouseTagsCell";
-
-@interface RCBeesReportVC ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,ZLCollectionViewBaseFlowLayoutDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate>
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *houseViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *morePhoneViewHeight;
-@property (weak, nonatomic) IBOutlet UITableView *morePhoneView;
+@interface RCBeesReportVC ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate,UITextFieldDelegate,UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *houseName;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
-@property (weak, nonatomic) IBOutlet UITextField *appointDate;
-/* 选择的楼盘 */
-@property(nonatomic,strong) NSMutableArray *houses;
-/* 多加的电话 */
-@property(nonatomic,strong) NSMutableArray *phones;
-
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *phone;
+@property (weak, nonatomic) IBOutlet UITextField *idCard;
+@property (weak, nonatomic) IBOutlet UIImageView *clientHeadPic;
+@property (weak, nonatomic) IBOutlet UIButton *sureReportBtn;
 @end
 
 @implementation RCBeesReportVC
@@ -40,79 +32,54 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备客户"];
+    // 复制信息
+     self.houseName.text = self.beesWork.proName;//楼盘名字
+    self.name.text = self.beesWork.cusName;
+    self.phone.text = self.beesWork.cusPhone;
+    
+    if (self.beesWork.idNo && self.beesWork.idNo.length) {
+        self.idCard.enabled = NO;
+        self.idCard.text = self.beesWork.idNo;
+    }
+    self.idCard.delegate = self;
+    
+    if (self.beesWork.showroomBeeCusPic && self.beesWork.showroomBeeCusPic.length) {
+        [self.clientHeadPic sd_setImageWithURL:[NSURL URLWithString:self.beesWork.showroomBeeCusPic]];
+    }
+    
+    if (self.beesWork.cusRemarks && self.beesWork.cusRemarks.length) {
+        self.remark.text = self.beesWork.cusRemarks;
+    }
+    self.remark.delegate = self;
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
-    [self setUpTableView];
-    [self setUpCollectionView];
-}
--(NSMutableArray *)houses
-{
-    if (_houses == nil) {
-        _houses = [NSMutableArray array];
-    }
-    return _houses;
-}
--(NSMutableArray *)phones
-{
-    if (_phones == nil) {
-        _phones = [NSMutableArray array];
-    }
-    return _phones;
-}
--(void)setUpTableView
-{
-    self.morePhoneView.estimatedSectionHeaderHeight = 0;
-    self.morePhoneView.estimatedSectionFooterHeight = 0;
-    self.morePhoneView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.morePhoneView.scrollEnabled = NO;
-    self.morePhoneView.dataSource = self;
-    self.morePhoneView.delegate = self;
-    self.morePhoneView.showsVerticalScrollIndicator = NO;
-    self.morePhoneView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    // 注册cell
-    [self.morePhoneView registerNib:[UINib nibWithNibName:NSStringFromClass([RCAddPhoneCell class]) bundle:nil] forCellReuseIdentifier:AddPhoneCell];
+    hx_weakify(self);
+    [self.sureReportBtn BindingBtnJudgeBlock:^BOOL{
+        return YES;
+    } ActionBlock:^(UIButton * _Nullable button) {
+        hx_strongify(weakSelf);
+        [strongSelf pushDoneClicked:button];
+    }];
 }
--(void)setUpCollectionView
+#pragma mark -- UITextField代理
+- (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    ZLCollectionViewHorzontalLayout *flowLayout = [[ZLCollectionViewHorzontalLayout alloc] init];
-    flowLayout.delegate = self;
-    flowLayout.canDrag = NO;
-    self.collectionView.collectionViewLayout = flowLayout;
-    self.collectionView.dataSource = self;
-    self.collectionView.delegate = self;
-    
-    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseTagsCell class]) bundle:nil] forCellWithReuseIdentifier:HouseTagsCell];
+    if (textField == self.idCard) {
+        self.beesWork.idNo = [textField hasText]?textField.text:@"";
+    }
+}
+-(void)textViewDidEndEditing:(UITextView *)textView
+{
+    if (textView == self.remark) {
+        self.beesWork.cusRemarks = [textView hasText]?textView.text:@"";
+    }
 }
 #pragma mark -- 点击事件
-- (IBAction)chooseHouseClicked:(UIButton *)sender {
-    RCWishHouseVC *hvc = [RCWishHouseVC new];
-    [self.navigationController pushViewController:hvc animated:YES];
-    
-    [self.houses addObjectsFromArray:@[@"",@"",@""]];
-    self.houseViewHeight.constant = 50.f+60.f;
-    hx_weakify(self); dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf.collectionView reloadData];
-    });
-}
-- (IBAction)addPhoneClicked:(UIButton *)sender {
-    [self.phones addObject:@""];
-    self.morePhoneViewHeight.constant = 50.f*self.phones.count;
-    [self.morePhoneView reloadData];
-}
-- (IBAction)chooseVisitDateClicked:(UIButton *)sender {
-    //年-月-日
-    hx_weakify(self);
-    WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *selectDate) {
-        
-        NSString *dateString = [selectDate stringWithFormat:@"yyyy-MM-dd"];
-        weakSelf.appointDate.text = dateString;
-    }];
-    datepicker.dateLabelColor = HXControlBg;//年-月-日 颜色
-    datepicker.datePickerColor = [UIColor blackColor];//滚轮日期颜色
-    datepicker.doneButtonColor = HXControlBg;//确定按钮的颜色
-    [datepicker show];
-}
 - (IBAction)choosePushRoleClicked:(UIButton *)sender {
+    //  如果已经有客户头像，不可编辑
+    if (self.beesWork.showroomBeeCusPic && self.beesWork.showroomBeeCusPic.length) {
+        return;
+    }
     FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
     hx_weakify(self);
     [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
@@ -124,7 +91,7 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
         }
     }];
 }
-- (IBAction)pushDoneClicked:(UIButton *)sender {
+- (void)pushDoneClicked:(UIButton *)sender {
     hx_weakify(self);
     zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确认报备客户？" constantWidth:HX_SCREEN_WIDTH - 50*2];
     zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
@@ -134,8 +101,7 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
     zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"确认" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
-        RCReportResultVC *rvc = [RCReportResultVC new];
-        [strongSelf.navigationController pushViewController:rvc animated:YES];
+        [strongSelf submitReportDataRequest:sender];
     }];
     cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
     [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
@@ -159,6 +125,11 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -189,6 +160,11 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -215,70 +191,116 @@ static NSString *const HouseTagsCell = @"HouseTagsCell";
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    //    hx_weakify(self);
+    hx_weakify(self);
     [picker dismissViewControllerAnimated:YES completion:^{
-        //        hx_strongify(weakSelf);
+        hx_strongify(weakSelf);
         // 显示保存图片
+        [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+            [strongSelf.clientHeadPic sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+            strongSelf.beesWork.showroomBeeCusPic = imageUrl;
+        }];
     }];
 }
-#pragma mark -- UICollectionView 数据源和代理
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.houses.count;
-}
-- (ZLLayoutType)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout *)collectionViewLayout typeOfLayout:(NSInteger)section {
-    return ColumnLayout;
-}
-//如果是ClosedLayout样式的section，必须实现该代理，指定列数
-- (NSInteger)collectionView:(UICollectionView *)collectionView layout:(ZLCollectionViewBaseFlowLayout*)collectionViewLayout columnCountOfSection:(NSInteger)section {
-    return 1;
-}
-- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    RCHouseTagsCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:HouseTagsCell forIndexPath:indexPath];
-    cell.name.text = @"选择的楼盘名称";
-    return cell;
-}
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake([@"选择的楼盘名称" boundingRectWithSize:CGSizeMake(1000000, 30) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: [UIFont boldSystemFontOfSize:14]} context:nil].size.width + 50, 30);
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10.f;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 10.f;
-}
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return  UIEdgeInsetsMake(15, 15, 15, 15);
-}
-#pragma mark -- UITableView数据源和代理
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+#pragma mark -- 业务逻辑
+-(void)submitReportDataRequest:(UIButton *)sender
 {
-    return self.phones.count;
+//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+//
+//    NSMutableArray *proIds = [NSMutableArray array];
+//    for (RCReportHouse *house in self.houses) {//每个推荐对象的楼盘信息都一样，所以可以直接去当前的推荐对象
+//        [proIds addObject:house.uuid];
+//    }
+//    data[@"proIds"] = proIds;//项目列表 必填
+//
+////    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+////    fmt.dateFormat = @"yyyy-MM-dd";
+//
+//    NSMutableArray *phones = [NSMutableArray array];
+//    [phones addObject:self.beesWork.cusPhone];
+//    if (self.beesWork.morePhones && self.beesWork.morePhones.count) {
+//        for (RCReportPhone *phone in self.beesWork.morePhones) {
+//            [phones addObject:phone.cusPhone];
+//        }
+//    }
+//
+//    data[@"cusInfo"] = @[@{@"name":self.beesWork.cusName,//客户姓名
+//                           @"phone":phones,//客户手机号
+//                           @"idNo":(self.beesWork.idCard && self.beesWork.idCard.length)?self.beesWork.idCard:@"", // 身份证号
+//                           @"cusPicInfo":(self.beesWork.headPic && self.beesWork.headPic.length)?@[self.beesWork.headPic]:@[],
+//                           @"remark":(self.beesWork.remark && self.beesWork.remark.length) ?self.beesWork.remark:@""//客户备注
+//    }];//客户信息 必填
+//    data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
+//    data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//推荐人角色 必填
+//    data[@"accName"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;//推荐人名称
+//    data[@"accType"] = @"4";//推荐人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一推荐人 6 门店管理员
+////    data[@"seeTime"] = (self.beesWork.appointDate && self.beesWork.appointDate.length)?@([[fmt dateFromString:self.beesWork.appointDate] timeIntervalSince1970]):@"";
+//    data[@"taskUuid"] = @"";
+//    data[@"accPhone"] = @"";
+//    data[@"xqzyAccUuid"] = @"";
+//    data[@"uuid"] = @"";
+//    data[@"domain"] = @"";
+//    data[@"isHidePhone"] = @"";
+//    data[@"proUuid"] = @"";
+//
+//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
+//        data[@"accTeamName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamName;//归属团队名称
+//    }else{
+//        data[@"accTeamName"] = @"";//归属团队名称
+//    }
+//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid.length) {
+//        data[@"accTeamUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid;//归属团队uuid
+//    }else{
+//        data[@"accTeamUuid"] = @"";//归属团队uuid
+//    }
+//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid.length) {
+//        data[@"accGroupUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid;//归属小组uuid
+//    }else{
+//        data[@"accGroupUuid"] = @"";//归属小组uuid
+//    }
+//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupName && [MSUserManager sharedInstance].curUserInfo.selectRole.groupName.length) {
+//        data[@"accGroupName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupName;//归属小组名称
+//    }else{
+//        data[@"accGroupName"] = @"";//归属小组名称
+//    }
+//    if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomType isEqualToString:@"1"]) {//1 集团文旅 2 区域文旅
+//        data[@"oneQudaoCode"] = @"K-0018";//一级渠道id
+//        data[@"oneQudaoName"] = @"集团文旅";//一级渠道名称
+//    }else{
+//        data[@"oneQudaoCode"] = @"K-0019";//一级渠道id
+//        data[@"oneQudaoName"] = @"区域文旅";//一级渠道名称
+//    }
+//    data[@"twoQudaoName"] = ([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"";//推荐人所属机构名称
+//    data[@"twoQudaoCode"] =([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"";//推荐人所属机构id
+//    parameters[@"data"] = data;
+//
+//    hx_weakify(self);
+//    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/bee/oneKeyBaobei" parameters:parameters success:^(id responseObject) {
+//        hx_strongify(weakSelf);
+//        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
+//        if ([responseObject[@"code"] integerValue] == 0) {
+//            RCReportResultVC *rvc = [RCReportResultVC new];
+//            rvc.results = responseObject[@"data"];
+//            [strongSelf.navigationController pushViewController:rvc animated:YES];
+//        }else{
+//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+//        }
+//    } failure:^(NSError *error) {
+//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+//        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
+//    }];
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RCAddPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:AddPhoneCell forIndexPath:indexPath];
-    //无色
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    hx_weakify(self);
-    cell.cutBtnCall = ^{
-        hx_strongify(weakSelf);
-        [strongSelf.phones removeLastObject];
-        strongSelf.morePhoneViewHeight.constant = 50.f*strongSelf.phones.count;
-        [tableView reloadData];
-    };
-    return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
 {
-    // 返回这个模型对应的cell高度
-    return 50.f;
+    [HXNetworkTool uploadImagesWithURL:HXRC_M_URL action:@"sys/sys/dict/getUploadImgReturnUrl.do" parameters:@{} name:@"file" images:@[image] fileNames:nil imageScale:0.8 imageType:@"png" progress:nil success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            completedCall(responseObject[@"data"][@"url"]);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
 
 @end

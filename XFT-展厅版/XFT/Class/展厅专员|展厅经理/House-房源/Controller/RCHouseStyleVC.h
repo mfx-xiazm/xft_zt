@@ -9,9 +9,14 @@
 #import "HXBaseViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+@class RCHouseDetail;
 @interface RCHouseStyleVC : HXBaseViewController
-
+/* 户型uuid */
+@property(nonatomic,copy) NSString *uuid;
+/** 楼盘全部详情数据 */
+@property(nonatomic,strong) RCHouseDetail *houseDetail;
+/* 楼盘电话 */
+@property(nonatomic,copy) NSString *housePhone;
 @end
 
 NS_ASSUME_NONNULL_END

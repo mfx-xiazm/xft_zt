@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCTaskTotalFilterHeader : UIView
+@property (weak, nonatomic) IBOutlet UIView *threeTitleView;
+@property (weak, nonatomic) IBOutlet UIView *fourTitleView;
 
 @end
 

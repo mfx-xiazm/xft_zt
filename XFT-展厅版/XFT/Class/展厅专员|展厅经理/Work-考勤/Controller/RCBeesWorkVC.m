@@ -35,8 +35,9 @@
 {
     if (_childVCs == nil) {
         NSMutableArray *vcs = [NSMutableArray array];
-        for (int i=0;i<4;i++) {
+        for (int i=0;i<2;i++) {
             RCBeesWorkChildVC *cvc0 = [RCBeesWorkChildVC new];
+            cvc0.type = i+1;
             [self addChildViewController:cvc0];
             [vcs addObject:cvc0];
         }

@@ -8,12 +8,15 @@
 
 #import "RCMyOrganizationVC.h"
 #import "RCMyOrganizationCell.h"
+#import "zhAlertView.h"
+#import <zhPopupController.h>
 
 static NSString *const MyOrganizationCell = @"MyOrganizationCell";
 
 @interface RCMyOrganizationVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+/* 我的组织 */
+@property(nonatomic,strong) NSArray *myOrganizations;
 @end
 
 @implementation RCMyOrganizationVC
@@ -22,6 +25,7 @@ static NSString *const MyOrganizationCell = @"MyOrganizationCell";
     [super viewDidLoad];
     [self.navigationItem setTitle:@"我的组织"];
     [self setUpTableView];
+    [self getOrganizationListRequest];
 }
 - (void)viewDidLayoutSubviews
 {
@@ -63,15 +67,61 @@ static NSString *const MyOrganizationCell = @"MyOrganizationCell";
     
     self.tableView.tableHeaderView = headerImg;
 }
+#pragma mark -- 组织列表
+-(void)getOrganizationListRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *page = [NSMutableDictionary dictionary];
+    page[@"current"] = @(1);//第几页
+    page[@"size"] = @"10";
+    parameters[@"data"] = @{};
+    parameters[@"page"] = page;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showRoomBeeOrg/getBeePemPageList" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            hx_strongify(weakSelf);
+            strongSelf.myOrganizations = [NSArray yy_modelArrayWithClass:[MSUserRoles class] json:responseObject[@"data"][@"records"]];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.tableView reloadData];
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.myOrganizations.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCMyOrganizationCell *cell = [tableView dequeueReusableCellWithIdentifier:MyOrganizationCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    MSUserRoles *role = self.myOrganizations[indexPath.row];
+    cell.role = role;
+    hx_weakify(self);
+    cell.phoneCall = ^{
+        hx_strongify(weakSelf);
+        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:role.xqzyPhone constantWidth:HX_SCREEN_WIDTH - 50*2];
+        zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+        }];
+        zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"拨打" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",role.xqzyPhone]]];
+        }];
+        cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+        [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+        strongSelf.zh_popupController = [[zhPopupController alloc] init];
+        [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+    };
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

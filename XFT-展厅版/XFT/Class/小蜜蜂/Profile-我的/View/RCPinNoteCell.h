@@ -10,8 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTaskPin;
 @interface RCPinNoteCell : UITableViewCell
+/* 打卡 */
+@property(nonatomic,strong) RCTaskPin *pin;
+/* 打卡 */
+@property(nonatomic,strong) RCTaskPin *pin1;
 
+@property (weak, nonatomic) IBOutlet UILabel *num;
 @end
 
 NS_ASSUME_NONNULL_END

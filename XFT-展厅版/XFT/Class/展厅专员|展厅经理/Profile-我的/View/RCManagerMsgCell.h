@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCInnerMsg;
 @interface RCManagerMsgCell : UITableViewCell
-
+/* 消息 */
+@property(nonatomic,strong) RCInnerMsg *innerMsg;
 @end
 
 NS_ASSUME_NONNULL_END

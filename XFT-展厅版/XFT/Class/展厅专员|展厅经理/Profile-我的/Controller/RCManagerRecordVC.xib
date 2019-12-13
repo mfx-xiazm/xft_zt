@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,6 +11,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCManagerRecordVC">
             <connections>
                 <outlet property="mapSuperView" destination="l2u-DM-wWZ" id="b3M-LG-eY2"/>
+                <outlet property="signNum" destination="lse-dk-a5y" id="H6Q-W4-frJ"/>
+                <outlet property="signPic" destination="qnN-iy-IJz" id="PHl-Cp-mzP"/>
+                <outlet property="signRemark" destination="faB-pj-u5I" id="ToO-0Q-N67"/>
+                <outlet property="signTime" destination="Aq7-VQ-v2j" id="Uag-WA-DQM"/>
+                <outlet property="sureBtn" destination="nO4-Hb-OKa" id="0fp-q6-aWl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -25,7 +28,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4hw-gH-aKF">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="816"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="815.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天已签到5次" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lse-dk-a5y">
                                     <rect key="frame" x="15" y="15" width="122" height="22"/>
@@ -33,14 +36,14 @@
                                     <color key="textColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09:00 12:00 13:00 14:00 15:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aq7-VQ-v2j">
-                                    <rect key="frame" x="15" y="47" width="175" height="15"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09:00 12:00 13:00 14:00 15:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aq7-VQ-v2j">
+                                    <rect key="frame" x="15" y="47" width="384" height="14.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RGz-8h-iKA">
-                                    <rect key="frame" x="0.0" y="67" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="66.5" width="414" height="44"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejx-00-HwK" userLabel="指示器">
                                             <rect key="frame" x="15" y="15" width="4" height="14"/>
@@ -80,11 +83,11 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l2u-DM-wWZ">
-                                    <rect key="frame" x="15" y="121" width="384" height="288"/>
+                                    <rect key="frame" x="15" y="120.5" width="384" height="288"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IvB-us-zHC">
-                                    <rect key="frame" x="0.0" y="419" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="418.5" width="414" height="44"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3U-os-3kw" userLabel="指示器">
                                             <rect key="frame" x="15" y="15" width="4" height="14"/>
@@ -114,8 +117,8 @@
                                         <constraint firstItem="CIl-TQ-hb8" firstAttribute="centerY" secondItem="IvB-us-zHC" secondAttribute="centerY" id="xcZ-nD-s5p"/>
                                     </constraints>
                                 </view>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_addpic" translatesAutoresizingMaskIntoConstraints="NO" id="qnN-iy-IJz">
-                                    <rect key="frame" x="15" y="473" width="100" height="85"/>
+                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic_addpic" translatesAutoresizingMaskIntoConstraints="NO" id="qnN-iy-IJz">
+                                    <rect key="frame" x="15" y="472.5" width="100" height="85"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="100" id="OIQ-gj-ncz"/>
@@ -128,7 +131,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ja3-9j-jAH">
-                                    <rect key="frame" x="0.0" y="563" width="414" height="44"/>
+                                    <rect key="frame" x="0.0" y="562.5" width="414" height="44"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Isx-C5-D1b" userLabel="指示器">
                                             <rect key="frame" x="15" y="15" width="4" height="14"/>
@@ -159,7 +162,7 @@
                                     </constraints>
                                 </view>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="faB-pj-u5I">
-                                    <rect key="frame" x="15" y="617" width="384" height="100"/>
+                                    <rect key="frame" x="15" y="616.5" width="384" height="100"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="pfB-dC-0sj"/>
@@ -173,7 +176,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </textView>
                                 <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-Hb-OKa">
-                                    <rect key="frame" x="15" y="747" width="384" height="44"/>
+                                    <rect key="frame" x="15" y="746.5" width="384" height="44"/>
                                     <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="4N4-h5-hLT"/>
@@ -197,6 +200,7 @@
                                 <constraint firstItem="Aq7-VQ-v2j" firstAttribute="top" secondItem="lse-dk-a5y" secondAttribute="bottom" constant="10" id="GQ1-P8-jP9"/>
                                 <constraint firstItem="l2u-DM-wWZ" firstAttribute="top" secondItem="RGz-8h-iKA" secondAttribute="bottom" constant="10" id="K46-Hi-osW"/>
                                 <constraint firstAttribute="trailing" secondItem="l2u-DM-wWZ" secondAttribute="trailing" constant="15" id="StK-Zv-ilb"/>
+                                <constraint firstAttribute="trailing" secondItem="Aq7-VQ-v2j" secondAttribute="trailing" constant="15" id="T8I-lZ-ezI"/>
                                 <constraint firstItem="lse-dk-a5y" firstAttribute="leading" secondItem="4hw-gH-aKF" secondAttribute="leading" constant="15" id="VeY-eR-XY7"/>
                                 <constraint firstItem="qnN-iy-IJz" firstAttribute="top" secondItem="IvB-us-zHC" secondAttribute="bottom" constant="10" id="XCQ-hu-Gs3"/>
                                 <constraint firstItem="RGz-8h-iKA" firstAttribute="top" secondItem="Aq7-VQ-v2j" secondAttribute="bottom" constant="5" id="XGd-7c-Cga"/>

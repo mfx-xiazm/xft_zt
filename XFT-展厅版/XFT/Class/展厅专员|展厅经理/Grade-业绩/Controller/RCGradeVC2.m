@@ -11,8 +11,8 @@
 #import "RCMyClientCell.h"
 #import "ZJPickerView.h"
 #import "RCClientDetailVC.h"
-#import "RCGradeClientVC.h"
-#import "RCMyStoreVC.h"
+#import "RCMyFollowVC.h"
+#import "RCMyAgentVC.h"
 #import "RCClientElementVC.h"
 #import "RCSearchClientVC.h"
 #import "RCMyScoreVC.h"
@@ -195,26 +195,22 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     [self.navigationController pushViewController:cvc animated:YES];
 }
 - (IBAction)clientFenxiClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCClientElementVC *evc = [RCClientElementVC new];
-//    [self.navigationController pushViewController:evc animated:YES];
+    RCClientElementVC *evc = [RCClientElementVC new];
+    [self.navigationController pushViewController:evc animated:YES];
 }
 
 - (IBAction)followClientClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCGradeClientVC *cvc = [RCGradeClientVC new];
-//    [self.navigationController pushViewController:cvc animated:YES];
+    RCMyFollowVC *cvc = [RCMyFollowVC new];
+    [self.navigationController pushViewController:cvc animated:YES];
 }
 - (IBAction)myScoreClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCMyScoreVC *avc = [RCMyScoreVC new];
-//    [self.navigationController pushViewController:avc animated:YES];
+    RCMyScoreVC *avc = [RCMyScoreVC new];
+    [self.navigationController pushViewController:avc animated:YES];
 }
 
 - (IBAction)zhongjieStoreClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCMyStoreVC *svc = [RCMyStoreVC new];
-//    [self.navigationController pushViewController:svc animated:YES];
+    RCMyAgentVC *svc = [RCMyAgentVC new];
+    [self.navigationController pushViewController:svc animated:YES];
 }
 - (IBAction)firstFilterBtn:(SPButton *)sender {
     if (self.selectFilterBtn != sender) {//如果前面选中的不是这个排序，就重置排序条件

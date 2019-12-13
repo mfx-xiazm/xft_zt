@@ -170,13 +170,6 @@ static NSArray *_filtrationCacheKey;
                    success:(HXHttpRequestSuccess)success
                    failure:(HXHttpRequestFailed)failure {
     
-    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
-    if ([ipKey isEqualToString:@"uat"]) {
-        URL = @"http://msalesuat.sunac.com.cn/open/api/";
-    }else{
-        URL = @"http://msalesdev.sunac.com.cn/open/api/";
-    }
-    
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
     
     [_sessionManager.requestSerializer setValue:[parameters isKindOfClass:[NSString class]]?parameters:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];//在选择角色时还未完成登录流程，特殊处理
@@ -282,13 +275,6 @@ static NSArray *_filtrationCacheKey;
                                   success:(HXHttpRequestSuccess)success
                                   failure:(HXHttpRequestFailed)failure {
     
-    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
-    if ([ipKey isEqualToString:@"uat"]) {
-        URL = @"http://msalesuat.sunac.com.cn/open/api/";
-    }else{
-        URL = @"http://msalesdev.sunac.com.cn/open/api/";
-    }
-    
     NSString *appendUrl =  action?[NSString stringWithFormat:@"%@%@",URL,action]:URL;
     
     [_sessionManager.requestSerializer setValue:[parameters isKindOfClass:[NSString class]]?parameters:[MSUserManager sharedInstance].curUserInfo.userAccessStr forHTTPHeaderField:@"UserAccessInfo"];
@@ -300,7 +286,6 @@ static NSArray *_filtrationCacheKey;
             // 图片经过等比压缩后得到的二进制文件
             NSData *imageData = UIImageJPEGRepresentation(images[i], imageScale ?: 1.f);
             // 默认图片的文件名, 若fileNames为nil就使用
-            
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyyMMddHHmmss";
             NSString *str = [formatter stringFromDate:[NSDate date]];

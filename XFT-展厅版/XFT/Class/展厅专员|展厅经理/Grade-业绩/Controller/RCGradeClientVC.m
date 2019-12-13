@@ -15,8 +15,6 @@ static NSString *const MyClientCell = @"MyClientCell";
 
 @interface RCGradeClientVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIView *followView;
-@property (weak, nonatomic) IBOutlet UIView *clientFilterView;
 @property (weak, nonatomic) IBOutlet SPButton *firstFilterBtn;
 @property (weak, nonatomic) IBOutlet SPButton *secondFilterBtn;
 /* 选中的那个排序按钮 */
@@ -36,8 +34,6 @@ static NSString *const MyClientCell = @"MyClientCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.navigationItem setTitle:self.navTitle];
-    self.clientFilterView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2?YES:NO;
-    self.followView.hidden = [MSUserManager sharedInstance].curUserInfo.ulevel == 2?NO:YES;
     [self setFilterTitleWithCustype];
     [self setUpTableView];
     [self setUpRefresh];

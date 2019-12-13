@@ -12,8 +12,8 @@
 #import "FSActionSheet.h"
 #import "ZJPickerView.h"
 #import "RCGradeNumVC.h"
-#import "RCMoveClientFromVC.h"
-#import "RCMyStoreVC.h"
+#import "RCMoveClientToVC.h"
+#import "RCMyAgentVC.h"
 #import "RCClientElementVC.h"
 #import "RCSearchClientVC.h"
 #import "RCScoreAnalyzeVC.h"
@@ -172,26 +172,22 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     }];
 }
 - (IBAction)clientFenxiClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCClientElementVC *evc = [RCClientElementVC new];
-//    [self.navigationController pushViewController:evc animated:YES];
+    RCClientElementVC *evc = [RCClientElementVC new];
+    [self.navigationController pushViewController:evc animated:YES];
 }
 
 - (IBAction)moveClientClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCMoveClientFromVC *fvc = [RCMoveClientFromVC new];
-//    [self.navigationController pushViewController:fvc animated:YES];
+    RCMoveClientToVC *fvc = [RCMoveClientToVC new];
+    [self.navigationController pushViewController:fvc animated:YES];
 }
 - (IBAction)scoreFenxiClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCScoreAnalyzeVC *avc = [RCScoreAnalyzeVC new];
-//    [self.navigationController pushViewController:avc animated:YES];
+    RCScoreAnalyzeVC *avc = [RCScoreAnalyzeVC new];
+    [self.navigationController pushViewController:avc animated:YES];
 }
 
 - (IBAction)zhongjieStoreClicked:(SPButton *)sender {
-    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//    RCMyStoreVC *svc = [RCMyStoreVC new];
-//    [self.navigationController pushViewController:svc animated:YES];
+    RCMyAgentVC *svc = [RCMyAgentVC new];
+    [self.navigationController pushViewController:svc animated:YES];
 }
 #pragma mark -- 接口数据请求
 -(void)getGradeDataRequest

@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCMyBee;
 @interface RCMyBeesCell : UITableViewCell
-
+/* 小蜜蜂 */
+@property(nonatomic,strong) RCMyBee *bee;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^wishHouseCall)(NSArray *houses);
 
 @interface RCWishHouseVC : HXBaseViewController
-/* 是否批量报备 批量报备只能选择1个房源 单独报备最多选择3个房源*/
+/* 是否批量推荐 批量推荐只能选择1个房源 单独推荐最多选择3个房源*/
 @property(nonatomic,assign) BOOL isBatchReport;
 /* 选择的意向楼盘回调 */
 @property(nonatomic,copy) wishHouseCall wishHouseCall;

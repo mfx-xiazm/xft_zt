@@ -8,13 +8,17 @@
 
 #import "RCNoticeVC.h"
 #import "RCNoticeCell.h"
-#import "RCWebContentVC.h"
+#import "RCNoticeDetialVC.h"
+#import "RCHouseNotice.h"
 
 static NSString *const NoticeCell = @"NoticeCell";
 
 @interface RCNoticeVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+/* 页码 */
+@property (nonatomic,assign) NSInteger pagenum;
+/* 资讯列表 */
+@property(nonatomic,strong) NSMutableArray *notices;
 @end
 
 @implementation RCNoticeVC
@@ -25,15 +29,25 @@ static NSString *const NoticeCell = @"NoticeCell";
     [self.navigationItem setTitle:self.navTitle];
     [self setUpTableView];
     [self setUpEmptyView];
+    [self startShimmer];
+    [self getNoticeListDataRequest:YES];
+}
+-(NSMutableArray *)notices
+{
+    if (_notices == nil) {
+        _notices = [NSMutableArray array];
+    }
+    return _notices;
 }
 #pragma mark -- 视图相关
 -(void)setUpEmptyView
 {
-    LYEmptyView *emptyView = [LYEmptyView emptyViewWithImageStr:@"no_report" titleStr:nil detailStr:@"暂无内容"];
+    LYEmptyView *emptyView = [LYEmptyView emptyViewWithImageStr:@"pic_none_search" titleStr:nil detailStr:@"暂无内容"];
     emptyView.contentViewOffset = -(self.HXNavBarHeight);
     emptyView.subViewMargin = 30.f;
     emptyView.detailLabTextColor = UIColorFromRGB(0x131D2D);
     emptyView.detailLabFont = [UIFont fontWithName:@"PingFangSC-Semibold" size: 16];
+    emptyView.autoShowEmptyView = NO;
     self.tableView.ly_emptyView = emptyView;
 }
 -(void)setUpTableView
@@ -64,27 +78,102 @@ static NSString *const NoticeCell = @"NoticeCell";
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCNoticeCell class]) bundle:nil] forCellReuseIdentifier:NoticeCell];
 }
+/** 添加刷新控件 */
+-(void)setUpRefresh
+{
+    hx_weakify(self);
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf.tableView.mj_footer resetNoMoreData];
+        [strongSelf getNoticeListDataRequest:YES];
+    }];
+    //追加尾部刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf getNoticeListDataRequest:NO];
+    }];
+}
+#pragma mark -- 接口请求
+/** 公告列表请求 */
+-(void)getNoticeListDataRequest:(BOOL)isRefresh
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    
+    data[@"cityId"] = [[NSUserDefaults standardUserDefaults] objectForKey:HXCityCode];
+    data[@"num"] = @"10";
+    
+    NSMutableDictionary *page = [NSMutableDictionary dictionary];
+    if (isRefresh) {
+        page[@"current"] = @(1);//第几页
+    }else{
+        NSInteger pagenum = self.pagenum+1;
+        page[@"current"] = @(pagenum);//第几页
+    }
+    page[@"size"] = @"10";
+    parameters[@"data"] = data;
+    parameters[@"page"] = page;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/notice/noticeList" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        [strongSelf stopShimmer];
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (isRefresh) {
+                [strongSelf.tableView.mj_header endRefreshing];
+                strongSelf.pagenum = 1;
+                [strongSelf.notices removeAllObjects];
+                
+                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseNotice class] json:responseObject[@"data"]];
+                [strongSelf.notices addObjectsFromArray:arrt];
+                
+            }else{
+                [strongSelf.tableView.mj_footer endRefreshing];
+                strongSelf.pagenum ++;
+                
+                if ([responseObject[@"data"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"]).count){
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseNotice class] json:responseObject[@"data"]];
+                    [strongSelf.notices addObjectsFromArray:arrt];
+                }else{// 提示没有更多数据
+                    [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [strongSelf.tableView reloadData];
+                if (strongSelf.notices.count) {
+                    [strongSelf.tableView ly_hideEmptyView];
+                }else{
+                    [strongSelf.tableView ly_showEmptyView];
+                }
+            });
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        hx_strongify(weakSelf);
+        [strongSelf stopShimmer];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return self.notices.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:NoticeCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    RCHouseNotice *notice = self.notices[indexPath.row];
+    cell.notice = notice;
     return cell;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // 返回这个模型对应的cell高度
-    return 155.f;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    RCWebContentVC *wvc = [RCWebContentVC new];
-    wvc.navTitle = @"公告";
-    wvc.url = @"https://www.baidu.com/";
+    RCNoticeDetialVC *wvc = [RCNoticeDetialVC new];
+    RCHouseNotice *notice = self.notices[indexPath.row];
+    wvc.uuid = notice.uuid;
     [self.navigationController pushViewController:wvc animated:YES];
 }
 

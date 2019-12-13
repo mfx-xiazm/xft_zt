@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,9 +16,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="98" height="135"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nC1-mg-zih">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_add_head" translatesAutoresizingMaskIntoConstraints="NO" id="nC1-mg-zih">
                         <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="nC1-mg-zih" secondAttribute="height" multiplier="1:1" id="lXg-XU-Z2D"/>
                         </constraints>
@@ -43,7 +40,14 @@
                 <constraint firstItem="nC1-mg-zih" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zUn-FA-nd2"/>
             </constraints>
             <size key="customSize" width="98" height="135"/>
+            <connections>
+                <outlet property="headerPic" destination="nC1-mg-zih" id="tIi-HS-Vd2"/>
+                <outlet property="name" destination="VZ6-ji-ybT" id="jf3-9c-dZn"/>
+            </connections>
             <point key="canvasLocation" x="171.01449275362319" y="142.29910714285714"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icon_add_head" width="34" height="34"/>
+    </resources>
 </document>

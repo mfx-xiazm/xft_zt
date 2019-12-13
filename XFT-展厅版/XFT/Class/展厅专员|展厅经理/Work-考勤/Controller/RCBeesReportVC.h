@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCBeesWork;
 @interface RCBeesReportVC : HXBaseViewController
-
+/* 小蜜蜂客户 */
+@property(nonatomic,strong) RCBeesWork *beesWork;
 @end
 
 NS_ASSUME_NONNULL_END

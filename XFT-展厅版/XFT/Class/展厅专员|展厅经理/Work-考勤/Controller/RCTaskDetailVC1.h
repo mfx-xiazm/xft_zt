@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCTaskDetailVC1 : HXBaseViewController
-
+/* uuid */
+@property(nonatomic,copy) NSString *uuid;
+/* 任务状态 */
+@property(nonatomic,copy) NSString *state;
 @end
 
 NS_ASSUME_NONNULL_END

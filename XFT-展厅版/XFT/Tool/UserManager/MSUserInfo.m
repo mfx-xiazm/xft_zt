@@ -53,5 +53,18 @@
 @end
 
 @implementation MSUserRoles : NSObject
-
+-(void)setShowroomName:(NSString *)showroomName
+{
+    _showroomName = showroomName;
+    _showRoomName = _showroomName;
+}
+-(void)setShowroomUuid:(NSString *)showroomUuid
+{
+    _showroomUuid = showroomUuid;
+    _showRoomUuid = _showroomUuid;
+}
+-(void)setCreateTime:(NSString *)createTime
+{
+    _createTime = [createTime getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
+}
 @end

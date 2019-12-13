@@ -10,9 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^infoClicked)(void);
+typedef void(^infoClicked)(NSInteger index);
 @interface RCProfileHeader : UIView
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topNavBar;
+@property (weak, nonatomic) IBOutlet UIImageView *headImg;
 /* 个人信息 */
 @property(nonatomic,copy) infoClicked infoClicked;
 @end

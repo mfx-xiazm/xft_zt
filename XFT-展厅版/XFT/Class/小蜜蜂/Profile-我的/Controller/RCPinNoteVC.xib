@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCPinNoteVC">
             <connections>
-                <outlet property="mapSuperView" destination="UGC-in-EAG" id="8HH-2y-Gfk"/>
                 <outlet property="tableView" destination="Bmg-eM-l1U" id="GgG-zR-20d"/>
+                <outlet property="time" destination="uTi-J7-CTb" id="6pe-i1-JFR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -56,7 +54,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SUc-Y5-omj">
                     <rect key="frame" x="0.0" y="88" width="414" height="40"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张辉" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sw-pU-kuL">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="打卡类型" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9sw-pU-kuL">
                             <rect key="frame" x="0.0" y="0.0" width="103.5" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -102,16 +100,9 @@
                         <constraint firstItem="5UB-ho-4J1" firstAttribute="top" secondItem="SUc-Y5-omj" secondAttribute="top" id="zXX-rI-QJQ"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGC-in-EAG">
-                    <rect key="frame" x="15" y="567" width="384" height="280"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="280" id="xRz-MJ-lLM"/>
-                    </constraints>
-                </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bmg-eM-l1U">
-                    <rect key="frame" x="0.0" y="128" width="414" height="424"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Bmg-eM-l1U">
+                    <rect key="frame" x="0.0" y="128" width="414" height="734"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -120,15 +111,12 @@
                 <constraint firstItem="SUc-Y5-omj" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Crw-4W-r6d"/>
                 <constraint firstItem="F7U-hR-n5w" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="JoD-VA-f9F"/>
                 <constraint firstItem="F7U-hR-n5w" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MFI-vH-Igd"/>
-                <constraint firstItem="UGC-in-EAG" firstAttribute="top" secondItem="Bmg-eM-l1U" secondAttribute="bottom" constant="15" id="T1C-Ed-GeL"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="UGC-in-EAG" secondAttribute="bottom" constant="15" id="XtB-wY-WLM"/>
                 <constraint firstItem="Bmg-eM-l1U" firstAttribute="top" secondItem="SUc-Y5-omj" secondAttribute="bottom" id="Yac-XD-yJ3"/>
                 <constraint firstItem="SUc-Y5-omj" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Yk5-vn-GaN"/>
-                <constraint firstItem="UGC-in-EAG" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="15" id="b4C-7V-PCM"/>
                 <constraint firstItem="Bmg-eM-l1U" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="fxA-vb-xfZ"/>
                 <constraint firstItem="SUc-Y5-omj" firstAttribute="top" secondItem="F7U-hR-n5w" secondAttribute="bottom" id="jUq-UI-Mg7"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Bmg-eM-l1U" secondAttribute="trailing" id="k7m-hp-V6W"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="UGC-in-EAG" secondAttribute="trailing" constant="15" id="pZo-Y8-xvQ"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Bmg-eM-l1U" secondAttribute="bottom" id="tHO-1y-ReA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
             <point key="canvasLocation" x="137.68115942028987" y="113.83928571428571"/>

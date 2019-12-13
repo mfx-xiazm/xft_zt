@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTaskReport;
 @interface RCTaskDetailReportCell : UITableViewCell
+/* 报备 */
+@property(nonatomic,strong) RCTaskReport *report;
+@property (weak, nonatomic) IBOutlet UILabel *num;
 
 @end
 

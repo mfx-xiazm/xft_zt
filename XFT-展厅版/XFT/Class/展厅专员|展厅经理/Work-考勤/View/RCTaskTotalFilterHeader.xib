@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +13,63 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFl-go-KCX">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d9v-8N-Y12" customClass="SPButton">
+                            <rect key="frame" x="0.0" y="0.0" width="138" height="59"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="组织名称">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TY9-p2-fcs" customClass="SPButton">
+                            <rect key="frame" x="138" y="0.0" width="138" height="59"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="任务打卡">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dCK-Ds-H2V" customClass="SPButton">
+                            <rect key="frame" x="276" y="0.0" width="138" height="59"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="外勤打卡">
+                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imagePosition">
+                                    <integer key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="imageTitleSpace">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="TY9-p2-fcs" secondAttribute="bottom" id="A1Y-Sy-H2z"/>
+                        <constraint firstItem="d9v-8N-Y12" firstAttribute="top" secondItem="oFl-go-KCX" secondAttribute="top" id="JIT-4D-Kv5"/>
+                        <constraint firstAttribute="bottom" secondItem="dCK-Ds-H2V" secondAttribute="bottom" id="KhI-Nv-uAV"/>
+                        <constraint firstItem="dCK-Ds-H2V" firstAttribute="width" secondItem="TY9-p2-fcs" secondAttribute="width" id="Njs-xK-fl8"/>
+                        <constraint firstItem="dCK-Ds-H2V" firstAttribute="leading" secondItem="TY9-p2-fcs" secondAttribute="trailing" id="WgE-aI-mb8"/>
+                        <constraint firstItem="TY9-p2-fcs" firstAttribute="top" secondItem="oFl-go-KCX" secondAttribute="top" id="YlT-q1-Wsq"/>
+                        <constraint firstAttribute="trailing" secondItem="dCK-Ds-H2V" secondAttribute="trailing" id="h1a-KK-CSV"/>
+                        <constraint firstItem="d9v-8N-Y12" firstAttribute="leading" secondItem="oFl-go-KCX" secondAttribute="leading" id="hHp-fJ-7R5"/>
+                        <constraint firstItem="dCK-Ds-H2V" firstAttribute="top" secondItem="oFl-go-KCX" secondAttribute="top" id="hVW-uG-TGF"/>
+                        <constraint firstItem="TY9-p2-fcs" firstAttribute="leading" secondItem="d9v-8N-Y12" secondAttribute="trailing" id="vLM-Wd-rsb"/>
+                        <constraint firstItem="d9v-8N-Y12" firstAttribute="width" secondItem="TY9-p2-fcs" secondAttribute="width" id="wBA-2D-DdE"/>
+                        <constraint firstAttribute="bottom" secondItem="d9v-8N-Y12" secondAttribute="bottom" id="zV9-Ob-QRN"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JtK-5U-Ri6">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="59"/>
                     <subviews>
@@ -28,7 +83,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oh9-OI-r1W" customClass="SPButton">
                             <rect key="frame" x="103.5" y="0.0" width="103.5" height="59"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="报备量" image="icon_qiehuan_moren">
+                            <state key="normal" title="报备量">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -43,7 +98,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwi-zX-NLR" customClass="SPButton">
                             <rect key="frame" x="207" y="0.0" width="103.5" height="59"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="到访量" image="icon_qiehuan_moren">
+                            <state key="normal" title="到访量">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -58,7 +113,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pk9-lv-HgH" customClass="SPButton">
                             <rect key="frame" x="310.5" y="0.0" width="103.5" height="59"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="成交量" image="icon_qiehuan_moren">
+                            <state key="normal" title="成交量">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -94,16 +149,21 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="oFl-go-KCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="22w-0t-wB8"/>
                 <constraint firstAttribute="trailing" secondItem="JtK-5U-Ri6" secondAttribute="trailing" id="GHZ-UG-pDx"/>
+                <constraint firstItem="oFl-go-KCX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="NAb-Jd-vVu"/>
                 <constraint firstItem="JtK-5U-Ri6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="P1F-rU-83T"/>
+                <constraint firstAttribute="trailing" secondItem="oFl-go-KCX" secondAttribute="trailing" id="azZ-2r-Cbh"/>
                 <constraint firstAttribute="bottom" secondItem="JtK-5U-Ri6" secondAttribute="bottom" id="hLL-2I-euf"/>
+                <constraint firstAttribute="bottom" secondItem="oFl-go-KCX" secondAttribute="bottom" id="jGD-vt-oNL"/>
                 <constraint firstItem="JtK-5U-Ri6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="x2H-Do-Xmk"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="fourTitleView" destination="JtK-5U-Ri6" id="cyE-Gh-6O5"/>
+                <outlet property="threeTitleView" destination="oFl-go-KCX" id="a5x-cw-XeV"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="394.08482142857139"/>
         </view>
     </objects>
-    <resources>
-        <image name="icon_qiehuan_moren" width="18" height="18"/>
-    </resources>
 </document>

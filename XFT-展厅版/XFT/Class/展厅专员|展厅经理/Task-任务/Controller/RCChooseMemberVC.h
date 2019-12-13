@@ -10,8 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^chooseMemberCall)(NSArray *selectMembers,NSArray *members);
 @interface RCChooseMemberVC : HXBaseViewController
-
+/* 专员数组 */
+@property(nonatomic,strong) NSArray *members;
+/* 点击 */
+@property(nonatomic,copy) chooseMemberCall chooseMemberCall;
 @end
 
 NS_ASSUME_NONNULL_END

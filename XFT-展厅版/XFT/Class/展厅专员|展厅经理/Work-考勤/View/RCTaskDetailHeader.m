@@ -14,5 +14,10 @@
 {
     [super awakeFromNib];
 }
+- (IBAction)moreClicked:(UIButton *)sender {
+    if (self.lookMoreCall) {
+        self.lookMoreCall();
+    }
+}
 
 @end

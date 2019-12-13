@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCGradeClientVC">
             <connections>
-                <outlet property="clientFilterView" destination="93h-Jz-rxw" id="eP5-0x-caN"/>
                 <outlet property="firstFilterBtn" destination="Uqw-gE-Gq8" id="jiO-ad-Aqq"/>
-                <outlet property="followView" destination="BJ8-GW-YLE" id="4dZ-fZ-tib"/>
                 <outlet property="secondFilterBtn" destination="vvZ-L5-uAO" id="pbO-Jg-cO9"/>
                 <outlet property="tableView" destination="Nyd-SK-6MU" id="61q-lq-pCc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -25,23 +21,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJ8-GW-YLE">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已关注24人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUP-xL-nEg">
-                            <rect key="frame" x="15" y="13" width="82" height="18.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstItem="vUP-xL-nEg" firstAttribute="centerY" secondItem="BJ8-GW-YLE" secondAttribute="centerY" id="aHV-V2-0Tl"/>
-                        <constraint firstAttribute="height" constant="44" id="fuO-MV-A6U"/>
-                        <constraint firstItem="vUP-xL-nEg" firstAttribute="leading" secondItem="BJ8-GW-YLE" secondAttribute="leading" constant="15" id="ij3-NB-bUz"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="93h-Jz-rxw">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <subviews>
@@ -106,14 +85,12 @@
                 <constraint firstItem="93h-Jz-rxw" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="IaB-fi-NrC"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="Nyd-SK-6MU" secondAttribute="trailing" id="K0z-e6-1JD"/>
                 <constraint firstItem="Nyd-SK-6MU" firstAttribute="top" secondItem="93h-Jz-rxw" secondAttribute="bottom" id="LFx-XI-bC2"/>
-                <constraint firstItem="BJ8-GW-YLE" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="Qla-Yv-MY1"/>
-                <constraint firstItem="BJ8-GW-YLE" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="TT6-Ep-74U"/>
                 <constraint firstItem="93h-Jz-rxw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="YE9-To-UUX"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="BJ8-GW-YLE" secondAttribute="trailing" id="itE-9z-6Fg"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="Nyd-SK-6MU" secondAttribute="bottom" id="nM1-jD-Mrv"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="93h-Jz-rxw" secondAttribute="trailing" id="pcc-fT-m56"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="114"/>
         </view>
     </objects>
     <resources>

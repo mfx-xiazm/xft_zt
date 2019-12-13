@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCMyAgent;
 @interface RCMyStoreCell : UITableViewCell
-
+/* 中介 */
+@property(nonatomic,strong) RCMyAgent *agent;
 @end
 
 NS_ASSUME_NONNULL_END

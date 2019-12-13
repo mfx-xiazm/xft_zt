@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *cusPhone;
 /* 更多客户电话 */
 @property(nonatomic,strong) NSMutableArray<RCReportPhone *> *morePhones;
-/* 报备房源 */
+/* 推荐房源 */
 @property(nonatomic,strong) NSMutableArray *selectHouses;
 /* 身份证号 */
 @property(nonatomic,copy) NSString *idCard;
@@ -25,6 +25,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *headPic;
 /* 客户备注 */
 @property(nonatomic,copy) NSString *remark;
+/* 预约看房时间 */
+@property(nonatomic,copy) NSString *appointDate;
+/* 拓客方式 */
+@property(nonatomic,copy) NSString *showroomTwoQudaoName;
+/* 拓客方式code */
+@property(nonatomic,copy) NSString *showroomTwoQudaoCode;
 @end
 
 @interface RCReportPhone : NSObject

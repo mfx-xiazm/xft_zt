@@ -73,14 +73,14 @@
 @property (nonatomic, strong) NSString * showRoomName;
 /* 所属展厅的uuid */
 @property (nonatomic, strong) NSString * showRoomUuid;
-/* 所属小组的名称 */
-@property (nonatomic, strong) NSString * groupName;
-/* 所属小组uuid */
-@property (nonatomic, strong) NSString * groupUuid;
 /* 所属团队名称 */
 @property (nonatomic, strong) NSString * teamName;
 /* 所属团队Uuid */
 @property (nonatomic, strong) NSString * teamUuid;
+/* 所属小组的名称 */
+@property (nonatomic, strong) NSString * groupName;
+/* 所属小组uuid */
+@property (nonatomic, strong) NSString * groupUuid;
 /* 是否展厅经理 0 否 1是 */
 @property (nonatomic, assign) NSInteger isManager;
 /* 是否展厅专员 0 否 1是 */
@@ -92,9 +92,23 @@
 @property (nonatomic, strong) NSString * managerData;
 @property (nonatomic, strong) NSString * managerType;
 @property (nonatomic, strong) NSString * qudaoAgentData;
+
 /* 选定的是经理还是专员 1经理 2专员 */
 @property(nonatomic,assign) NSInteger roleType;
 /* 是否选择该组 */
 @property (nonatomic, assign) BOOL isSelected;
+
+@property (nonatomic, strong) NSString * uuid;
+@property (nonatomic, strong) NSString * accUuid;
+@property (nonatomic, strong) NSString * areaUuid;
+@property (nonatomic, strong) NSString * cityUuid;
+@property (nonatomic, strong) NSString * xqzyAccUuid;
+@property (nonatomic, strong) NSString * xqzyAccName;
+@property (nonatomic, strong) NSString * xqzyPhone;
+@property (nonatomic, strong) NSString * createTime;
+/* 所属展厅名称 */
+@property (nonatomic, strong) NSString * showroomName;
+/* 所属展厅的uuid */
+@property (nonatomic, strong) NSString * showroomUuid;
 
 @end

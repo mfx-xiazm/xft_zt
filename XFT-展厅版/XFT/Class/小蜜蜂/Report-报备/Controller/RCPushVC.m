@@ -21,6 +21,8 @@
 #import "RCWishHouseVC.h"
 #import "RCReportHouse.h"
 #import "RCReportTarget.h"
+#import "ZJPickerView.h"
+#import "RCClientType.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 static NSString *const HouseTagsCell = @"HouseTagsCell";
@@ -35,14 +37,17 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *morePhoneViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *morePhoneView;
+@property (weak, nonatomic) IBOutlet UITextField *clientType;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
 @property (weak, nonatomic) IBOutlet UITextField *idCard;
 @property (weak, nonatomic) IBOutlet UIImageView *clientHeadPic;
 @property (weak, nonatomic) IBOutlet UIButton *againAddBtn;
 @property (weak, nonatomic) IBOutlet UIButton *sureReportBtn;
-/* 记录当前正在操作的报备客户 */
+/* 拓客方式 */
+@property(nonatomic,strong) NSArray *clientTypes;
+/* 记录当前正在操作的推荐客户 */
 @property(nonatomic,strong) RCReportTarget *currentReportTarget;
-/* 存放已经填写好信息的报备客户 */
+/* 存放已经填写好信息的推荐客户 */
 @property(nonatomic,strong) NSMutableArray *clients;
 @end
 
@@ -50,7 +55,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"报备客户"];
+    [self.navigationItem setTitle:@"推荐客户"];
     if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
         // 如果push进来的不是第一个控制器，就设置其左边的返回键
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,7 +77,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     self.remark.placeholder = @"请输入客户购房的补充说明(选填)";
     [self setUpTableView];
     [self setUpCollectionView];
-    
+    [self getTypeListDataRequest];// 获取拓客方式
     // 创建当前第一个操作的客户
     RCReportTarget *reportTarget = [RCReportTarget new];
     self.currentReportTarget = reportTarget;
@@ -80,7 +85,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     hx_weakify(self);
     [self.sureReportBtn BindingBtnJudgeBlock:^BOOL{
         hx_strongify(weakSelf);
-        // 判断报备对象信息是否完整
+        // 判断推荐对象信息是否完整
         if (!strongSelf.currentReportTarget.selectHouses || !strongSelf.currentReportTarget.selectHouses.count) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择楼盘"];
             return NO;
@@ -94,7 +99,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
                 }
             }
         }
-        if (!isOK || !strongSelf.currentReportTarget.cusName.length || !strongSelf.currentReportTarget.cusPhone.length) {
+        if (!isOK || !strongSelf.currentReportTarget.cusName.length || !strongSelf.currentReportTarget.cusPhone.length || !strongSelf.currentReportTarget.showroomTwoQudaoName.length) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户必填信息不完整"];
             return NO;
         }
@@ -170,43 +175,37 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 #pragma mark -- 点击事件
 - (IBAction)chooseHouseClicked:(UIButton *)sender {
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 2) {//展厅专员
-        
-        RCWishHouseVC *hvc = [RCWishHouseVC new];
-        
-        if (self.clients && self.clients.count) {// 如果数组中已经有待报备的对象，就是批量
-            hvc.isBatchReport = YES;
-        }else{
-            hvc.isBatchReport = NO;
-        }
-        
-        if (self.currentReportTarget.selectHouses && self.currentReportTarget.selectHouses.count) {
-            hvc.lastHouses = self.currentReportTarget.selectHouses;
-        }
-        hx_weakify(self);
-        hvc.wishHouseCall = ^(NSArray * _Nonnull houses) {
-            hx_strongify(weakSelf);
-            strongSelf.currentReportTarget.selectHouses = [NSMutableArray arrayWithArray:houses];
-            if (strongSelf.currentReportTarget.selectHouses.count) {
-                strongSelf.houseViewHeight.constant = 50.f+60.f;
-            }else{
-                strongSelf.houseViewHeight.constant = 50.f;
-            }
-            // 切换了楼盘，需要更新已添加报备对象中的楼盘信息
-            if (strongSelf.clients.count) {
-                for (RCReportTarget *target in strongSelf.clients) {
-                    target.selectHouses = strongSelf.currentReportTarget.selectHouses;
-                }
-            }
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [strongSelf.collectionView reloadData];
-            });
-        };
-        [self.navigationController pushViewController:hvc animated:YES];
-    }else{//小蜜蜂
-        RCPushHouseVC *hvc = [RCPushHouseVC new];
-        [self.navigationController pushViewController:hvc animated:YES];
+    RCWishHouseVC *hvc = [RCWishHouseVC new];
+    
+    if (self.clients && self.clients.count) {// 如果数组中已经有待推荐的对象，就是批量
+        hvc.isBatchReport = YES;
+    }else{
+        hvc.isBatchReport = NO;
     }
+    
+    if (self.currentReportTarget.selectHouses && self.currentReportTarget.selectHouses.count) {
+        hvc.lastHouses = self.currentReportTarget.selectHouses;
+    }
+    hx_weakify(self);
+    hvc.wishHouseCall = ^(NSArray * _Nonnull houses) {
+        hx_strongify(weakSelf);
+        strongSelf.currentReportTarget.selectHouses = [NSMutableArray arrayWithArray:houses];
+        if (strongSelf.currentReportTarget.selectHouses.count) {
+            strongSelf.houseViewHeight.constant = 50.f+60.f;
+        }else{
+            strongSelf.houseViewHeight.constant = 50.f;
+        }
+        // 切换了楼盘，需要更新已添加推荐对象中的楼盘信息
+        if (strongSelf.clients.count) {
+            for (RCReportTarget *target in strongSelf.clients) {
+                target.selectHouses = strongSelf.currentReportTarget.selectHouses;
+            }
+        }
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [strongSelf.collectionView reloadData];
+        });
+    };
+    [self.navigationController pushViewController:hvc animated:YES];
 }
 - (IBAction)addPhoneClicked:(UIButton *)sender {
     if (self.currentReportTarget.morePhones && self.currentReportTarget.morePhones.count==2) {
@@ -220,6 +219,58 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     [self.currentReportTarget.morePhones addObject:phone];
     self.morePhoneViewHeight.constant = 50.f*self.currentReportTarget.morePhones.count;
     [self.morePhoneView reloadData];
+}
+- (IBAction)taskTypeClicked:(UIButton *)sender {
+    if (!self.clientTypes) {
+        return;
+    }
+    if (!self.clientTypes.count) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请先添加拓客方式"];
+        return;
+    }
+    // 1.Custom propery（自定义属性）
+    NSDictionary *propertyDict = @{
+                                   ZJPickerViewPropertyCanceBtnTitleKey : @"取消",
+                                   ZJPickerViewPropertySureBtnTitleKey  : @"确定",
+                                   ZJPickerViewPropertyTipLabelTextKey  : [self.clientType hasText]?self.clientType.text:@"选择拓客方式", // 提示内容
+                                   ZJPickerViewPropertyCanceBtnTitleColorKey : UIColorFromRGB(0xA9A9A9),
+                                   ZJPickerViewPropertySureBtnTitleColorKey : UIColorFromRGB(0x232323),
+                                   ZJPickerViewPropertyTipLabelTextColorKey :
+                                       UIColorFromRGB(0x131D2D),
+                                   ZJPickerViewPropertyLineViewBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyCanceBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertySureBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyTipLabelTextFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyPickerViewHeightKey : @220.0f,
+                                   ZJPickerViewPropertyOneComponentRowHeightKey : @40.0f,
+                                   ZJPickerViewPropertySelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0x131D2D), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertyUnSelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0xA9A9A9), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertySelectRowLineBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyIsTouchBackgroundHideKey : @YES,
+                                   ZJPickerViewPropertyIsShowSelectContentKey : @YES,
+                                   ZJPickerViewPropertyIsScrollToSelectedRowKey: @YES,
+                                   ZJPickerViewPropertyIsAnimationShowKey : @YES};
+    
+    NSMutableArray *titles = [NSMutableArray array];
+    for (RCClientType *type in self.clientTypes) {
+        [titles addObject:type.name];
+    }
+    // 2.Show（显示）
+    hx_weakify(self);
+    [ZJPickerView zj_showWithDataList:titles propertyDict:propertyDict completion:^(NSString *selectContent) {
+        hx_strongify(weakSelf);
+        // show select content|
+        NSArray *results = [selectContent componentsSeparatedByString:@"|"];
+
+        NSArray *type = [results.firstObject componentsSeparatedByString:@","];
+
+        NSArray *rows = [results.lastObject componentsSeparatedByString:@","];
+        
+        strongSelf.clientType.text = type.firstObject;
+        RCClientType *resultType = strongSelf.clientTypes[[rows.firstObject integerValue]];
+        strongSelf.currentReportTarget.showroomTwoQudaoName = resultType.name;
+        strongSelf.currentReportTarget.showroomTwoQudaoCode = resultType.code;
+    }];
 }
 - (IBAction)choosePushRoleClicked:(UIButton *)sender {
     FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
@@ -235,7 +286,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 - (void)pushSubmitDoneClicked:(UIButton *)sender {
     hx_weakify(self);
-    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确认报备客户？" constantWidth:HX_SCREEN_WIDTH - 50*2];
+    zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确认推荐客户？" constantWidth:HX_SCREEN_WIDTH - 50*2];
     zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
         hx_strongify(weakSelf);
         [strongSelf.zh_popupController dismiss];
@@ -255,20 +306,20 @@ static NSString *const AddedClientCell = @"AddedClientCell";
 }
 - (IBAction)pushAgainClicked:(UIButton *)sender {
     
-    // 要判断是否可以批量报备
-    if (self.currentReportTarget.selectHouses.count > 1) {//多个楼盘不可以批量报备
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"多个楼盘不可批量报备"];
+    // 要判断是否可以批量推荐
+    if (self.currentReportTarget.selectHouses.count > 1) {//多个楼盘不可以批量推荐
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"多个楼盘不可批量推荐"];
         return;
     }
     
-    // 判断报备对象信息是否完整
+    // 判断推荐对象信息是否完整
     if (!self.currentReportTarget.selectHouses || !self.currentReportTarget.selectHouses.count) {
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请选择楼盘"];
         return;
     }
     
     if (self.clients && self.clients.count == 4) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"1次最多报备5个客户"];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"1次最多推荐5个客户"];
         return;
     }
     
@@ -281,18 +332,18 @@ static NSString *const AddedClientCell = @"AddedClientCell";
             }
         }
     }
-    if (!isOK || !self.currentReportTarget.cusName.length || !self.currentReportTarget.cusPhone.length) {
+    if (!isOK || !self.currentReportTarget.cusName.length || !self.currentReportTarget.cusPhone.length || !self.currentReportTarget.showroomTwoQudaoName.length) {
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户必填信息不完整"];
         return;
     }
     
-    // 如果必填信息完整就加入报备数组，并清空页面数据，创建新的报备对象
+    // 如果必填信息完整就加入推荐数组，并清空页面数据，创建新的推荐对象
     [self.clients addObject:self.currentReportTarget];
     self.clientTableViewHeight.constant = 55.f*self.clients.count;
     [self.clientTableView reloadData];
     
     RCReportTarget *reportTarget = [RCReportTarget new];
-    reportTarget.selectHouses = self.currentReportTarget.selectHouses;//批量报备楼盘不可变
+    reportTarget.selectHouses = self.currentReportTarget.selectHouses;//批量推荐楼盘不可变
     self.currentReportTarget = reportTarget;
     
     self.houseViewHeight.constant = 50.f+60.f;
@@ -303,7 +354,8 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     });
     self.name.text = @"";
     self.phone.text = @"";
-
+    self.clientType.text = @"";
+    
     self.morePhoneViewHeight.constant = 50.f*self.currentReportTarget.morePhones.count;
     [self.morePhoneView reloadData];
 
@@ -325,6 +377,11 @@ static NSString *const AddedClientCell = @"AddedClientCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -355,6 +412,11 @@ static NSString *const AddedClientCell = @"AddedClientCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -392,20 +454,40 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     }];
 }
 #pragma mark -- 业务逻辑
+/** 列表请求 */
+-(void)getTypeListDataRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"showroomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;
+    parameters[@"data"] = data;
+
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroomExpandMode/getShowroomExpandModeList" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.clientTypes = [NSArray yy_modelArrayWithClass:[RCClientType class] json:responseObject[@"data"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 -(void)submitReportDataRequest:(UIButton *)sender
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     
     NSMutableArray *proIds = [NSMutableArray array];
-    for (RCReportHouse *house in self.currentReportTarget.selectHouses) {//每个报备对象的楼盘信息都一样，所以可以直接去当前的报备对象
+    for (RCReportHouse *house in self.currentReportTarget.selectHouses) {//每个推荐对象的楼盘信息都一样，所以可以直接去当前的推荐对象
         [proIds addObject:house.uuid];
     }
     data[@"proIds"] = proIds;//项目列表 必填
-
-    // 临时报备对象数组
+    
+    // 临时推荐对象数组
     NSMutableArray *tempTargets = [NSMutableArray arrayWithArray:self.clients];
-    // 将当前页面展示的这个需要报备的对象加入临时数组
+    // 将当前页面展示的这个需要推荐的对象加入临时数组
     [tempTargets addObject:self.currentReportTarget];
     
     NSMutableArray *cusInfo = [NSMutableArray array];
@@ -422,14 +504,16 @@ static NSString *const AddedClientCell = @"AddedClientCell";
                              @"idNo":(target.idCard && target.idCard.length)?target.idCard:@"", // 身份证号
                              @"cusPicInfo":(target.headPic && target.headPic.length)?@[target.headPic]:@[],
                              @"remark":(target.remark && target.remark.length) ?target.remark:@"",//客户备注
-                             @"twoQudaoName":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"",//报备人所属机构名称
-                             @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"",//报备人所属机构id
-                             }];
+                             @"twoQudaoName":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"",//推荐人所属机构名称
+                             @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"",//推荐人所属机构id
+                             @"showroomTwoQudaoName":target.showroomTwoQudaoName,//拓客方式名称
+                             @"showroomTwoQudaoCode":target.showroomTwoQudaoCode//拓客方式id
+        }];
     }
     data[@"cusInfo"] = cusInfo;//客户信息 必填
-    data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//报备人id 必填
-    data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//报备人角色 必填
-    data[@"accName"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;//报备人名称
+    data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
+    data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//推荐人角色 必填
+    data[@"accName"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;//推荐人名称
     if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
         data[@"accTeamName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamName;//归属团队名称
     }else{
@@ -450,7 +534,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     }else{
         data[@"accGroupName"] = @"";//归属小组名称
     }
-    data[@"accType"] = @"4";//报备人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一报备人 6 门店管理员
+    data[@"accType"] = @"4";//推荐人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一推荐人 6 门店管理员
     if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomType isEqualToString:@"1"]) {//1 集团文旅 2 区域文旅
         data[@"oneQudaoCode"] = @"K-0018";//一级渠道id
         data[@"oneQudaoName"] = @"集团文旅";//一级渠道名称
@@ -463,8 +547,9 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     hx_weakify(self);
     [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/cusbaobeilist/addReportCust" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
-        [sender stopLoading:@"马上报备客户" image:nil textColor:nil backgroundColor:nil];
+        [sender stopLoading:@"马上推荐客户" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
+            [strongSelf clearReportData];
             RCReportResultVC *rvc = [RCReportResultVC new];
             rvc.results = responseObject[@"data"];
             [strongSelf.navigationController pushViewController:rvc animated:YES];
@@ -473,7 +558,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         }
     } failure:^(NSError *error) {
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-        [sender stopLoading:@"马上报备客户" image:nil textColor:nil backgroundColor:nil];
+        [sender stopLoading:@"马上推荐客户" image:nil textColor:nil backgroundColor:nil];
     }];
 }
 -(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
@@ -487,6 +572,28 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     } failure:^(NSError *error) {
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
+}
+-(void)clearReportData
+{
+    RCReportTarget *reportTarget = [RCReportTarget new];
+    reportTarget.selectHouses = [NSMutableArray array];
+    self.currentReportTarget = reportTarget;
+    
+    self.houseViewHeight.constant = 50.f;
+    hx_weakify(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.collectionView reloadData];
+    });
+    
+    self.name.text = @"";
+    self.phone.text = @"";
+    self.clientType.text = @"";
+    self.idCard.text = @"";
+    self.clientHeadPic.image = nil;
+    self.remark.text = @"";
+
+    self.morePhoneViewHeight.constant = 50.f*self.currentReportTarget.morePhones.count;
+    [self.morePhoneView reloadData];
 }
 #pragma mark -- UICollectionView 数据源和代理
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -578,6 +685,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     if (tableView == self.clientTableView) {
         RCPushClientEditVC *evc = [RCPushClientEditVC new];
         RCReportTarget *client = self.clients[indexPath.row];
+        evc.clientTypes = self.clientTypes;
         evc.reportTarget = client;
         evc.editDoneCall = ^{
             [tableView reloadData];

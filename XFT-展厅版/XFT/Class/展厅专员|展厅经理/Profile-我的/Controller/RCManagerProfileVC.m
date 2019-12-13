@@ -20,6 +20,7 @@
 #import "RCChangeRoleVC.h"
 #import "RCMyBrokerVC.h"
 #import "RCMyBeesVC.h"
+#import "RCDevelopClientVC.h"
 #import "RCLoginVC.h"
 #import "HXNavigationController.h"
 
@@ -75,11 +76,10 @@ static NSString *const ProfileCell = @"ProfileCell";
         _navBarView.titleL.hidden = NO;
         _navBarView.moreBtn.hidden = NO;
         [_navBarView.moreBtn setImage:HXGetImage(@"icon_daka") forState:UIControlStateNormal];
-//        hx_weakify(self);
+        hx_weakify(self);
         _navBarView.navMoreCall = ^{
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//            RCManagerRecordVC *rvc = [RCManagerRecordVC new];
-//            [weakSelf.navigationController pushViewController:rvc animated:YES];
+            RCManagerRecordVC *rvc = [RCManagerRecordVC new];
+            [weakSelf.navigationController pushViewController:rvc animated:YES];
         };
     }
     return _navBarView;
@@ -140,7 +140,13 @@ static NSString *const ProfileCell = @"ProfileCell";
 -(NSArray *)titles
 {
     if (_titles == nil) {
-        _titles = ([MSUserManager sharedInstance].curUserInfo.ulevel==2)?@[@[@"发展经纪人",@"我的小蜜蜂",@"消息中心",@"修改密码",@"版本更新"]]: @[@[@"消息中心",@"修改密码",@"版本更新"]];
+        if ([MSUserManager sharedInstance].curUserInfo.ulevel==1) {
+            _titles = @[@[@"拓客方式",@"消息中心",@"修改密码",@"版本更新"]];
+        }else if ([MSUserManager sharedInstance].curUserInfo.ulevel==2){
+            _titles = @[@[@"发展经纪人",@"我的小蜜蜂",@"消息中心",@"修改密码",@"版本更新"]];
+        }else{
+            _titles = @[@[@"消息中心",@"修改密码",@"版本更新"]];
+        }
     }
     return _titles;
 }
@@ -271,6 +277,11 @@ static NSString *const ProfileCell = @"ProfileCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -301,6 +312,11 @@ static NSString *const ProfileCell = @"ProfileCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -378,18 +394,55 @@ static NSString *const ProfileCell = @"ProfileCell";
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([MSUserManager sharedInstance].curUserInfo.ulevel==2) {
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel==1) {
+        if (indexPath.row == 0) {
+            RCDevelopClientVC *mvc = [RCDevelopClientVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
+        }else if (indexPath.row == 1) {
+            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
+        }else if (indexPath.row == 2) {
+            RCChangePwdVC *pwd = [RCChangePwdVC new];
+            [self.navigationController pushViewController:pwd animated:YES];
+        }else{
+            if (self.updateDict) {
+                hx_weakify(self);
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"更新版本" message:[NSString stringWithFormat:@"%@",self.updateDict[@"upremark"]] constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"下载" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strongSelf.updateDict[@"downlondUrl"]]]];
+                }];
+                cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                
+                self.zh_popupController = [[zhPopupController alloc] init];
+                if ([self.updateDict[@"isForce"] integerValue] == 0) {
+                    self.zh_popupController.dismissOnMaskTouched = YES;
+                    [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+                }else{
+                    self.zh_popupController.dismissOnMaskTouched = NO;
+                    [alert addAction:okButton];
+                }
+                [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }
+        }
+    }else if ([MSUserManager sharedInstance].curUserInfo.ulevel==2) {
         if (indexPath.row == 0) {
             RCMyBrokerVC *bvc = [RCMyBrokerVC new];
             [self.navigationController pushViewController:bvc animated:YES];
         }else if (indexPath.row == 1){
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//            RCMyBeesVC *bvc = [RCMyBeesVC new];
-//            [self.navigationController pushViewController:bvc animated:YES];
+            RCMyBeesVC *bvc = [RCMyBeesVC new];
+            [self.navigationController pushViewController:bvc animated:YES];
         }else if (indexPath.row == 2) {
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-//            [self.navigationController pushViewController:mvc animated:YES];
+            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
         }else if (indexPath.row == 3) {
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];
@@ -424,9 +477,8 @@ static NSString *const ProfileCell = @"ProfileCell";
         }
     }else{
         if (indexPath.row == 0) {
-            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-//            [self.navigationController pushViewController:mvc animated:YES];
+            RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+            [self.navigationController pushViewController:mvc animated:YES];
         }else if (indexPath.row == 1) {
             RCChangePwdVC *pwd = [RCChangePwdVC new];
             [self.navigationController pushViewController:pwd animated:YES];

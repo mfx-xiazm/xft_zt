@@ -17,6 +17,9 @@
 #import "RCReportClientVC.h"
 #import "zhAlertView.h"
 #import <zhPopupController/zhPopupController.h>
+#import "RCHouseBanner.h"
+#import "RCHouseNotice.h"
+#import "RCHouseList.h"
 
 static NSString *const HouseCell = @"HouseCell";
 
@@ -24,7 +27,18 @@ static NSString *const HouseCell = @"HouseCell";
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 头部视图 */
 @property(nonatomic,strong) RCHouseHeader *header;
-
+/* 轮播图 */
+@property(nonatomic,strong) NSArray *banners;
+/* 公告 */
+@property(nonatomic,strong) NSArray *notices;
+/* 页码 */
+@property (nonatomic,assign) NSInteger pagenum;
+/* 房源列表 */
+@property(nonatomic,strong) NSMutableArray *houses;
+/* 选择的城市名称 */
+@property(nonatomic,copy) NSString *chooseCity;
+/* 定位按钮 */
+@property(nonatomic,strong) SPButton *locationBtn;
 @end
 
 @implementation RCHouseVC
@@ -33,13 +47,15 @@ static NSString *const HouseCell = @"HouseCell";
     [super viewDidLoad];
     [self setUpNavBar];
     [self setUpTableView];
-    [self setUpTableHeaderView];
+    [self setUpRefresh];
     [self queryAppVersion];
+    [self startShimmer];
+    [self getCityRequest];
 }
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 10.f+170.f+50.f);
+    self.header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 60.f);
 }
 -(RCHouseHeader *)header
 {
@@ -58,6 +74,20 @@ static NSString *const HouseCell = @"HouseCell";
     }
     return _header;
 }
+-(NSMutableArray *)houses
+{
+    if (_houses == nil) {
+        _houses = [NSMutableArray array];
+    }
+    return _houses;
+}
+-(void)setChooseCity:(NSString *)chooseCity
+{
+    if (![_chooseCity isEqualToString:chooseCity]) {
+        _chooseCity = chooseCity;
+        [self getCityRequest];
+    }
+}
 #pragma mark -- 视图相关
 -(void)setUpNavBar
 {
@@ -69,8 +99,13 @@ static NSString *const HouseCell = @"HouseCell";
     item.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     [item setTitleColor:UIColorFromRGB(0x333333) forState:UIControlStateNormal];
     [item setImage:HXGetImage(@"icon_home_place") forState:UIControlStateNormal];
-    [item setTitle:@"武汉" forState:UIControlStateNormal];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:HXUserCityName]){
+        [item setTitle:[[NSUserDefaults standardUserDefaults] objectForKey:HXUserCityName] forState:UIControlStateNormal];
+    }else{
+        [item setTitle:@"武汉" forState:UIControlStateNormal];
+    }
     [item addTarget:self action:@selector(cityClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.locationBtn = item;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:item];
     
     SPButton *msgBtn = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
@@ -79,9 +114,9 @@ static NSString *const HouseCell = @"HouseCell";
     [msgBtn addTarget:self action:@selector(messageClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *msgItem = [[UIBarButtonItem alloc] initWithCustomView:msgBtn];
     
-    UIBarButtonItem *searchItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
+//    UIBarButtonItem *searchItem = [UIBarButtonItem itemWithTarget:self action:@selector(searchClicked) nomalImage:HXGetImage(@"icon_search") higeLightedImage:HXGetImage(@"icon_search") imageEdgeInsets:UIEdgeInsetsZero];
     
-    self.navigationItem.rightBarButtonItems = @[msgItem,searchItem];
+    self.navigationItem.rightBarButtonItem = msgItem;
 }
 -(void)setUpTableView
 {
@@ -109,26 +144,224 @@ static NSString *const HouseCell = @"HouseCell";
     
     // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCHouseCell class]) bundle:nil] forCellReuseIdentifier:HouseCell];
-}
--(void)setUpTableHeaderView
-{
+    
     self.tableView.tableHeaderView = self.header;
+}
+/** 添加刷新控件 */
+-(void)setUpRefresh
+{
+    hx_weakify(self);
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf.tableView.mj_footer resetNoMoreData];
+        [strongSelf getHouseListDataRequest:YES completeCall:^{
+            [strongSelf.tableView reloadData];
+        }];
+    }];
+    //追加尾部刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        hx_strongify(weakSelf);
+        [strongSelf getHouseListDataRequest:NO completeCall:^{
+            [strongSelf.tableView reloadData];
+        }];
+    }];
 }
 #pragma mark -- 点击事件
 -(void)cityClicked
 {
-//    RCSearchCityVC *hvc = [RCSearchCityVC new];
-//    [self.navigationController pushViewController:hvc animated:YES];
+    RCSearchCityVC *hvc = [RCSearchCityVC new];
+    hx_weakify(self);
+    hvc.changeCityCall = ^(NSString * _Nonnull city) {
+        hx_strongify(weakSelf);
+        strongSelf.chooseCity = city;
+        [strongSelf.locationBtn setTitle:city forState:UIControlStateNormal];
+    };
+    [self.navigationController pushViewController:hvc animated:YES];
 }
 -(void)searchClicked
 {
-//    RCSearchHouseVC *hvc = [RCSearchHouseVC new];
-//    [self.navigationController pushViewController:hvc animated:YES];
+    RCSearchHouseVC *hvc = [RCSearchHouseVC new];
+    [self.navigationController pushViewController:hvc animated:YES];
 }
 -(void)messageClicked
 {
-//    RCManagerMsgVC *mvc = [RCManagerMsgVC new];
-//    [self.navigationController pushViewController:mvc animated:YES];
+    RCManagerMsgVC *mvc = [RCManagerMsgVC new];
+    [self.navigationController pushViewController:mvc animated:YES];
+}
+#pragma mark -- 接口请求
+/** 城市模糊查询列表 */
+-(void)getCityRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    if (self.chooseCity && self.chooseCity.length) {
+        data[@"name"] = self.chooseCity;
+    }else if ([[NSUserDefaults standardUserDefaults] objectForKey:HXUserCityName]) {
+        data[@"name"] = [[NSUserDefaults standardUserDefaults] objectForKey:HXUserCityName];
+    }else{
+        data[@"name"] = @"武汉";
+    }
+    parameters[@"data"] = data;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/city/cityCodeByNameLike" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+//            [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"data"][@"cityCode"] forKey:HXCityCode];
+            [[NSUserDefaults standardUserDefaults] setObject:@"510100" forKey:HXCityCode];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [strongSelf getHouseDataRequest];
+        }else{
+            [strongSelf stopShimmer];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        hx_strongify(weakSelf);
+        [strongSelf stopShimmer];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)getHouseDataRequest
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    // 执行循序1
+    hx_weakify(self);
+    /*
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        data[@"cityId"] = [[NSUserDefaults standardUserDefaults] objectForKey:HXCityCode];
+        data[@"showRoomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;
+        NSMutableDictionary *page = [NSMutableDictionary dictionary];
+        page[@"current"] = @"1";
+        page[@"size"] = @"10";
+        parameters[@"data"] = data;
+        parameters[@"page"] = page;
+        
+        [HXNetworkTool POST:HXRC_M_URL action:@"marketing/marketing/xcxBanner/showbannerList" parameters:parameters success:^(id responseObject) {
+            if ([responseObject[@"code"] integerValue] == 0) {
+                strongSelf.banners = [NSArray yy_modelArrayWithClass:[RCHouseBanner class] json:responseObject[@"data"]];
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+            dispatch_semaphore_signal(semaphore);
+
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+            dispatch_semaphore_signal(semaphore);
+
+        }];
+    });
+     */
+    // 执行循序2
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        data[@"cityId"] = [[NSUserDefaults standardUserDefaults] objectForKey:HXCityCode];
+        data[@"num"] = @"1";
+        NSMutableDictionary *page = [NSMutableDictionary dictionary];
+        page[@"current"] = @"1";
+        page[@"size"] = @"1";
+        parameters[@"data"] = data;
+        parameters[@"page"] = page;
+        
+        [HXNetworkTool POST:HXRC_M_URL action:@"pro/pro/notice/noticeList" parameters:parameters success:^(id responseObject) {
+            if ([responseObject[@"code"] integerValue] == 0) {
+                strongSelf.notices = [NSArray yy_modelArrayWithClass:[RCHouseNotice class] json:responseObject[@"data"]];
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+    dispatch_group_async(group, queue, ^{
+        hx_strongify(weakSelf);
+        [strongSelf getHouseListDataRequest:YES completeCall:^{
+            dispatch_semaphore_signal(semaphore);
+        }];
+    });
+
+    dispatch_group_notify(group, queue, ^{
+        // 执行循序4
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        // 执行顺序6
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+        // 执行顺序10
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 刷新界面
+            hx_strongify(weakSelf);
+            [strongSelf stopShimmer];
+            strongSelf.tableView.hidden = NO;
+            strongSelf.header.banners = self.banners;
+            strongSelf.header.notices = self.notices;
+            [strongSelf.tableView reloadData];
+        });
+    });
+}
+/** 房源筛选列表 */
+-(void)getHouseListDataRequest:(BOOL)isRefresh completeCall:(void(^)(void))completeCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"cityUuid"] = [[NSUserDefaults standardUserDefaults] objectForKey:HXCityCode];
+    data[@"queryName"] = @"";
+    NSMutableDictionary *page = [NSMutableDictionary dictionary];
+    if (isRefresh) {
+        page[@"current"] = @(1);//第几页
+    }else{
+        NSInteger pagenum = self.pagenum+1;
+        page[@"current"] = @(pagenum);//第几页
+    }
+    page[@"size"] = @"10";
+    parameters[@"data"] = data;
+    parameters[@"page"] = page;
+    
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/home/getHomeProList" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (isRefresh) {
+                [strongSelf.tableView.mj_header endRefreshing];
+                strongSelf.pagenum = 1;
+                [strongSelf.houses removeAllObjects];
+                NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseList class] json:responseObject[@"data"][@"records"]];
+                [strongSelf.houses addObjectsFromArray:arrt];
+            }else{
+                [strongSelf.tableView.mj_footer endRefreshing];
+                strongSelf.pagenum ++;
+                if ([responseObject[@"data"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"records"]).count){
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCHouseList class] json:responseObject[@"data"][@"records"]];
+                    [strongSelf.houses addObjectsFromArray:arrt];
+                }else{// 提示没有更多数据
+                    [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }
+        }else{
+            [strongSelf.tableView.mj_header endRefreshing];
+            [strongSelf.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+        if (completeCall) {
+            completeCall();
+        }
+    } failure:^(NSError *error) {
+        hx_strongify(weakSelf);
+        [strongSelf.tableView.mj_header endRefreshing];
+        [strongSelf.tableView.mj_footer endRefreshing];
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        if (completeCall) {
+            completeCall();
+        }
+    }];
 }
 #pragma mark -- 业务逻辑
 -(void)queryAppVersion
@@ -199,15 +432,19 @@ static NSString *const HouseCell = @"HouseCell";
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return self.houses.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RCHouseCell *cell = [tableView dequeueReusableCellWithIdentifier:HouseCell forIndexPath:indexPath];
     //无色
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    RCHouseList *house = self.houses[indexPath.row];
+    cell.house = house;
     hx_weakify(self);
     cell.reportCall = ^{
         RCReportClientVC *cvc = [RCReportClientVC new];
+        cvc.houseUuid = house.proUuid;
+        cvc.houseName = house.name;
         [weakSelf.navigationController pushViewController:cvc animated:YES];
     };
     return cell;
@@ -237,6 +474,10 @@ static NSString *const HouseCell = @"HouseCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     RCHouseDetailVC *dvc = [RCHouseDetailVC new];
+    RCHouseList *house = self.houses[indexPath.row];
+    dvc.lat = house.dimension;
+    dvc.lng = house.longitude;
+    dvc.uuid = house.proUuid;
     [self.navigationController pushViewController:dvc animated:YES];
 }
 @end

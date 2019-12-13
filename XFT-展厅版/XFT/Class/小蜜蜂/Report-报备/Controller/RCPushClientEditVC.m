@@ -13,6 +13,8 @@
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "RCReportTarget.h"
+#import "ZJPickerView.h"
+#import "RCClientType.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 
@@ -20,6 +22,8 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *phone;
 @property (weak, nonatomic) IBOutlet UITextField *idCard;
+@property (weak, nonatomic) IBOutlet UITextField *clientType;
+@property (weak, nonatomic) IBOutlet UIImageView *clientTypeArrow;
 @property (weak, nonatomic) IBOutlet UIImageView *headPic;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *morePhoneViewHeight;
 @property (weak, nonatomic) IBOutlet UITableView *morePhoneView;
@@ -30,7 +34,7 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"报备客户"];
+    [self.navigationItem setTitle:@"推荐客户"];
     self.name.delegate = self;
     self.phone.delegate = self;
     self.idCard.delegate = self;
@@ -62,6 +66,12 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 {
     self.name.text = self.reportTarget.cusName;
     self.phone.text = self.reportTarget.cusPhone;
+    self.clientType.text = self.reportTarget.showroomTwoQudaoName;
+    if (self.clientTypes) {
+        self.clientTypeArrow.hidden = NO;
+    }else{
+        self.clientTypeArrow.hidden = YES;
+    }
     self.idCard.text = self.reportTarget.idCard;
     [self.headPic sd_setImageWithURL:[NSURL URLWithString:self.reportTarget.headPic]];
     self.remark.text = self.reportTarget.remark;
@@ -86,7 +96,6 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     self.reportTarget.remark = [textView hasText]?textView.text:@"";
 }
 #pragma mark -- 点击事件
-
 - (IBAction)editDoneClicked:(UIButton *)sender {
     BOOL isOK = YES;
     if (self.reportTarget.morePhones && self.reportTarget.morePhones.count) {
@@ -97,7 +106,7 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
             }
         }
     }
-    if (!isOK || !self.reportTarget.cusName.length || !self.reportTarget.cusPhone.length) {
+    if (!isOK || !self.reportTarget.cusName.length || !self.reportTarget.cusPhone.length || !self.reportTarget.showroomTwoQudaoName.length) {
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户必填信息不完整"];
         return;
     }
@@ -116,6 +125,58 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     [self.reportTarget.morePhones addObject:phone];
     self.morePhoneViewHeight.constant = 50.f*self.reportTarget.morePhones.count;
     [self.morePhoneView reloadData];
+}
+- (IBAction)taskTypeClicked:(UIButton *)sender {
+    if (!self.clientTypes) {
+        return;
+    }
+    if (!self.clientTypes.count) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请先添加拓客方式"];
+        return;
+    }
+    // 1.Custom propery（自定义属性）
+    NSDictionary *propertyDict = @{
+                                   ZJPickerViewPropertyCanceBtnTitleKey : @"取消",
+                                   ZJPickerViewPropertySureBtnTitleKey  : @"确定",
+                                   ZJPickerViewPropertyTipLabelTextKey  : [self.clientType hasText]?self.clientType.text:@"选择拓客方式", // 提示内容
+                                   ZJPickerViewPropertyCanceBtnTitleColorKey : UIColorFromRGB(0xA9A9A9),
+                                   ZJPickerViewPropertySureBtnTitleColorKey : UIColorFromRGB(0x232323),
+                                   ZJPickerViewPropertyTipLabelTextColorKey :
+                                       UIColorFromRGB(0x131D2D),
+                                   ZJPickerViewPropertyLineViewBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyCanceBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertySureBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyTipLabelTextFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyPickerViewHeightKey : @220.0f,
+                                   ZJPickerViewPropertyOneComponentRowHeightKey : @40.0f,
+                                   ZJPickerViewPropertySelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0x131D2D), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertyUnSelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0xA9A9A9), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertySelectRowLineBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyIsTouchBackgroundHideKey : @YES,
+                                   ZJPickerViewPropertyIsShowSelectContentKey : @YES,
+                                   ZJPickerViewPropertyIsScrollToSelectedRowKey: @YES,
+                                   ZJPickerViewPropertyIsAnimationShowKey : @YES};
+    
+    NSMutableArray *titles = [NSMutableArray array];
+    for (RCClientType *type in self.clientTypes) {
+        [titles addObject:type.name];
+    }
+    // 2.Show（显示）
+    hx_weakify(self);
+    [ZJPickerView zj_showWithDataList:titles propertyDict:propertyDict completion:^(NSString *selectContent) {
+        hx_strongify(weakSelf);
+        // show select content|
+        NSArray *results = [selectContent componentsSeparatedByString:@"|"];
+
+        NSArray *type = [results.firstObject componentsSeparatedByString:@","];
+
+        NSArray *rows = [results.lastObject componentsSeparatedByString:@","];
+        
+        strongSelf.clientType.text = type.firstObject;
+        RCClientType *resultType = strongSelf.clientTypes[[rows.firstObject integerValue]];
+        strongSelf.reportTarget.showroomTwoQudaoName = resultType.name;
+        strongSelf.reportTarget.showroomTwoQudaoCode = resultType.code;
+    }];
 }
 - (IBAction)choosePushRoleClicked:(UIButton *)sender {
     FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
@@ -143,6 +204,11 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);
@@ -173,6 +239,11 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
                 [UIImagePickerController isCameraDeviceAvailable:YES];
                 //相机闪光灯是否OK
                 [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
                 [self presentViewController:imagePickerController animated:YES completion:nil];
             }else{
                 hx_weakify(self);

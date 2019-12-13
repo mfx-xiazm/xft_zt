@@ -17,6 +17,9 @@
 #import "zhAlertView.h"
 #import "zhPopupController.h"
 #import "RCGoHouseVC.h"
+#import "RCMyAgent.h"
+#import "RCMyStoreVC.h"
+#import "RCStoreClientVC.h"
 
 static NSString *const MyClientCell = @"MyClientCell";
 static NSString *const StoreClientCell = @"StoreClientCell";
@@ -90,8 +93,6 @@ static NSString *const MyStoreCell = @"MyStoreCell";
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCMyClientCell class]) bundle:nil] forCellReuseIdentifier:MyClientCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCStoreClientCell class]) bundle:nil] forCellReuseIdentifier:StoreClientCell];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([RCMyStoreCell class]) bundle:nil] forCellReuseIdentifier:MyStoreCell];
-    
-    self.tableView.hidden = YES;
 }
 /** 添加刷新控件 */
 -(void)setUpRefresh
@@ -180,6 +181,100 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         } failure:^(NSError *error) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
         }];
+    }else if (self.dataType == 2) {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        //    data[@"agentStore"] = @"";//中介门店uuid,客户列表必传
+        //    data[@"agentUuid"] = @"";//中介uuid,门店列表必传
+        data[@"searchName"] = (self.keyword && self.keyword.length)?self.keyword:@"";//搜索名称
+        data[@"showRoomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;//展厅uuid,必传
+        NSMutableDictionary *page = [NSMutableDictionary dictionary];
+        if (isRefresh) {
+            page[@"current"] = @(1);//第几页
+        }else{
+            NSInteger pagenum = self.pagenum+1;
+            page[@"current"] = @(pagenum);//第几页
+        }
+        page[@"size"] = @"10";
+        parameters[@"data"] = data;
+        parameters[@"page"] = page;
+        
+        hx_weakify(self);
+        [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/coopagent/getCoopAgentList" parameters:parameters success:^(id responseObject) {
+            hx_strongify(weakSelf);
+            if ([responseObject[@"code"] integerValue] == 0) {
+                if (isRefresh) {
+                    [strongSelf.tableView.mj_header endRefreshing];
+                    strongSelf.pagenum = 1;
+                    [strongSelf.results removeAllObjects];
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyAgent class] json:responseObject[@"data"][@"records"]];
+                    [strongSelf.results addObjectsFromArray:arrt];
+                }else{
+                    [strongSelf.tableView.mj_footer endRefreshing];
+                    strongSelf.pagenum ++;
+                    if ([responseObject[@"data"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"records"]).count){
+                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyAgent class] json:responseObject[@"data"][@"records"]];
+                        [strongSelf.results addObjectsFromArray:arrt];
+                    }else{// 提示没有更多数据
+                        [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf.tableView reloadData];
+                });
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        }];
+    }else if (self.dataType == 3) {
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSMutableDictionary *data = [NSMutableDictionary dictionary];
+        //    data[@"agentStore"] = @"";//中介门店uuid,客户列表必传
+        data[@"agentUuid"] = self.agentUuid;//中介uuid,门店列表必传
+        data[@"searchName"] = (self.keyword && self.keyword.length)?self.keyword:@"";//搜索名称
+        data[@"showRoomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;//展厅uuid,必传
+        NSMutableDictionary *page = [NSMutableDictionary dictionary];
+        if (isRefresh) {
+            page[@"current"] = @(1);//第几页
+        }else{
+            NSInteger pagenum = self.pagenum+1;
+            page[@"current"] = @(pagenum);//第几页
+        }
+        page[@"size"] = @"10";
+        parameters[@"data"] = data;
+        parameters[@"page"] = page;
+        
+        hx_weakify(self);
+        [HXNetworkTool POST:HXRC_M_URL action:@"agent/agent/coopagent/getCoopAgentStoreList" parameters:parameters success:^(id responseObject) {
+            hx_strongify(weakSelf);
+            if ([responseObject[@"code"] integerValue] == 0) {
+                if (isRefresh) {
+                    [strongSelf.tableView.mj_header endRefreshing];
+                    strongSelf.pagenum = 1;
+                    [strongSelf.results removeAllObjects];
+                    NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyAgent class] json:responseObject[@"data"][@"records"]];
+                    [strongSelf.results addObjectsFromArray:arrt];
+                }else{
+                    [strongSelf.tableView.mj_footer endRefreshing];
+                    strongSelf.pagenum ++;
+                    if ([responseObject[@"data"][@"records"] isKindOfClass:[NSArray class]] && ((NSArray *)responseObject[@"data"][@"records"]).count){
+                        NSArray *arrt = [NSArray yy_modelArrayWithClass:[RCMyAgent class] json:responseObject[@"data"][@"records"]];
+                        [strongSelf.results addObjectsFromArray:arrt];
+                    }else{// 提示没有更多数据
+                        [strongSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [strongSelf.tableView reloadData];
+                });
+            }else{
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        }];
     }
 }
 #pragma mark -- UITableView数据源和代理
@@ -257,6 +352,15 @@ static NSString *const MyStoreCell = @"MyStoreCell";
         RCMyStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:MyStoreCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        RCMyAgent *agent = self.results[indexPath.row];
+        cell.agent = agent;
+        return cell;
+    }else if (self.dataType == 3){
+        RCMyStoreCell *cell = [tableView dequeueReusableCellWithIdentifier:MyStoreCell forIndexPath:indexPath];
+        //无色
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        RCMyAgent *store = self.results[indexPath.row];
+        cell.agent = store;
         return cell;
     }else{
         RCStoreClientCell *cell = [tableView dequeueReusableCellWithIdentifier:StoreClientCell forIndexPath:indexPath];
@@ -274,6 +378,8 @@ static NSString *const MyStoreCell = @"MyStoreCell";
             return 240.f;
         }
     }else if (self.dataType == 2){
+        return 110.f;
+    }else if (self.dataType == 3){
         return 110.f;
     }else{
         return 170.f;
@@ -320,6 +426,19 @@ static NSString *const MyStoreCell = @"MyStoreCell";
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         };
         [self.navigationController pushViewController:dvc animated:YES];
+    }else if (self.dataType == 2){
+        RCMyStoreVC *cvc = [RCMyStoreVC new];
+        RCMyAgent *agent = self.results[indexPath.row];
+        cvc.agentUuid = agent.agentUuid;
+        cvc.navTitle = [NSString stringWithFormat:@"%@门店",agent.agentName];
+        [self.navigationController pushViewController:cvc animated:YES];
+    }else if (self.dataType == 3) {
+        RCStoreClientVC *cvc = [RCStoreClientVC new];
+        RCMyAgent *agent = self.results[indexPath.row];
+        cvc.agentUuid = self.agentUuid;
+        cvc.storeUuid = agent.agentUuid;
+        cvc.navTitle = [NSString stringWithFormat:@"%@客户",agent.agentName];
+        [self.navigationController pushViewController:cvc animated:YES];
     }
 }
 

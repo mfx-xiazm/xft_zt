@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCBeeClient;
 @interface RCClientCell : UITableViewCell
-
+/* 客户 */
+@property(nonatomic,strong) RCBeeClient *client;
 @end
 
 NS_ASSUME_NONNULL_END

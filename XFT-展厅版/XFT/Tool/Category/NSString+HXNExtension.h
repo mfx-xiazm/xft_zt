@@ -33,4 +33,7 @@
 - (BOOL)checkCardNo;
 // 将时间戳转换成时间
 - (NSString *)getTimeFromTimestamp:(NSString *)formatterStr;
+// 将时间字符串转换成时间date
+- (NSDate *)dateWithFormatter:(NSString *)formatterStr;
+
 @end

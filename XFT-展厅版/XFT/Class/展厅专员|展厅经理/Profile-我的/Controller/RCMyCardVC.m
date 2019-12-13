@@ -27,7 +27,7 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"我的名片"];
     
-    [self.headPic sd_setImageWithURL:[NSURL URLWithString:[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic]];
+    [self.headPic sd_setImageWithURL:[NSURL URLWithString:[MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic] placeholderImage:HXGetImage(@"pic_header")];
     self.name.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;
     self.phone.text = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.regPhone;
     

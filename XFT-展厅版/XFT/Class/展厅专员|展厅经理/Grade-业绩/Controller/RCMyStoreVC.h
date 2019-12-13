@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCMyStoreVC : HXBaseViewController
-
+/* 中介uuid */
+@property(nonatomic,copy) NSString *agentUuid;
+/* 标题 */
+@property(nonatomic,copy) NSString *navTitle;
 @end
 
 NS_ASSUME_NONNULL_END

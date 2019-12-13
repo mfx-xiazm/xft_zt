@@ -10,8 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTaskStaff,RCTaskDayInfo;
 @interface RCTaskDetailCell : UITableViewCell
-
+/* 任务人员 */
+@property(nonatomic,strong) RCTaskStaff *staff;
+/* 考勤列表 */
+@property(nonatomic,strong) RCTaskDayInfo *dayInfo;
 @end
 
 NS_ASSUME_NONNULL_END

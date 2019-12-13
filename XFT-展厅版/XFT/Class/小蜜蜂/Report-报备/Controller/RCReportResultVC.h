@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RCReportResultVC : HXBaseViewController
-/* 报备结果 */
+/* 推荐结果 */
 @property(nonatomic,strong) NSDictionary *results;
 @end
 

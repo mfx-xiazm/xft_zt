@@ -27,3 +27,5 @@ NSString * const HXBuglyKey = @"e9c8b0e044";
 NSString * const HXUserLongitude = @"HXUserLongitude";
 NSString * const HXUserLatitude = @"HXUserLatitude";
 
+NSString * const HXUserCityName = @"HXUserCityName";//定位城市
+NSString * const HXCityCode = @"HXCityCode";//定位城市

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -78,27 +76,6 @@
                     <rect key="frame" x="0.0" y="104" width="414" height="758"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zAh-HO-lje">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="合作人物商用" translatesAutoresizingMaskIntoConstraints="NO" id="IDF-Se-34Z">
-                            <rect key="frame" x="148.5" y="303" width="117.5" height="122"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="功能开发中，敬请期待…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iNI-9o-LIt">
-                            <rect key="frame" x="130" y="445" width="154" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="iNI-9o-LIt" firstAttribute="centerX" secondItem="zAh-HO-lje" secondAttribute="centerX" id="9k3-c1-CbL"/>
-                        <constraint firstItem="IDF-Se-34Z" firstAttribute="centerY" secondItem="zAh-HO-lje" secondAttribute="centerY" constant="-45" id="Ccf-pF-1m8"/>
-                        <constraint firstItem="IDF-Se-34Z" firstAttribute="centerX" secondItem="zAh-HO-lje" secondAttribute="centerX" id="Uj7-7D-YDT"/>
-                        <constraint firstItem="iNI-9o-LIt" firstAttribute="top" secondItem="IDF-Se-34Z" secondAttribute="bottom" constant="20" id="bZi-nQ-BdM"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -108,18 +85,14 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="NLl-8E-umz" secondAttribute="bottom" id="Umv-a1-ube"/>
                 <constraint firstItem="NLl-8E-umz" firstAttribute="top" secondItem="Ikt-hE-Osd" secondAttribute="bottom" id="ZpB-AH-b9Q"/>
                 <constraint firstItem="NLl-8E-umz" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="bmk-Po-4tP"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="zAh-HO-lje" secondAttribute="bottom" id="jFR-bl-avi"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="NLl-8E-umz" secondAttribute="trailing" id="k04-cL-M5Y"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="zAh-HO-lje" secondAttribute="top" id="pIG-ex-n87"/>
-                <constraint firstItem="zAh-HO-lje" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="pOE-Oq-fq3"/>
-                <constraint firstItem="zAh-HO-lje" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="r9y-wU-Uj2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="119"/>
         </view>
     </objects>
     <resources>
         <image name="icon_kqtj" width="30" height="30"/>
         <image name="icon_rwtj" width="30" height="30"/>
-        <image name="合作人物商用" width="117.5" height="122"/>
     </resources>
 </document>

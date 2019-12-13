@@ -884,4 +884,12 @@ static const unsigned componentFlags = (NSCalendarUnitYear| NSCalendarUnitMonth 
     NSDateComponents *components = [[NSDate currentCalendar] components:componentFlags fromDate:self];
     return components.year;
 }
+
+- (NSDate *)dateWithFormatter:(NSString *)formatter;
+{
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateFormat = formatter;
+    NSString *selfStr = [fmt stringFromDate:self];
+    return [fmt dateFromString:selfStr];
+}
 @end

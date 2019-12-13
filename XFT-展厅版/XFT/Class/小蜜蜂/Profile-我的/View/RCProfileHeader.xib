@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +16,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BmZ-86-SJZ">
                     <rect key="frame" x="0.0" y="54" width="424" height="113"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfe-Cf-gTM">
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfe-Cf-gTM">
                             <rect key="frame" x="15" y="31.5" width="50" height="50"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -50,7 +48,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODH-n9-2Pw">
-                            <rect key="frame" x="0.0" y="0.0" width="424" height="113"/>
+                            <rect key="frame" x="75" y="0.0" width="349" height="113"/>
                             <connections>
                                 <action selector="infoClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="WBc-Po-hfJ"/>
                             </connections>
@@ -60,10 +58,10 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="ODH-n9-2Pw" secondAttribute="bottom" id="864-mX-hqW"/>
                         <constraint firstItem="dfe-Cf-gTM" firstAttribute="centerY" secondItem="BmZ-86-SJZ" secondAttribute="centerY" id="Eor-uh-85r"/>
-                        <constraint firstItem="ODH-n9-2Pw" firstAttribute="leading" secondItem="BmZ-86-SJZ" secondAttribute="leading" id="FDv-fI-N6P"/>
                         <constraint firstItem="MbS-Ij-nJR" firstAttribute="centerY" secondItem="zj3-Lm-xfs" secondAttribute="centerY" id="GDe-sa-Xtd"/>
                         <constraint firstItem="dfe-Cf-gTM" firstAttribute="leading" secondItem="BmZ-86-SJZ" secondAttribute="leading" constant="15" id="R4y-pb-FYp"/>
                         <constraint firstItem="ODH-n9-2Pw" firstAttribute="top" secondItem="BmZ-86-SJZ" secondAttribute="top" id="Y3f-Hb-r3U"/>
+                        <constraint firstItem="ODH-n9-2Pw" firstAttribute="leading" secondItem="dfe-Cf-gTM" secondAttribute="trailing" constant="10" id="YLm-Bt-2kh"/>
                         <constraint firstItem="zj3-Lm-xfs" firstAttribute="leading" secondItem="dfe-Cf-gTM" secondAttribute="trailing" constant="10" id="aQ8-9i-gHd"/>
                         <constraint firstItem="nCq-NJ-1jA" firstAttribute="leading" secondItem="dfe-Cf-gTM" secondAttribute="trailing" constant="10" id="bqs-KC-ko3"/>
                         <constraint firstItem="zj3-Lm-xfs" firstAttribute="top" secondItem="dfe-Cf-gTM" secondAttribute="top" constant="2" id="dK7-g0-AXJ"/>
@@ -87,6 +85,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="headImg" destination="dfe-Cf-gTM" id="bzQ-X5-Tbb"/>
+                <outlet property="name" destination="zj3-Lm-xfs" id="eq9-fi-Vin"/>
+                <outlet property="nickName" destination="nCq-NJ-1jA" id="61V-CC-ckv"/>
+                <outlet property="phone" destination="MbS-Ij-nJR" id="3MU-pu-rdy"/>
                 <outlet property="topNavBar" destination="ird-B2-pUM" id="OaK-7V-BAz"/>
             </connections>
             <point key="canvasLocation" x="203" y="223"/>

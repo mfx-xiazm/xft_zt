@@ -10,8 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^registerCall)(void);
 @interface RCRegisterVC : HXBaseViewController
-
+/* 二维码字符串 */
+@property(nonatomic,copy) NSString *codeStr;
+/* 注册 */
+@property(nonatomic,copy) registerCall registerCall;
 @end
 
 NS_ASSUME_NONNULL_END

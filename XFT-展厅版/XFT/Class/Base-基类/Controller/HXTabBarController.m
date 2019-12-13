@@ -10,6 +10,7 @@
 #import "UIImage+HXNExtension.h"
 #import "HXNavigationController.h"
 #import "RCPushVC.h"
+#import "RCBeePushVC.h"
 #import "RCClientVC.h"
 #import "RCProfileVC.h"
 #import "RCHouseVC.h"
@@ -74,7 +75,7 @@
         [self setValue:tab forKey:@"tabBar"];
     }else{
         // 小蜜蜂
-        [self setupChildVc:[[RCPushVC alloc] init] title:@"报备" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
+        [self setupChildVc:[[RCBeePushVC alloc] init] title:@"推荐" image:@"icon_baobei" selectedImage:@"icon_baobei_yellow"];
         [self setupChildVc:[[RCClientVC alloc] init] title:@"客户" image:@"icon_kehu" selectedImage:@"icon_kehu_yellow"];
         [self setupChildVc:[[RCProfileVC alloc] init] title:@"我的" image:@"icon_mine" selectedImage:@"icon_mine_yellow"];
     }
@@ -90,14 +91,23 @@
 {
     // 新增任务
     if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//展厅经理
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"功能开发中，敬请期待…"];
-//        RCAddTaskVC *tvc = [RCAddTaskVC new];
-//        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
-//        [self.selectedViewController presentViewController:nav animated:YES completion:nil];
+        RCAddTaskVC *tvc = [RCAddTaskVC new];
+        HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:tvc];
+        if (@available(iOS 13.0, *)) {
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+            nav.modalInPresentation = YES;
+        }
+        [self.selectedViewController presentViewController:nav animated:YES completion:nil];
     }else{
         // 报备客户
         RCPushVC *pvc = [RCPushVC new];
         HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:pvc];
+        if (@available(iOS 13.0, *)) {
+            nav.modalPresentationStyle = UIModalPresentationFullScreen;
+            /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+            nav.modalInPresentation = YES;
+        }
         [self.selectedViewController presentViewController:nav animated:YES completion:nil];
     }
 }

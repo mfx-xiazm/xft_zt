@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,36 +14,39 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLI-pQ-Lcf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Se8-CY-Pwp">
-                                <rect key="frame" x="15" y="15" width="92.5" height="69.5"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_zhongjie" translatesAutoresizingMaskIntoConstraints="NO" id="Se8-CY-Pwp">
+                                <rect key="frame" x="15" y="15" width="93.5" height="70"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Se8-CY-Pwp" secondAttribute="height" multiplier="4:3" id="ItO-V8-bC9"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="融创金城未来海" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L00-xb-8jp">
-                                <rect key="frame" x="117.5" y="15" width="112" height="22.5"/>
+                                <rect key="frame" x="118.5" y="15" width="229.5" height="22.5"/>
                                 <fontDescription key="fontDescription" name="PingFangSC-Medium" family="PingFang SC" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_next" translatesAutoresizingMaskIntoConstraints="NO" id="JS1-NX-MCF">
                                 <rect key="frame" x="348" y="20.5" width="12" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="12" id="e8n-Wj-yof"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报备数：8765  到访数：8765" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sK7-JS-EZe">
-                                <rect key="frame" x="117.5" y="45.5" width="242.5" height="16"/>
+                                <rect key="frame" x="118.5" y="45.5" width="241.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="认购数：3874  签约数：3874" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJD-9G-oQA">
-                                <rect key="frame" x="117.5" y="69.5" width="242.5" height="16"/>
+                                <rect key="frame" x="118.5" y="69.5" width="241.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -64,6 +65,7 @@
                             <constraint firstItem="TJD-9G-oQA" firstAttribute="top" secondItem="sK7-JS-EZe" secondAttribute="bottom" constant="8" id="fQ2-Ux-hOy"/>
                             <constraint firstItem="JS1-NX-MCF" firstAttribute="centerY" secondItem="L00-xb-8jp" secondAttribute="centerY" id="g4r-lO-foL"/>
                             <constraint firstItem="Se8-CY-Pwp" firstAttribute="top" secondItem="OLI-pQ-Lcf" secondAttribute="top" constant="15" id="gJ1-LC-sSg"/>
+                            <constraint firstItem="JS1-NX-MCF" firstAttribute="leading" secondItem="L00-xb-8jp" secondAttribute="trailing" id="h5A-UD-PdO"/>
                             <constraint firstAttribute="bottom" secondItem="Se8-CY-Pwp" secondAttribute="bottom" constant="15" id="ljH-PX-CLP"/>
                             <constraint firstItem="TJD-9G-oQA" firstAttribute="leading" secondItem="Se8-CY-Pwp" secondAttribute="trailing" constant="10" id="wM9-bT-Ei3"/>
                         </constraints>
@@ -78,10 +80,17 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="reportNum" destination="sK7-JS-EZe" id="doF-qc-EFV"/>
+                <outlet property="shopName" destination="L00-xb-8jp" id="wnw-5m-NAm"/>
+                <outlet property="shopPic" destination="Se8-CY-Pwp" id="AXq-tL-iUe"/>
+                <outlet property="signNum" destination="TJD-9G-oQA" id="dhZ-Tn-awt"/>
+            </connections>
             <point key="canvasLocation" x="-23.913043478260871" y="65.959821428571431"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="icon_next" width="12" height="12"/>
+        <image name="icon_zhongjie" width="400" height="300"/>
     </resources>
 </document>

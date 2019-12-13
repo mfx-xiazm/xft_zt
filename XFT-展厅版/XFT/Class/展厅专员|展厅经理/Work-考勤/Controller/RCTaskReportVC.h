@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTask;
 @interface RCTaskReportVC : HXBaseViewController
-
+/* 任务 */
+@property(nonatomic,strong) RCTask *task;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UITextField *pwd;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet SPButton *beeLogin;
+
 @end
 
 @implementation RCLoginVC
@@ -33,19 +35,6 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:self.isScan animated:animated];
 }
-- (IBAction)changeYuMing:(UIButton *)sender {
-    NSString *ipKey = [[NSUserDefaults standardUserDefaults] stringForKey:@"RCIPkey"];
-
-    if ([ipKey isEqualToString:@"dev"]) {
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"uat环境域名"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"uat" forKey:@"RCIPkey"];
-    }else{
-        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"dev环境域名"];
-        [[NSUserDefaults standardUserDefaults] setObject:@"dev" forKey:@"RCIPkey"];
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     hx_weakify(self);
@@ -74,7 +63,7 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:self.beeLogin.isSelected?@"showroom/showroom/showroomBeeLoginInside/showRoomBeeLogin":@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
             // 经理/专员
@@ -85,6 +74,8 @@
             }else{
                 MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
                 userInfo.ulevel = 3;
+                MSUserRoles *role = userInfo.responseCheckRoles.firstObject;
+                userInfo.selectRole = role;
                 [MSUserManager sharedInstance].curUserInfo = userInfo;
                 [[MSUserManager sharedInstance] saveUserInfo];
                 
@@ -105,6 +96,10 @@
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
     }];
 }
+- (IBAction)beeLoginClicked:(SPButton *)sender {
+    self.beeLogin.selected = !self.beeLogin.isSelected;
+}
+
 - (IBAction)sacnClicked:(UIButton *)sender {
     self.isScan = YES;
     RCScanVC *svc = [RCScanVC new];

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,43 +23,16 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSG-oI-t2o">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="合作人物商用" translatesAutoresizingMaskIntoConstraints="NO" id="Vog-hD-2fB">
-                            <rect key="frame" x="148.5" y="303" width="117.5" height="122"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="功能开发中，敬请期待…" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57M-oL-fub">
-                            <rect key="frame" x="130" y="445" width="154" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="Vog-hD-2fB" firstAttribute="centerY" secondItem="hSG-oI-t2o" secondAttribute="centerY" constant="-45" id="9ug-FB-rMb"/>
-                        <constraint firstItem="Vog-hD-2fB" firstAttribute="centerX" secondItem="hSG-oI-t2o" secondAttribute="centerX" id="EQq-uc-TrY"/>
-                        <constraint firstItem="57M-oL-fub" firstAttribute="top" secondItem="Vog-hD-2fB" secondAttribute="bottom" constant="20" id="N2v-6W-DzR"/>
-                        <constraint firstItem="57M-oL-fub" firstAttribute="centerX" secondItem="hSG-oI-t2o" secondAttribute="centerX" id="zIl-4q-A0g"/>
-                    </constraints>
-                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="EzE-Pl-eDB" secondAttribute="bottom" id="8Of-4T-WaF"/>
-                <constraint firstItem="hSG-oI-t2o" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="ARA-ma-DXA"/>
                 <constraint firstItem="EzE-Pl-eDB" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="Ipb-5n-JXd"/>
-                <constraint firstItem="hSG-oI-t2o" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="Kta-co-6fK"/>
                 <constraint firstItem="EzE-Pl-eDB" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="bCn-yD-0Rl"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="top" secondItem="hSG-oI-t2o" secondAttribute="top" id="dsj-Gz-bta"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="EzE-Pl-eDB" secondAttribute="trailing" id="mm4-Gh-zjn"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="hSG-oI-t2o" secondAttribute="bottom" id="v5E-2d-0ob"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="119"/>
         </view>
     </objects>
-    <resources>
-        <image name="合作人物商用" width="117.5" height="122"/>
-    </resources>
 </document>

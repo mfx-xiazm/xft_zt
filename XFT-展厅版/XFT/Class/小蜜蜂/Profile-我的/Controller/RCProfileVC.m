@@ -15,11 +15,16 @@
 #import "RCProfileInfoVC.h"
 #import "RCMyOrganizationVC.h"
 #import "RCPinNoteVC.h"
-#import "RCRecordVC.h"
+#import "RCManagerRecordVC.h"
+#import "zhAlertView.h"
+#import <zhPopupController.h>
+#import "FSActionSheet.h"
+#import "RCLoginVC.h"
+#import "HXNavigationController.h"
 
 static NSString *const ProfileCell = @"ProfileCell";
 
-@interface RCProfileVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface RCProfileVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 /* 导航栏 */
 @property(nonatomic,strong) RCNavBarView *navBarView;
@@ -29,7 +34,8 @@ static NSString *const ProfileCell = @"ProfileCell";
 @property(nonatomic,strong) RCProfileFooter *footer;
 /* titles */
 @property(nonatomic,strong) NSArray *titles;
-
+/* 更新字典 */
+@property(nonatomic,strong) NSDictionary *updateDict;
 @end
 
 @implementation RCProfileVC
@@ -38,11 +44,13 @@ static NSString *const ProfileCell = @"ProfileCell";
     [super viewDidLoad];
     [self.view addSubview:self.navBarView];
     [self setUpTableView];
+    [self queryAppVersion];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+//    [self getBeePemCountRequest];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -69,7 +77,7 @@ static NSString *const ProfileCell = @"ProfileCell";
         [_navBarView.moreBtn setImage:HXGetImage(@"icon_daka") forState:UIControlStateNormal];
         hx_weakify(self);
         _navBarView.navMoreCall = ^{
-            RCRecordVC *rvc = [RCRecordVC new];
+            RCManagerRecordVC *rvc = [RCManagerRecordVC new];
             [weakSelf.navigationController pushViewController:rvc animated:YES];
         };
     }
@@ -83,10 +91,21 @@ static NSString *const ProfileCell = @"ProfileCell";
         _header.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, self.HXNavBarHeight + 100.f);
         _header.topNavBar.constant = self.HXNavBarHeight;
         hx_weakify(self);
-        _header.infoClicked = ^{
+        _header.infoClicked = ^(NSInteger index) {
             hx_strongify(weakSelf);
-            RCProfileInfoVC *ivc = [RCProfileInfoVC new];
-            [strongSelf.navigationController pushViewController:ivc animated:YES];
+            if (index == 1) {
+                FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:nil cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
+                [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
+                    if (selectedIndex == 0) {
+                        [strongSelf awakeImagePickerController:@"1"];
+                    }else{
+                        [strongSelf awakeImagePickerController:@"2"];
+                    }
+                }];
+            }else{
+                RCProfileInfoVC *ivc = [RCProfileInfoVC new];
+                [strongSelf.navigationController pushViewController:ivc animated:YES];
+            }
         };
     }
     return _header;
@@ -97,6 +116,24 @@ static NSString *const ProfileCell = @"ProfileCell";
     if (_footer == nil) {
         _footer = [RCProfileFooter loadXibView];
         _footer.frame = CGRectMake(0, 0, HX_SCREEN_WIDTH, 100.f);
+        _footer.logOutCall = ^{
+            FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:@"确定要退出登录吗" delegate:nil cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"退出"]];
+            [as showWithSelectedCompletion:^(NSInteger selectedIndex) {
+                if (selectedIndex == 0) {
+                    [[MSUserManager sharedInstance] logout:nil];
+
+                    RCLoginVC *lvc = [RCLoginVC new];
+                    HXNavigationController *nav = [[HXNavigationController alloc] initWithRootViewController:lvc];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = nav;
+
+                    //推出主界面出来
+                    CATransition *ca = [CATransition animation];
+                    ca.type = @"movein";
+                    ca.duration = 0.5;
+                    [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+                }
+            }];
+        };
     }
     return _footer;
 }
@@ -142,6 +179,186 @@ static NSString *const ProfileCell = @"ProfileCell";
 {
     //该页面呈现时手动调用计算导航栏此时应当显示的颜色
     [self.navBarView changeColor:[UIColor whiteColor] offsetHeight:180-self.HXNavBarHeight withOffsetY:scrollView.contentOffset.y];
+}
+#pragma mark -- 唤起相机
+- (void)awakeImagePickerController:(NSString *)pickerType {
+    if ([pickerType isEqualToString:@"1"]) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            if ([self isCanUseCamera]) {
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = YES;
+                
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+                //前后摄像头是否可用
+                [UIImagePickerController isCameraDeviceAvailable:YES];
+                //相机闪光灯是否OK
+                [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
+                [self presentViewController:imagePickerController animated:YES completion:nil];
+            }else{
+                hx_weakify(self);
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"请打开相机权限" message:@"设置-隐私-相机" constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"知道了" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                [alert addAction:okButton];
+                self.zh_popupController = [[zhPopupController alloc] init];
+                [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }
+        }else{
+            [MBProgressHUD showTitleToView:self.view postion:NHHUDPostionTop title:@"相机不可用"];
+            return;
+        }
+    }else{
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+            if ([self isCanUsePhotos]) {
+                UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+                imagePickerController.delegate = self;
+                imagePickerController.allowsEditing = YES;
+                
+                imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                //前后摄像头是否可用
+                [UIImagePickerController isCameraDeviceAvailable:YES];
+                //相机闪光灯是否OK
+                [UIImagePickerController isFlashAvailableForCameraDevice:YES];
+                if (@available(iOS 13.0, *)) {
+                    imagePickerController.modalPresentationStyle = UIModalPresentationFullScreen;
+                    /*当该属性为 false 时，用户下拉可以 dismiss 控制器，为 true 时，下拉不可以 dismiss控制器*/
+                    imagePickerController.modalInPresentation = YES;
+                }
+                [self presentViewController:imagePickerController animated:YES completion:nil];
+            }else{
+                hx_weakify(self);
+                zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"请打开相册权限" message:@"设置-隐私-相册" constantWidth:HX_SCREEN_WIDTH - 50*2];
+                zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"知道了" handler:^(zhAlertButton * _Nonnull button) {
+                    hx_strongify(weakSelf);
+                    [strongSelf.zh_popupController dismiss];
+                }];
+                okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+                [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+                [alert addAction:okButton];
+                self.zh_popupController = [[zhPopupController alloc] init];
+                [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+            }
+        }else{
+            [MBProgressHUD showTitleToView:self.view postion:NHHUDPostionTop title:@"相册不可用"];
+            return;
+        }
+    }
+}
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    hx_weakify(self);
+    [picker dismissViewControllerAnimated:YES completion:^{
+        hx_strongify(weakSelf);
+        // 显示保存图片
+        [strongSelf upImageRequestWithImage:info[UIImagePickerControllerEditedImage] completedCall:^(NSString *imageUrl) {
+            [strongSelf.header.headImg sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
+            [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.headpic = imageUrl;
+            [[MSUserManager sharedInstance] saveUserInfo];
+            [strongSelf updateBeeHeadpicRequest:imageUrl];
+        }];
+    }];
+}
+#pragma mark -- 接口业务
+// 请求我的组织个数
+-(void)getBeePemCountRequest
+{
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showRoomBeeOrg/getBeePemCount" parameters:@{} success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)queryAppVersion
+{
+    hx_weakify(self);
+    [self queryAppVersionRequest:^(NSDictionary *version) {
+        hx_strongify(weakSelf);
+        //                currentVersion  最新版本号
+        //                downlondUrl 下载地址
+        //                isForce    是否强制更新 0不强制 1强制
+        //                upremark 更新内容
+        strongSelf.updateDict = [NSDictionary dictionaryWithDictionary:version];
+        RCProfileCell *cell = [strongSelf.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:strongSelf.titles.count-1]];
+        cell.isUpdeta.hidden = NO;
+    }];
+}
+-(void)queryAppVersionRequest:(void(^)(NSDictionary *version))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"applicationMarket"] = @"";
+    NSString *key = @"CFBundleShortVersionString";
+    // 当前软件的版本号（从Info.plist中获得）
+    NSString *currentVersion = [NSBundle mainBundle].infoDictionary[key];
+    data[@"currentVersion"] = currentVersion;
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/appversion/queryAppVersion" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]]) {
+                if (((NSDictionary *)responseObject[@"data"]).allKeys.count) {
+                    if (![(NSString *)responseObject[@"data"][@"upVesion"] isEqualToString:currentVersion]) {
+                        if (completedCall) {
+                            completedCall(responseObject[@"data"]);
+                        }
+                    }
+                }else{
+                    [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+                }
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
+{
+    [HXNetworkTool uploadImagesWithURL:HXRC_M_URL action:@"sys/sys/dict/getUploadImgReturnUrl.do" parameters:@{} name:@"file" images:@[image] fileNames:nil imageScale:0.8 imageType:@"png" progress:nil success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            completedCall(responseObject[@"data"][@"url"]);
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
+-(void)updateBeeHeadpicRequest:(NSString *)imageUrl
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"headpic"] = imageUrl;
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroomBeeLoginInside/updateBeeHeadpic" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
 #pragma mark -- UITableView数据源和代理
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -192,7 +409,33 @@ static NSString *const ProfileCell = @"ProfileCell";
         RCChangePwdVC *pwd = [RCChangePwdVC new];
         [self.navigationController pushViewController:pwd animated:YES];
     }else{
-        HXLog(@"版本更新");
+        if (self.updateDict) {
+            hx_weakify(self);
+            zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"更新版本" message:[NSString stringWithFormat:@"%@",self.updateDict[@"upremark"]] constantWidth:HX_SCREEN_WIDTH - 50*2];
+            zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+                hx_strongify(weakSelf);
+                [strongSelf.zh_popupController dismiss];
+            }];
+            zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"下载" handler:^(zhAlertButton * _Nonnull button) {
+                hx_strongify(weakSelf);
+                [strongSelf.zh_popupController dismiss];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strongSelf.updateDict[@"downlondUrl"]]]];
+            }];
+            cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+            [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+            okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+            [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+            
+            self.zh_popupController = [[zhPopupController alloc] init];
+            if ([self.updateDict[@"isForce"] integerValue] == 0) {
+                self.zh_popupController.dismissOnMaskTouched = YES;
+                [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+            }else{
+                self.zh_popupController.dismissOnMaskTouched = NO;
+                [alert addAction:okButton];
+            }
+            [self.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+        }
     }
 }
 

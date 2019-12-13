@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCMoveClientFromVC">
             <connections>
+                <outlet property="moveName" destination="osc-iK-I1v" id="UM9-WP-CLy"/>
                 <outlet property="searchView" destination="RNu-05-RCG" id="y0z-h3-w3u"/>
+                <outlet property="selectBtn" destination="xov-fW-ESw" id="CXq-Nv-Gos"/>
                 <outlet property="tableView" destination="tsF-xO-HT0" id="1UO-Vk-LjB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,19 +23,25 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u0w-Bv-ldO">
-                    <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="90"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNu-05-RCG">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="60" id="KNd-vp-ADw"/>
+                                <constraint firstAttribute="height" constant="50" id="KNd-vp-ADw"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已选专员：张辉" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="osc-iK-I1v">
+                            <rect key="frame" x="15" y="50" width="107.5" height="40"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cXk-fw-rNr" customClass="SPButton">
-                            <rect key="frame" x="299" y="60" width="100" height="40"/>
+                            <rect key="frame" x="269" y="50" width="130" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="100" id="ahj-TY-2HJ"/>
+                                <constraint firstAttribute="width" constant="130" id="ahj-TY-2HJ"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="全部客户" image="Shape">
@@ -53,17 +59,20 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="osc-iK-I1v" firstAttribute="leading" secondItem="u0w-Bv-ldO" secondAttribute="leading" constant="15" id="00k-F2-LmC"/>
+                        <constraint firstItem="osc-iK-I1v" firstAttribute="top" secondItem="RNu-05-RCG" secondAttribute="bottom" id="50e-BE-fAh"/>
                         <constraint firstAttribute="trailing" secondItem="RNu-05-RCG" secondAttribute="trailing" id="88l-Sl-G0w"/>
-                        <constraint firstAttribute="height" constant="100" id="Dur-8e-XU6"/>
+                        <constraint firstAttribute="height" constant="90" id="Dur-8e-XU6"/>
                         <constraint firstItem="RNu-05-RCG" firstAttribute="top" secondItem="u0w-Bv-ldO" secondAttribute="top" id="E1b-Bu-izE"/>
                         <constraint firstItem="cXk-fw-rNr" firstAttribute="top" secondItem="RNu-05-RCG" secondAttribute="bottom" id="ElB-YJ-YzG"/>
+                        <constraint firstAttribute="bottom" secondItem="osc-iK-I1v" secondAttribute="bottom" id="Gb3-Md-APd"/>
                         <constraint firstAttribute="trailing" secondItem="cXk-fw-rNr" secondAttribute="trailing" constant="15" id="Jq3-kx-iFr"/>
                         <constraint firstItem="RNu-05-RCG" firstAttribute="leading" secondItem="u0w-Bv-ldO" secondAttribute="leading" id="UlQ-U1-DPp"/>
                         <constraint firstAttribute="bottom" secondItem="cXk-fw-rNr" secondAttribute="bottom" id="wtC-Mq-raA"/>
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tsF-xO-HT0">
-                    <rect key="frame" x="0.0" y="144" width="414" height="668"/>
+                    <rect key="frame" x="0.0" y="134" width="414" height="678"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzE-cV-zcW">
@@ -86,6 +95,10 @@
                             <state key="normal" title="全选" image="icon_choose_gray">
                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <state key="selected" image="icon_choose_yellow"/>
+                            <connections>
+                                <action selector="selectAllClicked:" destination="-1" eventType="touchUpInside" id="aTV-oq-sSR"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vr4-Ki-41W">
                             <rect key="frame" x="125" y="8" width="274" height="34"/>
@@ -135,10 +148,12 @@
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="tsF-xO-HT0" secondAttribute="trailing" id="yjt-KW-5Tu"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="114"/>
         </view>
     </objects>
     <resources>
         <image name="Shape" width="16" height="16"/>
         <image name="icon_choose_gray" width="24" height="24"/>
+        <image name="icon_choose_yellow" width="24" height="24"/>
     </resources>
 </document>

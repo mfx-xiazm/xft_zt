@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class RCTaskAgentMember;
 @interface RCAddTaskMemberCell : UICollectionViewCell
-
+/* 人员 */
+@property(nonatomic,strong) RCTaskAgentMember *member;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,7 +14,7 @@ typedef void(^cutBtnCall)(void);
 @interface RCAddedClientCell : UITableViewCell
 /* 删除 */
 @property(nonatomic,copy) cutBtnCall cutBtnCall;
-/* 报备对象 */
+/* 推荐对象 */
 @property(nonatomic,strong) RCReportTarget *client;
 @end
 
