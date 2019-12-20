@@ -50,7 +50,13 @@
         _invalidTime = @"无";
     }
 }
+-(NSString *)baobeiYuqiTime
+{
+    NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval currentDateInt = [currentDate timeIntervalSince1970];
 
+    return [NSString stringWithFormat:@"%.f",ceil(([_baobeiYuqiTime integerValue]-currentDateInt)/(3600*24))];//向上取整
+}
 -(void)setStatus:(NSInteger)status
 {
     /* status客户状态值 0:报备成功 2:到访 4:认筹 5:认购 6:签约 7:退房 101:已失效 */

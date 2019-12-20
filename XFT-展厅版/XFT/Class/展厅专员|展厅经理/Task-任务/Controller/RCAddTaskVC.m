@@ -311,6 +311,7 @@ static NSString *const AddTaskMemberCell = @"AddTaskMemberCell";
         [sender stopLoading:@"创建" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+           [[NSNotificationCenter defaultCenter] postNotificationName:@"RCRefreshTaskWork" object:nil];
            [strongSelf.navigationController dismissViewControllerAnimated:YES completion:nil];
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

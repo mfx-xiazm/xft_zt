@@ -10,11 +10,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @class RCMyClient;
-typedef void(^clientDetailCall)(NSInteger index);
+typedef void(^clientDetailCall)(NSInteger index,UIButton *btn);
 @interface RCClientDetailHeader : UIView
 @property (weak, nonatomic) IBOutlet UIView *clientToolView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *clientViewHeight;
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
+@property (weak, nonatomic) IBOutlet SPButton *followBtn;
+
 /* 点击 */
 @property(nonatomic,copy) clientDetailCall clientDetailCall;
 /* 客户状态 0-6*/

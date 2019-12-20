@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 @property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *clientType;
 @property (weak, nonatomic) IBOutlet UILabel *cardCode;
 @property (weak, nonatomic) IBOutlet UILabel *remarkTime;
 @property (weak, nonatomic) IBOutlet HXPlaceholderTextView *remark;
@@ -40,6 +41,8 @@
 {
     self.phone.text = _client.phone;
     self.name.text = _client.name;
+    
+    self.clientType.text = _client.showroomTwoQudaoName;
     self.cardCode.text = _client.idNo;
     self.remarkTime.text = [NSString stringWithFormat:@"最后备注时间：%@",_client.remarkTime];
     self.remark.text = (_client.remark && _client.remark.length)?_client.remark:@"无";

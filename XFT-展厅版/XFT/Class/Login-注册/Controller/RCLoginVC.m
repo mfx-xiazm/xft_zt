@@ -11,6 +11,7 @@
 #import "HXTabBarController.h"
 #import "RCScanVC.h"
 #import "RCChangeRoleVC.h"
+#import "RCBeeLoginVC.h"
 
 @interface RCLoginVC ()
 /* 扫描跳转 */
@@ -18,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *account;
 @property (weak, nonatomic) IBOutlet UITextField *pwd;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet SPButton *beeLogin;
 
 @end
 
@@ -63,7 +63,7 @@
     parameters[@"data"] = data;
     
     hx_weakify(self);
-    [HXNetworkTool POST:HXRC_M_URL action:self.beeLogin.isSelected?@"showroom/showroom/showroomBeeLoginInside/showRoomBeeLogin":@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/system/showRoomlogin" parameters:parameters success:^(id responseObject) {
         [sender stopLoading:@"登录" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
             // 经理/专员
@@ -72,21 +72,7 @@
                 rvc.userInfo = responseObject[@"data"];
                 [weakSelf.navigationController pushViewController:rvc animated:YES];
             }else{
-                MSUserInfo *userInfo = [MSUserInfo yy_modelWithDictionary:responseObject[@"data"]];
-                userInfo.ulevel = 3;
-                MSUserRoles *role = userInfo.responseCheckRoles.firstObject;
-                userInfo.selectRole = role;
-                [MSUserManager sharedInstance].curUserInfo = userInfo;
-                [[MSUserManager sharedInstance] saveUserInfo];
-                
-                HXTabBarController *tab = [[HXTabBarController alloc] init];
-                [UIApplication sharedApplication].keyWindow.rootViewController = tab;
-                
-                //推出主界面出来
-                CATransition *ca = [CATransition animation];
-                ca.type = @"movein";
-                ca.duration = 0.5;
-                [[UIApplication sharedApplication].keyWindow.layer addAnimation:ca forKey:nil];
+                [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请从小蜜蜂入口登录"];
             }
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
@@ -97,7 +83,9 @@
     }];
 }
 - (IBAction)beeLoginClicked:(SPButton *)sender {
-    self.beeLogin.selected = !self.beeLogin.isSelected;
+    self.isScan = YES;
+    RCBeeLoginVC *lvc = [RCBeeLoginVC new];
+    [self.navigationController pushViewController:lvc animated:YES];
 }
 
 - (IBAction)sacnClicked:(UIButton *)sender {

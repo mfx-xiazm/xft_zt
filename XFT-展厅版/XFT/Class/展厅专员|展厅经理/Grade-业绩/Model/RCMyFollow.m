@@ -34,4 +34,11 @@
         _time = @"无";
     }
 }
+-(NSString *)baobeiYuqiTime
+{
+    NSDate *currentDate = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSTimeInterval currentDateInt = [currentDate timeIntervalSince1970];
+
+    return [NSString stringWithFormat:@"%.f",ceil(([_baobeiYuqiTime integerValue]-currentDateInt)/(3600*24))];//向上取整
+}
 @end

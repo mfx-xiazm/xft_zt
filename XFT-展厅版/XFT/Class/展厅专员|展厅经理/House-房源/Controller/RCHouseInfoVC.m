@@ -95,7 +95,7 @@ static NSString *const HouseDetailInfoCell = @"HouseDetailInfoCell";
     
     self.houseData = [NSMutableArray array];
     NSArray *titles = @[@"楼盘地址",@"楼盘状态",@"楼盘均价",@"可售面积",@"可售户型",@"开盘时间",@"交房时间",@"装修标准",@"绿化率",@"容积率",@"物业费",@"车位占比",@"规划户数",@"产权年限",@"占地面积",@"开发商",@"物业公司"];
-    NSArray *values = @[self.houseInfo.buldAddr,self.houseInfo.salesState, self.houseInfo.price, self.houseInfo.areaInterval,self.houseInfo.mainHuxingName,self.houseInfo.openTime,self.houseInfo.deliveryTime,self.houseInfo.decorate,self.houseInfo.greenRate,self.houseInfo.volumeRate,[NSString stringWithFormat:@"%@/㎡", self.houseInfo.propertyFee],self.houseInfo.carRate,[NSString stringWithFormat:@"%@户", self.houseInfo.totalUsers],[NSString stringWithFormat:@"%@年", self.houseInfo.buldYears],self.houseInfo.totalAre,self.houseInfo.buldDeveloper,self.houseInfo.propertyCompany];
+    NSArray *values = @[self.houseInfo.buldAddr,(self.houseInfo.salesState && self.houseInfo.salesState.length)?self.houseInfo.salesState:@"暂无", self.houseInfo.price, [NSString stringWithFormat:@"%@㎡", self.houseInfo.areaInterval],self.houseInfo.mainHuxingName,self.houseInfo.openTime,self.houseInfo.deliveryTime,self.houseInfo.decorate,self.houseInfo.greenRate,self.houseInfo.volumeRate,[NSString stringWithFormat:@"%@/㎡", self.houseInfo.propertyFee],self.houseInfo.carRate,[NSString stringWithFormat:@"%@户", self.houseInfo.totalUsers],[NSString stringWithFormat:@"%@年", self.houseInfo.buldYears],[NSString stringWithFormat:@"%@㎡", self.houseInfo.totalAre],self.houseInfo.buldDeveloper,self.houseInfo.propertyCompany];
 
     for (int i=0; i<titles.count; i++) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];

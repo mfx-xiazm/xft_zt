@@ -514,6 +514,11 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         [sender stopLoading:@"马上报备客户" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
             [strongSelf clearReportData];
+            if (((NSArray *)responseObject[@"data"][@"successList"]).count) {
+                if (strongSelf.taskReportActionCall) {
+                    strongSelf.taskReportActionCall(((NSArray *)responseObject[@"data"][@"successList"]).count);
+                }
+            }
             RCReportResultVC *rvc = [RCReportResultVC new];
             rvc.results = responseObject[@"data"];
             [strongSelf.navigationController pushViewController:rvc animated:YES];

@@ -9,5 +9,8 @@
 #import "RCBeeClient.h"
 
 @implementation RCBeeClient
-
+- (void)setCreateTime:(NSString *)createTime
+{
+    _createTime = [createTime getTimeFromTimestamp:@"yyyy-MM-dd HH:mm"];
+}
 @end

@@ -309,7 +309,7 @@
     
 }
 
-- (NSDate *)dateWithFormatter:(NSString *)formatterStr;
+- (NSDate *)dateWithFormatter:(NSString *)formatterStr
 {
     NSDateFormatter *formatter =[[NSDateFormatter alloc]init];
     [formatter setDateFormat:formatterStr];

@@ -11,9 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class RCMyBee;
+typedef void(^resetPwdActionCall)(void);
 @interface RCMyBeesCell : UITableViewCell
 /* 小蜜蜂 */
 @property(nonatomic,strong) RCMyBee *bee;
+/* 点击 */
+@property(nonatomic,copy) resetPwdActionCall resetPwdActionCall;
 @end
 
 NS_ASSUME_NONNULL_END

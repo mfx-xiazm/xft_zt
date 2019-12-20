@@ -404,6 +404,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         RCStoreClientCell *cell = [tableView dequeueReusableCellWithIdentifier:StoreClientCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.state.hidden = YES;
         RCStoreClient *client = self.clients[indexPath.row];
         cell.client = client;
         return cell;
@@ -417,7 +418,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     }else{
         RCStoreClient *client = self.clients[indexPath.row];
         // 0:报备,2:到访,4:认筹,5:认购,6:签约,7:退房,100:失效
-        if ([client.cusState isEqualToString:@"0"]) {
+        if ([client.cusState isEqualToString:@"0"] || [client.cusState isEqualToString:@"100"]) {
             return 145.f;
         }else{
             return 170.f;

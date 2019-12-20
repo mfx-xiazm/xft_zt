@@ -392,6 +392,8 @@ static NSString *const AddedClientCell = @"AddedClientCell";
     }
     data[@"proIds"] = proIds;//项目列表 必填
     data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
+    data[@"accTeamUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid;//团队uuid
+    data[@"accGroupUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid;//小组uuid
     data[@"xqzyAccUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.xqzyAccUuid;//上级专员id 必填
     // 临时推荐对象数组
     NSMutableArray *tempTargets = [NSMutableArray arrayWithArray:self.clients];
@@ -423,9 +425,7 @@ static NSString *const AddedClientCell = @"AddedClientCell";
         [sender stopLoading:@"马上推荐客户" image:nil textColor:nil backgroundColor:nil];
         if ([responseObject[@"code"] integerValue] == 0) {
             [strongSelf clearReportData];
-            RCReportResultVC *rvc = [RCReportResultVC new];
-            rvc.results = responseObject[@"data"];
-            [strongSelf.navigationController pushViewController:rvc animated:YES];
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }

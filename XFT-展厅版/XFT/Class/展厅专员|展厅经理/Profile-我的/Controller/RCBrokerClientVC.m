@@ -327,6 +327,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         RCBrokerClientCell *cell = [tableView dequeueReusableCellWithIdentifier:BrokerClientCell forIndexPath:indexPath];
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.cusState.hidden = YES;
         RCBrokerClient *client = self.clients[indexPath.row];
         cell.client = client;
         return cell;

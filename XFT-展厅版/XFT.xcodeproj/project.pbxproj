@@ -247,6 +247,8 @@
 		907E382E233471FB00756F9B /* RCTaskDetailReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 907E382C233471FB00756F9B /* RCTaskDetailReportCell.xib */; };
 		90867F9A239531D000C33437 /* RCHouseBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 90867F99239531D000C33437 /* RCHouseBanner.m */; };
 		90867FA02395335500C33437 /* RCHouseList.m in Sources */ = {isa = PBXBuildFile; fileRef = 90867F9F2395335500C33437 /* RCHouseList.m */; };
+		9086947623A772FE00451D8B /* RCBeeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9086947423A772FE00451D8B /* RCBeeLoginVC.m */; };
+		9086947723A772FE00451D8B /* RCBeeLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9086947523A772FE00451D8B /* RCBeeLoginVC.xib */; };
 		9093411A231F5B9E001A3A6E /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 90934116231F5B9E001A3A6E /* WSDatePickerView.xib */; };
 		9093411B231F5B9E001A3A6E /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934117231F5B9E001A3A6E /* WSDatePickerView.m */; };
 		9093411C231F5B9E001A3A6E /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 90934118231F5B9E001A3A6E /* NSDate+Extension.m */; };
@@ -886,6 +888,9 @@
 		90867F99239531D000C33437 /* RCHouseBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCHouseBanner.m; sourceTree = "<group>"; };
 		90867F9E2395335500C33437 /* RCHouseList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCHouseList.h; sourceTree = "<group>"; };
 		90867F9F2395335500C33437 /* RCHouseList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCHouseList.m; sourceTree = "<group>"; };
+		9086947323A772FE00451D8B /* RCBeeLoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCBeeLoginVC.h; sourceTree = "<group>"; };
+		9086947423A772FE00451D8B /* RCBeeLoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCBeeLoginVC.m; sourceTree = "<group>"; };
+		9086947523A772FE00451D8B /* RCBeeLoginVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RCBeeLoginVC.xib; sourceTree = "<group>"; };
 		90934113231F5B9E001A3A6E /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
 		90934114231F5B9E001A3A6E /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
 		90934115231F5B9E001A3A6E /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
@@ -2155,6 +2160,9 @@
 				9040F2BC2313F8AF005E6B2E /* RCLoginVC.h */,
 				9040F2BD2313F8AF005E6B2E /* RCLoginVC.m */,
 				9040F2BE2313F8AF005E6B2E /* RCLoginVC.xib */,
+				9086947323A772FE00451D8B /* RCBeeLoginVC.h */,
+				9086947423A772FE00451D8B /* RCBeeLoginVC.m */,
+				9086947523A772FE00451D8B /* RCBeeLoginVC.xib */,
 				901DDC622320A3BE00E579D9 /* RCScanVC.h */,
 				901DDC632320A3BE00E579D9 /* RCScanVC.m */,
 				901DDC672320ADD700E579D9 /* RCRegisterVC.h */,
@@ -3212,6 +3220,7 @@
 				90DFA6EE2330AFF7005C35A8 /* RCProfileHeader.xib in Resources */,
 				905A1E2B239795FA00593ED9 /* RCShowPicCell.xib in Resources */,
 				90C3088A2331DCFF00A39E78 /* RCWorkTotalHeader.xib in Resources */,
+				9086947723A772FE00451D8B /* RCBeeLoginVC.xib in Resources */,
 				90C308802331D84A00A39E78 /* RCWorkTotalVC.xib in Resources */,
 				90618E68239FBA4700C4BBC8 /* RCDevelopClientVC.xib in Resources */,
 				90ED8D852330FF2900EF9EB7 /* RCChangeRoleCell.xib in Resources */,
@@ -3611,6 +3620,7 @@
 				90618E72239FBEB200C4BBC8 /* RCAddClientTypeVC.m in Sources */,
 				905A1DE22397469900593ED9 /* RCOpenArea.m in Sources */,
 				90DFA74A2330D4EE005C35A8 /* RCHouseNewsVC.m in Sources */,
+				9086947623A772FE00451D8B /* RCBeeLoginVC.m in Sources */,
 				90DBD50C23A0C3F000D55AB3 /* RCClientType.m in Sources */,
 				905A1DFD23978EA900593ED9 /* RCHouseLoanVC.m in Sources */,
 				90C308662331CCA700A39E78 /* RCTaskDetailVC.m in Sources */,

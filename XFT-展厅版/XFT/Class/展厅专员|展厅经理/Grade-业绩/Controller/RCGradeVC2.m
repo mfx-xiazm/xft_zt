@@ -76,8 +76,9 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
 }
 -(void)setUpNavBar
 {
-    [self.navigationItem setTitle:nil];
+    [self.navigationItem setTitle:@"客户业绩"];
     
+    /*
     UIView *btnBg = [UIView new];
     btnBg.hxn_size = CGSizeMake(300, 44);
     
@@ -102,6 +103,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     [btnBg addSubview:label];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btnBg];
+    */
     
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);
@@ -493,6 +495,27 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         }
     }];
 }
+-(void)setFollowRequest:(NSString *)focusUuid completedCall:(void(^)(void))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"accType"] = @"4";//当前账号的类型 1：经纪人 2：顾问 3:自渠专员 4.展厅专员
+    data[@"focusUuid"] = focusUuid;//被关注人uuid
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/records/focusRecords" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (completedCall) {
+                completedCall();
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- RCClientFilterViewDelegate
 -(void)filterDidConfirm:(RCClientFilterView *)filter cusLevel:(NSString *)level selectProId:(NSString *)proId reportBeginTime:(NSInteger)reportBegin reportEndTime:(NSInteger)reportEnd visitBeginTime:(NSInteger)visitBegin visitEndTime:(NSInteger)visitEnd
 {
@@ -565,13 +588,21 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         //无色
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.cusType = self.selectIndex;
+        cell.state.hidden = (self.selectIndex==0)?NO:YES;
         RCMyClient *client = self.clients[indexPath.row];
         cell.client = client;
         hx_weakify(self);
         cell.clientHandleCall = ^(NSInteger index) {
             hx_strongify(weakSelf);
             if (index == 1) {
-                HXLog(@"关注");
+                [strongSelf setFollowRequest:client.uuid completedCall:^{
+                    if ([client.isLove isEqualToString:@"1"]) {
+                        client.isLove = @"0";
+                    }else{
+                        client.isLove = @"1";
+                    }
+                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                }];
             }else if (index == 2) {
                 zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:client.phone constantWidth:HX_SCREEN_WIDTH - 50*2];
                 zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
@@ -600,15 +631,9 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
             }else{
                 RCClientDetailVC *nvc = [RCClientDetailVC new];
                 nvc.cusType = strongSelf.selectIndex;
-                if (strongSelf.selectIndex == 0) {// 如果是报备客户传报备uuid
-                    nvc.cusUuid = client.uuid;
-                }else{// 如果不是报备客户
-                    if (strongSelf.selectIndex == 6) {//失效客户
-                        nvc.cusUuid = client.uuid;
-                    }else{//其他状态客户
-                        nvc.cusUuid = client.cusUuid;
-                    }
-                }
+                nvc.uuid = client.uuid;
+                nvc.cusUuid = client.cusUuid;
+        
                 nvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
                     client.remarkTime = remarkTime;
                     client.remark = remark;
@@ -685,18 +710,19 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         RCMyClient *client = self.clients[indexPath.row];
         RCClientDetailVC *nvc = [RCClientDetailVC new];
         nvc.cusType = self.selectIndex;
-        if (self.selectIndex == 0) {// 如果是报备客户传报备uuid
-             nvc.cusUuid = client.uuid;
-        }else{// 如果不是报备客户
-            if (self.selectIndex == 6) {//失效客户
-                nvc.cusUuid = client.uuid;
-            }else{//其他状态客户
-                nvc.cusUuid = client.cusUuid;
-            }
-        }
+        nvc.uuid = client.uuid;
+        nvc.cusUuid = client.cusUuid;
         nvc.updateReamrkCall = ^(NSString * _Nonnull remarkTime, NSString * _Nonnull remark) {
             client.remarkTime = remarkTime;
             client.remark = remark;
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        };
+        nvc.followCall = ^{
+            if ([client.isLove isEqualToString:@"1"]) {
+                client.isLove = @"0";
+            }else{
+                client.isLove = @"1";
+            }
             [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
         };
         [self.navigationController pushViewController:nvc animated:YES];

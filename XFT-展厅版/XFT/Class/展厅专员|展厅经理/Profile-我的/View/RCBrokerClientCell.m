@@ -11,7 +11,6 @@
 
 @interface RCBrokerClientCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *headPic;
-@property (weak, nonatomic) IBOutlet UILabel *cusState;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 @property (weak, nonatomic) IBOutlet UILabel *time1;

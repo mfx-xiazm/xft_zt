@@ -269,6 +269,9 @@
         [strongSelf stopShimmer];
         if ([responseObject[@"code"] integerValue] == 0) {
            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+            if (strongSelf.taskPinActionCall) {
+                strongSelf.taskPinActionCall();
+            }
             [strongSelf.navigationController popViewControllerAnimated:YES];
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];

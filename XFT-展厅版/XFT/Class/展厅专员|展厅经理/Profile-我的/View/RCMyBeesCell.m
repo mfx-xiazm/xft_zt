@@ -32,6 +32,12 @@
     self.count.text = [NSString stringWithFormat:@"已报备：%@人",_bee.count];
     self.time.text = [NSString stringWithFormat:@"添加时间：%@",_bee.createTime];
 }
+- (IBAction)resetClicked:(UIButton *)sender {
+    if (self.resetPwdActionCall) {
+        self.resetPwdActionCall();
+    }
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

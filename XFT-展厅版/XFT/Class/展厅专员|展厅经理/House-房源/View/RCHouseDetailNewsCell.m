@@ -26,7 +26,7 @@
     _news = news;
     [self.newsImg sd_setImageWithURL:[NSURL URLWithString:_news.headPic]];
     [self.newsTitle setTextWithLineSpace:5.f withString:[NSString stringWithFormat:@"【%@】%@",_news.proName,_news.title] withFont:[UIFont systemFontOfSize:16]];
-    self.lookNum.text = [NSString stringWithFormat:@"已查看%zd人",_news.clickNum];
+    self.lookNum.text = [NSString stringWithFormat:@"已查看%@人",_news.clickNum];
     self.time.text = _news.publishTime;
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

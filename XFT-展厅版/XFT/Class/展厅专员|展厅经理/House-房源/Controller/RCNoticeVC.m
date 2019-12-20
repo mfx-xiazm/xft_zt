@@ -28,6 +28,7 @@ static NSString *const NoticeCell = @"NoticeCell";
     self.view.backgroundColor = HXGlobalBg;
     [self.navigationItem setTitle:self.navTitle];
     [self setUpTableView];
+    [self setUpRefresh];
     [self setUpEmptyView];
     [self startShimmer];
     [self getNoticeListDataRequest:YES];

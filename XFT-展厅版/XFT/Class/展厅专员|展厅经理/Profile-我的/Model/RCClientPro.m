@@ -9,5 +9,7 @@
 #import "RCClientPro.h"
 
 @implementation RCClientPro
-
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"proName" : @"name",@"proUuid" : @"uuid"};
+}
 @end

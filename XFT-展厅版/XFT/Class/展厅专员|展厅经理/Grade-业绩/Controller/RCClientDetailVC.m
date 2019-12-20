@@ -12,13 +12,15 @@
 #import "RCPageMainTable.h"
 #import <JXCategoryView.h>
 #import "RCClientDetailNoteVC.h"
-#import "RCMoveClientToVC.h"
+#import "RCMoveClientVC.h"
 #import "RCGoHouseVC.h"
 #import "RCRenewRemarkVC.h"
 #import "RCMyClient.h"
 #import "zhAlertView.h"
 #import <zhPopupController.h>
 #import "RCMyClientNote.h"
+#import "RCTaskMember.h"
+#import "RCMoveClient.h"
 
 @interface RCClientDetailVC ()<UITableViewDelegate,UITableViewDataSource,JXCategoryViewDelegate>
 @property (weak, nonatomic) IBOutlet RCPageMainTable *tableView;
@@ -155,9 +157,33 @@
 #pragma mark -- 点击事件
 -(void)giveOtherClicked
 {
-    RCMoveClientToVC *tvc = [RCMoveClientToVC new];
-    tvc.isHiddenSearch = YES;
-    [self.navigationController pushViewController:tvc animated:YES];
+    if (!self.clientInfo) {
+        return;
+    }
+    
+    RCMoveClientVC *cvc = [RCMoveClientVC new];
+    /* 选择的要转移的专员的所属的团队 */
+    RCTaskMember *selectMoveAgentTeam = [[RCTaskMember alloc] init];//经纪人所属的组织
+    selectMoveAgentTeam.groupName = self.clientInfo.accGroupName;
+    selectMoveAgentTeam.groupUuid = self.clientInfo.accGroupUuid;
+    selectMoveAgentTeam.teamName = self.clientInfo.accTeamName;
+    selectMoveAgentTeam.teamUuid = self.clientInfo.accTeamUuid;
+    cvc.selectMoveAgentTeam = selectMoveAgentTeam;
+    
+    /* 选择的要转移的专员 */
+    RCTaskAgentMember *selectMoveAgent = [[RCTaskAgentMember alloc] init];//经纪人
+    selectMoveAgent.name = self.clientInfo.accName;
+    selectMoveAgent.uuid = self.clientInfo.accUuid;
+    cvc.selectMoveAgent = selectMoveAgent;
+    
+    /* 选择的要转出的客户 */
+    RCMoveClient *client = [[RCMoveClient alloc] init];
+    client.baobeiUuid = self.uuid;
+    client.cusUuid = self.cusUuid;
+    cvc.clients = @[client];
+    
+    cvc.isClientDetailPush = YES;
+    [self.navigationController pushViewController:cvc animated:YES];
 }
 #pragma mark -- 请求客户详情
 -(void)getClientDetailRequest
@@ -172,6 +198,7 @@
             hx_strongify(weakSelf);
             NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
             NSMutableDictionary *data = [NSMutableDictionary dictionary];
+            data[@"uuid"] = strongSelf.uuid;
             data[@"cusUuid"] = strongSelf.cusUuid;
             data[@"isManager"] = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@(1):@(0);;
             parameters[@"data"] = data;
@@ -227,7 +254,7 @@
             NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
             
             NSMutableDictionary *data = [NSMutableDictionary dictionary];
-            data[@"cusUuid"] = self.cusType?self.cusUuid:@"";
+            data[@"cusUuid"] = self.cusUuid;
             
             NSMutableDictionary *page = [NSMutableDictionary dictionary];
             page[@"current"] = @(1);//第几页
@@ -262,7 +289,7 @@
     }else{// 报备状态客户
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
-        data[@"cusUuid"] = self.cusUuid;
+        data[@"uuid"] = self.uuid;
         data[@"isManager"] = ([MSUserManager sharedInstance].curUserInfo.ulevel==1)?@(1):@(0);;
         parameters[@"data"] = data;
         
@@ -322,7 +349,7 @@
     self.header.cusType = self.cusType;
     self.header.client = self.clientInfo;
     hx_weakify(self);
-    self.header.clientDetailCall = ^(NSInteger index) {
+    self.header.clientDetailCall = ^(NSInteger index,UIButton *btn) {
         hx_strongify(weakSelf);
         if (index == 0) {
             RCGoHouseVC *hvc = [RCGoHouseVC new];
@@ -350,7 +377,18 @@
             NSURL *url = [NSURL URLWithString:urlStr];
             [[UIApplication sharedApplication] openURL:url];
         }else if (index == 3) {
-            HXLog(@"关注列表");
+            [strongSelf setFollowRequest:strongSelf.clientInfo.uuid completedCall:^{
+                if ([weakSelf.clientInfo.isLove isEqualToString:@"1"]) {
+                    weakSelf.clientInfo.isLove = @"0";
+                    btn.selected = NO;
+                }else{
+                    weakSelf.clientInfo.isLove = @"1";
+                    btn.selected = YES;
+                }
+                if (weakSelf.followCall) {
+                    weakSelf.followCall();
+                }
+            }];
         }else{
             RCRenewRemarkVC *rvc= [RCRenewRemarkVC new];
             rvc.cusUuid = strongSelf.cusUuid;
@@ -374,6 +412,27 @@
     
     RCClientDetailNoteVC *nvc = (RCClientDetailNoteVC *)self.childVCs.lastObject;
     nvc.clientNotes = self.clientNotes;
+}
+-(void)setFollowRequest:(NSString *)focusUuid completedCall:(void(^)(void))completedCall
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"accType"] = @"4";//当前账号的类型 1：经纪人 2：顾问 3:自渠专员 4.展厅专员
+    data[@"focusUuid"] = focusUuid;//被关注人uuid
+    
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/records/focusRecords" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            if (completedCall) {
+                completedCall();
+            }
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
 }
 #pragma mark -- 主视图滑动通知处理
 -(void)MainTableScroll:(NSNotification *)user{

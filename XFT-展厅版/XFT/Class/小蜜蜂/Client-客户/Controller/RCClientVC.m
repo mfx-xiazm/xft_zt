@@ -148,14 +148,10 @@ static NSString *const ClientCell = @"ClientCell";
         hx_strongify(weakSelf);
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
         NSMutableDictionary *data = [NSMutableDictionary dictionary];
-        data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;
-        data[@"showroomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;
-        data[@"teamUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid;
-        data[@"groupUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid;
-        data[@"xqzyAccUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.xqzyAccUuid;
+        data[@"showroomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;// 展厅id
         parameters[@"data"] = data;
         
-        [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/findProIdAnNameList" parameters:parameters success:^(id responseObject) {
+        [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroom/getProByShowroomUuid" parameters:parameters success:^(id responseObject) {
             if ([responseObject[@"code"] integerValue] == 0) {
                 NSArray *pros = [NSArray yy_modelArrayWithClass:[RCClientPro class] json:responseObject[@"data"]];
                 NSMutableArray *tempPro = [NSMutableArray arrayWithArray:pros];
@@ -164,10 +160,10 @@ static NSString *const ClientCell = @"ClientCell";
                 pro.proUuid = @"";
                 [tempPro insertObject:pro atIndex:0];
                 strongSelf.projects = tempPro;
+                dispatch_semaphore_signal(semaphore);
             }else{
                 [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
             }
-            dispatch_semaphore_signal(semaphore);
         } failure:^(NSError *error) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
             dispatch_semaphore_signal(semaphore);
@@ -191,7 +187,7 @@ static NSString *const ClientCell = @"ClientCell";
             // 刷新界面
             [strongSelf stopShimmer];
             
-//            [strongSelf handleTaskDetailInfo];
+            [strongSelf.tableView reloadData];
         });
     });
 }
@@ -215,6 +211,7 @@ static NSString *const ClientCell = @"ClientCell";
         page[@"current"] = @(pagenum);//第几页
     }
     page[@"size"] = @"10";
+    page[@"descs"] = @[@"create_time"];
     parameters[@"data"] = data;
     parameters[@"page"] = page;
     
@@ -338,9 +335,9 @@ static NSString *const ClientCell = @"ClientCell";
             if ([rows.firstObject integerValue] == 0) {
                 strongSelf.state = @"";
             }else if ([rows.firstObject integerValue] == 1) {
-                strongSelf.state = @"1";
+                strongSelf.state = @"2";
             }else{
-                strongSelf.state = @"0";
+                strongSelf.state = @"1";
             }
         }
         [strongSelf getClientListDataRequest:YES completedCall:^{

@@ -208,8 +208,8 @@ static NSString *const HouseCell = @"HouseCell";
     [HXNetworkTool POST:HXRC_M_URL action:@"sys/sys/city/cityCodeByNameLike" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
-//            [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"data"][@"cityCode"] forKey:HXCityCode];
-            [[NSUserDefaults standardUserDefaults] setObject:@"510100" forKey:HXCityCode];
+            [[NSUserDefaults standardUserDefaults] setObject:responseObject[@"data"][@"cityCode"] forKey:HXCityCode];
+//            [[NSUserDefaults standardUserDefaults] setObject:@"510100" forKey:HXCityCode];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [strongSelf getHouseDataRequest];
         }else{
@@ -266,7 +266,7 @@ static NSString *const HouseCell = @"HouseCell";
         data[@"num"] = @"1";
         NSMutableDictionary *page = [NSMutableDictionary dictionary];
         page[@"current"] = @"1";
-        page[@"size"] = @"1";
+        page[@"size"] = @"3";
         parameters[@"data"] = data;
         parameters[@"page"] = page;
         

@@ -91,22 +91,28 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awe-sR-1RA">
                                 <rect key="frame" x="0.0" y="50" width="293" height="60"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="发展时间:2019-08-01 12:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNQ-3z-0Y0">
-                                        <rect key="frame" x="10" y="10" width="183.5" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发展时间:2019-08-01 12:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jNQ-3z-0Y0">
+                                        <rect key="frame" x="10" y="10" width="273" height="16"/>
                                         <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="14"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="报备时间:无" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-w1-Ydy">
-                                        <rect key="frame" x="10" y="35.5" width="75.5" height="14"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报备时间:无" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vcJ-w1-Ydy">
+                                        <rect key="frame" x="10" y="34" width="273" height="16"/>
                                         <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="14"/>
                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="jNQ-3z-0Y0" firstAttribute="leading" secondItem="awe-sR-1RA" secondAttribute="leading" constant="10" id="BvU-xT-mNV"/>
+                                    <constraint firstItem="jNQ-3z-0Y0" firstAttribute="top" secondItem="awe-sR-1RA" secondAttribute="top" constant="10" id="GBS-hq-6tZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="jNQ-3z-0Y0" secondAttribute="trailing" constant="10" id="QC1-cc-x7n"/>
+                                    <constraint firstAttribute="bottom" secondItem="vcJ-w1-Ydy" secondAttribute="bottom" constant="10" id="dKD-OO-8t7"/>
+                                    <constraint firstItem="vcJ-w1-Ydy" firstAttribute="leading" secondItem="awe-sR-1RA" secondAttribute="leading" constant="10" id="dLd-Li-afr"/>
+                                    <constraint firstAttribute="trailing" secondItem="vcJ-w1-Ydy" secondAttribute="trailing" constant="10" id="nkh-Fo-pqT"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

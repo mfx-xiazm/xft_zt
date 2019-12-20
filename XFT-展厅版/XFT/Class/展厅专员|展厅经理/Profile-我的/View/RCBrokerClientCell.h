@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @class RCBrokerClient;
 @interface RCBrokerClientCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *cusState;
 /* 客户 */
 @property(nonatomic,strong) RCBrokerClient *client;
 @end

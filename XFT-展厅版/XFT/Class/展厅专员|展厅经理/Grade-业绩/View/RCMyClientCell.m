@@ -12,7 +12,6 @@
 @interface RCMyClientCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *headPic;
 @property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UILabel *state;
 @property (weak, nonatomic) IBOutlet UILabel *state2;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UILabel *baobeiPro;
@@ -20,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *remarkTime;
 @property (weak, nonatomic) IBOutlet UILabel *remark;
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
+@property (weak, nonatomic) IBOutlet UIButton *followBtn;
 
 @end
 @implementation RCMyClientCell
@@ -34,19 +34,23 @@
 
 //    [self.headPic sd_setImageWithURL:[NSURL URLWithString:_client.headpic]];
     self.name.text  = _client.name;
-    if (_client.cusLevel && _client.cusLevel.length) {
-        self.state2.hidden = NO;
-        self.state2.text = [NSString stringWithFormat:@" %@ ",_client.cusLevel];
-    }else{
+//    if (_client.cusLevel && _client.cusLevel.length) {
+//        self.state2.hidden = NO;
+//        self.state2.text = [NSString stringWithFormat:@" %@ ",_client.cusLevel];
+//    }else{
         self.state2.hidden = YES;
-    }
+//    }
     self.time.text = [NSString stringWithFormat:@"报备时间：%@",_client.baobeiTime];
     self.baobeiPro.text = [NSString stringWithFormat:@"报备项目：%@",_client.proName];
-    self.guwen.text = (_client.salesName && _client.salesName.length)?[NSString stringWithFormat:@"案场顾问：%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName]:@"案场顾问：暂无";
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//经理
+       self.guwen.text = (_client.accName && _client.accName.length)?[NSString stringWithFormat:@"展厅专员：%@(%@-%@)",_client.accName,_client.accTeamName,_client.accGroupName]:@"展厅专员：暂无";
+    }else{
+        self.guwen.text = (_client.salesName && _client.salesName.length)?[NSString stringWithFormat:@"案场顾问：%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName]:@"案场顾问：暂无";
+    }
     
     switch (self.cusType) {
         case 0:{
-            self.state.text = [NSString stringWithFormat:@" %@天失效 ",_client.yuqiTime];
+            self.state.text = [NSString stringWithFormat:@" %@天失效 ",_client.baobeiYuqiTime];
             self.remarkTime.text = [NSString stringWithFormat:@"最后备注：%@",_client.remarkTime];
         }
             break;
@@ -89,6 +93,7 @@
         }else{
             self.codeBtn.hidden = YES;
         }
+        self.followBtn.selected =  [_client.isLove isEqualToString:@"1"]?YES:NO;
     }
 }
 - (IBAction)clientToolClicked:(UIButton *)sender {

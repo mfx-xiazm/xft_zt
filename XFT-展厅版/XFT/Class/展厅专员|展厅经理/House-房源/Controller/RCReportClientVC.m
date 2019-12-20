@@ -15,6 +15,8 @@
 #import <zhPopupController.h>
 #import "FSActionSheet.h"
 #import "RCReportTarget.h"
+#import "ZJPickerView.h"
+#import "RCClientType.h"
 
 static NSString *const AddPhoneCell = @"AddPhoneCell";
 @interface RCReportClientVC ()<UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate,FSActionSheetDelegate,UITextFieldDelegate,UITextViewDelegate>
@@ -24,11 +26,14 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
 @property (weak, nonatomic) IBOutlet UITextField *proName;
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *phone;
+@property (weak, nonatomic) IBOutlet UITextField *clientType;
 @property (weak, nonatomic) IBOutlet UITextField *idCard;
 @property (weak, nonatomic) IBOutlet UIImageView *clientHeadPic;
 @property (weak, nonatomic) IBOutlet UIButton *sureReportBtn;
 /* 记录当前正在操作的报备客户 */
 @property(nonatomic,strong) RCReportTarget *currentReportTarget;
+/* 拓客方式 */
+@property(nonatomic,strong) NSArray *clientTypes;
 @end
 
 @implementation RCReportClientVC
@@ -43,7 +48,8 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     self.remark.delegate = self;
     self.remark.placeholder = @"请输入补充说明(选填)";
     [self setUpTableView];
-    
+    [self getTypeListDataRequest];// 获取拓客方式
+
     // 创建一个操作客户
     RCReportTarget *reportTarget = [RCReportTarget new];
     self.currentReportTarget = reportTarget;
@@ -61,7 +67,7 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
                 }
             }
         }
-        if (!isOK || !strongSelf.currentReportTarget.cusName.length || !strongSelf.currentReportTarget.cusPhone.length) {
+        if (!isOK || !strongSelf.currentReportTarget.cusName.length || !strongSelf.currentReportTarget.cusPhone.length || !strongSelf.currentReportTarget.showroomTwoQudaoName.length) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"客户必填信息不完整"];
             return NO;
         }
@@ -113,6 +119,58 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     [self.currentReportTarget.morePhones addObject:phone];
     self.morePhoneViewHeight.constant = 50.f*self.currentReportTarget.morePhones.count;
     [self.morePhoneView reloadData];
+}
+- (IBAction)taskTypeClicked:(UIButton *)sender {
+    if (!self.clientTypes) {
+        return;
+    }
+    if (!self.clientTypes.count) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"请先添加拓客方式"];
+        return;
+    }
+    // 1.Custom propery（自定义属性）
+    NSDictionary *propertyDict = @{
+                                   ZJPickerViewPropertyCanceBtnTitleKey : @"取消",
+                                   ZJPickerViewPropertySureBtnTitleKey  : @"确定",
+                                   ZJPickerViewPropertyTipLabelTextKey  : [self.clientType hasText]?self.clientType.text:@"选择拓客方式", // 提示内容
+                                   ZJPickerViewPropertyCanceBtnTitleColorKey : UIColorFromRGB(0xA9A9A9),
+                                   ZJPickerViewPropertySureBtnTitleColorKey : UIColorFromRGB(0x232323),
+                                   ZJPickerViewPropertyTipLabelTextColorKey :
+                                       UIColorFromRGB(0x131D2D),
+                                   ZJPickerViewPropertyLineViewBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyCanceBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertySureBtnTitleFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyTipLabelTextFontKey : [UIFont systemFontOfSize:15.0f],
+                                   ZJPickerViewPropertyPickerViewHeightKey : @220.0f,
+                                   ZJPickerViewPropertyOneComponentRowHeightKey : @40.0f,
+                                   ZJPickerViewPropertySelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0x131D2D), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertyUnSelectRowTitleAttrKey : @{NSForegroundColorAttributeName : UIColorFromRGB(0xA9A9A9), NSFontAttributeName : [UIFont systemFontOfSize:20.0f]},
+                                   ZJPickerViewPropertySelectRowLineBackgroundColorKey : UIColorFromRGB(0xdedede),
+                                   ZJPickerViewPropertyIsTouchBackgroundHideKey : @YES,
+                                   ZJPickerViewPropertyIsShowSelectContentKey : @YES,
+                                   ZJPickerViewPropertyIsScrollToSelectedRowKey: @YES,
+                                   ZJPickerViewPropertyIsAnimationShowKey : @YES};
+    
+    NSMutableArray *titles = [NSMutableArray array];
+    for (RCClientType *type in self.clientTypes) {
+        [titles addObject:type.name];
+    }
+    // 2.Show（显示）
+    hx_weakify(self);
+    [ZJPickerView zj_showWithDataList:titles propertyDict:propertyDict completion:^(NSString *selectContent) {
+        hx_strongify(weakSelf);
+        // show select content|
+        NSArray *results = [selectContent componentsSeparatedByString:@"|"];
+
+        NSArray *type = [results.firstObject componentsSeparatedByString:@","];
+
+        NSArray *rows = [results.lastObject componentsSeparatedByString:@","];
+        
+        strongSelf.clientType.text = type.firstObject;
+        RCClientType *resultType = strongSelf.clientTypes[[rows.firstObject integerValue]];
+        strongSelf.currentReportTarget.showroomTwoQudaoName = resultType.name;
+        strongSelf.currentReportTarget.showroomTwoQudaoCode = resultType.code;
+    }];
 }
 - (IBAction)choosePushRoleClicked:(UIButton *)sender {
     FSActionSheet *as = [[FSActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" highlightedButtonTitle:nil otherButtonTitles:@[@"拍照",@"从手机相册选择"]];
@@ -237,6 +295,26 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
     }];
 }
 #pragma mark -- 业务逻辑
+/** 列表请求 */
+-(void)getTypeListDataRequest
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"showroomUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;
+    parameters[@"data"] = data;
+
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroomExpandMode/getShowroomExpandModeList" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        if ([responseObject[@"code"] integerValue] == 0) {
+            strongSelf.clientTypes = [NSArray yy_modelArrayWithClass:[RCClientType class] json:responseObject[@"data"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 -(void)submitReportDataRequest:(UIButton *)sender
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -258,6 +336,8 @@ static NSString *const AddPhoneCell = @"AddPhoneCell";
                          @"remark":(self.currentReportTarget.remark && self.currentReportTarget.remark.length) ?self.currentReportTarget.remark:@"",//客户备注
                          @"twoQudaoName":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"",//推荐人所属机构名称
                          @"twoQudaoCode":([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"",//推荐人所属机构id
+                     @"showroomTwoQudaoName":self.currentReportTarget.showroomTwoQudaoName,//拓客方式名称
+                      @"showroomTwoQudaoCode":self.currentReportTarget.showroomTwoQudaoCode//拓客方式id
                         }];//客户信息 必填
     data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
     data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//推荐人角色 必填

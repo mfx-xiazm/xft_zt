@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *setBtn;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *proName;
+
 @end
 @implementation RCMoveClientFromCell
 
@@ -24,6 +26,7 @@
 {
     _client = client;
     self.name.text = _client.name;
+    self.proName.text = _client.proName;
     self.setBtn.selected = _client.isSelected?YES:NO;
     self.time.text = [NSString stringWithFormat:@"最近备注：%@",_client.createTime];
 }

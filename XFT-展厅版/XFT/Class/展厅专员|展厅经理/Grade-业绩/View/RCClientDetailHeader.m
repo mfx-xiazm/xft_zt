@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (weak, nonatomic) IBOutlet UILabel *guwen;
 @property (weak, nonatomic) IBOutlet SPButton *phone;
-
 @end
 @implementation RCClientDetailHeader
 
@@ -39,21 +38,22 @@
         }else{
             self.codeBtn.hidden = YES;
         }
+        self.followBtn.selected = [_client.isLove isEqualToString:@"1"]?YES:NO;
     }else{
         self.codeBtn.hidden = YES;
     }
     
     [self.headPic sd_setImageWithURL:[NSURL URLWithString:_client.headpic] placeholderImage:HXGetImage(@"pic_header")];
     self.name.text = _client.name;
-    if (_client.cusLevel && _client.cusLevel.length) {
-        self.state2.hidden = NO;
-        self.state2.text = [NSString stringWithFormat:@" %@ ",_client.cusLevel];
-    }else{
+//    if (_client.cusLevel && _client.cusLevel.length) {
+//        self.state2.hidden = NO;
+//        self.state2.text = [NSString stringWithFormat:@" %@ ",_client.cusLevel];
+//    }else{
         self.state2.hidden = YES;
-    }
+//    }
     switch (_client.cusType) {
         case 0:{
-            self.state.text = [NSString stringWithFormat:@" %@天后失效 ",_client.yuqiTime];
+            self.state.text = [NSString stringWithFormat:@" %@天后失效 ",_client.baobeiYuqiTime];
             self.time.text = [NSString stringWithFormat:@"最后备注：%@",_client.remarkTime];
         }
             break;
@@ -88,12 +88,17 @@
         }
             break;
     }
-    self.guwen.text = (_client.salesName && _client.salesName.length)?[NSString stringWithFormat:@"案场顾问：%@",_client.salesName]:@"案场顾问：暂无";
+    if ([MSUserManager sharedInstance].curUserInfo.ulevel == 1) {//经理
+       self.guwen.text = (_client.accName && _client.accName.length)?[NSString stringWithFormat:@"展厅专员：%@(%@-%@)",_client.accName,_client.accTeamName,_client.accGroupName]:@"展厅专员：暂无";
+    }else{
+        self.guwen.text = (_client.salesName && _client.salesName.length)?[NSString stringWithFormat:@"案场顾问：%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName]:@"案场顾问：暂无";
+    }
+    
     [self.phone setTitle:_client.phone forState:UIControlStateNormal];
 }
 - (IBAction)detailClicked:(UIButton *)sender {
     if (self.clientDetailCall) {
-        self.clientDetailCall(sender.tag);
+        self.clientDetailCall(sender.tag,sender);
     }
 }
 

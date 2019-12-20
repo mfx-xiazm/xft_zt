@@ -118,7 +118,7 @@ static NSString *const ReportResultCell = @"ReportResultCell";
     }
 }
 #pragma mark -- 点击事件
--(void)sureClickd
+-(IBAction)sureClickd:(UIButton *)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
 }

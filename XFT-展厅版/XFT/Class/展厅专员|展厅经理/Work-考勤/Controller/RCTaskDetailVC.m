@@ -254,7 +254,7 @@ static NSString *const TaskDetailCell = @"TaskDetailCell";
     // 处理基础详情
     NSMutableArray *houseInfo = [NSMutableArray array];
     NSArray *titles = @[@"任务标题",@"拓客方式",@"拓客地点",@"拓客时间",@"拓客任务量",@"拓客人员",@"任务创建者"];
-    NSArray *values = @[self.taskInfo.name,self.taskInfo.twoQudaoName,self.taskInfo.address,     [NSString stringWithFormat:@"%@ 至 %@",self.taskInfo.startTime,self.taskInfo.endTime],[NSString stringWithFormat:@"%@组",self.taskInfo.volume],[NSString stringWithFormat:@"%@人",self.taskInfo.accCount],[NSString stringWithFormat:@"%@(%@)",self.taskInfo.createName,self.taskInfo.showroomName]];
+    NSArray *values = @[self.taskInfo.name,self.taskInfo.twoQudaoName,self.taskInfo.address,     [NSString stringWithFormat:@"%@ 至 %@",self.taskInfo.startTime,self.taskInfo.endTime],[NSString stringWithFormat:@"%@组",self.taskInfo.volume],[NSString stringWithFormat:@"%@人",self.taskInfo.accCount],[NSString stringWithFormat:@"%@(%@-%@)",self.taskInfo.createName,self.taskInfo.createTeamName,self.taskInfo.createGroupName]];
 
     for (int i=0; i<7; i++) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];

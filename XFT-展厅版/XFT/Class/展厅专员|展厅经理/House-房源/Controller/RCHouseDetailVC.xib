@@ -16,6 +16,7 @@
                 <outlet property="cycleView" destination="9gN-u7-fR2" id="YCV-aD-FAA"/>
                 <outlet property="houseGoodsLabel" destination="Cg4-8q-JQD" id="6tK-cO-QLB"/>
                 <outlet property="houseGoodsTableView" destination="BJd-tq-GvG" id="Szh-GM-UY5"/>
+                <outlet property="houseGoodsView" destination="rh0-Ji-BdF" id="ztP-ht-eEE"/>
                 <outlet property="houseGoodsViewHeight" destination="GYC-N1-ShG" id="85U-X3-7EB"/>
                 <outlet property="houseInfoTableView" destination="nRZ-by-1js" id="gmh-Q4-Bwn"/>
                 <outlet property="houseInfoTableViewHeight" destination="LAu-1p-Q8i" id="nq3-Do-xGZ"/>
@@ -24,9 +25,12 @@
                 <outlet property="houseNearbyTableView" destination="Hu4-lc-KP8" id="KQ0-9U-sBu"/>
                 <outlet property="houseNearbyViewHeight" destination="lPT-RU-a0A" id="v0m-uU-yy7"/>
                 <outlet property="houseNewsTableView" destination="HCa-eI-b8i" id="4zu-a1-48R"/>
-                <outlet property="houseNewsTableViewHeight" destination="aND-Id-JDo" id="eWE-uN-Udg"/>
+                <outlet property="houseNewsView" destination="41g-tu-4C8" id="u8N-fa-yyf"/>
+                <outlet property="houseNewsViewHeight" destination="aND-Id-JDo" id="Qdp-xr-HoB"/>
                 <outlet property="housePrice" destination="bYK-e2-zK9" id="ga9-TY-xJR"/>
                 <outlet property="houseStyleCollectionView" destination="xKH-Lb-ekM" id="BhH-tF-PAV"/>
+                <outlet property="houseStyleView" destination="RkE-oq-kAm" id="JgE-vk-aAo"/>
+                <outlet property="houseStyleViewHeight" destination="aWT-6a-Gnr" id="edQ-iZ-kz5"/>
                 <outlet property="huxingName" destination="0ZJ-DS-hTJ" id="XYW-1a-4oV"/>
                 <outlet property="mapSuperView" destination="aBJ-0P-m9C" id="Vwi-Xs-aWf"/>
                 <outlet property="nearbyFirstBtn" destination="yck-Cb-V7f" id="ylH-Au-A2r"/>
@@ -48,7 +52,7 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="754"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ey-O0-hrz">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="2079"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="2069"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gN-u7-fR2" customClass="TYCyclePagerView">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="276"/>
@@ -288,7 +292,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RkE-oq-kAm">
-                                    <rect key="frame" x="0.0" y="646" width="414" height="310"/>
+                                    <rect key="frame" x="0.0" y="646" width="414" height="300"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wyO-l6-VCi">
                                             <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -322,7 +326,7 @@
                                             </constraints>
                                         </view>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="xKH-Lb-ekM">
-                                            <rect key="frame" x="0.0" y="54" width="414" height="256"/>
+                                            <rect key="frame" x="0.0" y="54" width="414" height="246"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="k6s-tL-Vht">
                                                 <size key="itemSize" width="50" height="50"/>
@@ -340,12 +344,12 @@
                                         <constraint firstAttribute="trailing" secondItem="wyO-l6-VCi" secondAttribute="trailing" id="ILG-UN-oKC"/>
                                         <constraint firstAttribute="bottom" secondItem="xKH-Lb-ekM" secondAttribute="bottom" id="W9e-89-pAm"/>
                                         <constraint firstAttribute="trailing" secondItem="xKH-Lb-ekM" secondAttribute="trailing" id="WhC-f9-wi8"/>
-                                        <constraint firstAttribute="height" constant="310" id="aWT-6a-Gnr"/>
+                                        <constraint firstAttribute="height" constant="300" id="aWT-6a-Gnr"/>
                                         <constraint firstItem="xKH-Lb-ekM" firstAttribute="top" secondItem="wyO-l6-VCi" secondAttribute="bottom" id="d92-2B-WMs"/>
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rh0-Ji-BdF">
-                                    <rect key="frame" x="0.0" y="956" width="414" height="300"/>
+                                    <rect key="frame" x="0.0" y="946" width="414" height="300"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wZe-QV-AoT">
                                             <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -424,7 +428,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ry-F6-n5H">
-                                    <rect key="frame" x="0.0" y="1256" width="414" height="400"/>
+                                    <rect key="frame" x="0.0" y="1246" width="414" height="400"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9e7-Me-19L">
                                             <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -495,6 +499,9 @@
                                                                     <state key="selected">
                                                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="nearbyTypeClicked:" destination="-1" eventType="touchUpInside" id="Rlc-00-fZf"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r30-uc-cso" userLabel="分割线">
                                                                     <rect key="frame" x="96" y="10" width="1" height="24"/>
@@ -512,6 +519,9 @@
                                                                     <state key="selected">
                                                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="nearbyTypeClicked:" destination="-1" eventType="touchUpInside" id="VfU-dW-rDf"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ky3-2X-tJr" userLabel="分割线">
                                                                     <rect key="frame" x="192" y="10" width="1" height="24"/>
@@ -529,6 +539,9 @@
                                                                     <state key="selected">
                                                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="nearbyTypeClicked:" destination="-1" eventType="touchUpInside" id="oJx-A1-6XC"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fyl-di-1S2" userLabel="分割线">
                                                                     <rect key="frame" x="288" y="10" width="1" height="24"/>
@@ -546,6 +559,9 @@
                                                                     <state key="selected">
                                                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="nearbyTypeClicked:" destination="-1" eventType="touchUpInside" id="1ow-pp-xYl"/>
+                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
@@ -626,7 +642,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="41g-tu-4C8">
-                                    <rect key="frame" x="0.0" y="1656" width="414" height="260"/>
+                                    <rect key="frame" x="0.0" y="1646" width="414" height="260"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lwM-WC-aDm">
                                             <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -718,7 +734,7 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhj-wJ-4qB">
-                                    <rect key="frame" x="15" y="1931" width="384" height="133"/>
+                                    <rect key="frame" x="15" y="1921" width="384" height="133"/>
                                     <attributedString key="attributedText">
                                         <fragment>
                                             <string key="content">免责条款:

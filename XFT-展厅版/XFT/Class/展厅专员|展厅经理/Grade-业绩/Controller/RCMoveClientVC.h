@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong) RCTaskMember *selectMoveAgentTeam;
 /* 选择的要转出的客户 */
 @property(nonatomic,strong) NSArray *clients;
+/* 客户详情转移跳转 */
+@property(nonatomic,assign) BOOL isClientDetailPush;
 @end
 
 NS_ASSUME_NONNULL_END

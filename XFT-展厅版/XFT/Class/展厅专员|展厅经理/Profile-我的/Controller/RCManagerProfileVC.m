@@ -74,8 +74,12 @@ static NSString *const ProfileCell = @"ProfileCell";
         _navBarView.titleL.text = @"我的";
         _navBarView.titleL.textAlignment = NSTextAlignmentCenter;
         _navBarView.titleL.hidden = NO;
-        _navBarView.moreBtn.hidden = NO;
         [_navBarView.moreBtn setImage:HXGetImage(@"icon_daka") forState:UIControlStateNormal];
+        if ([MSUserManager sharedInstance].curUserInfo.ulevel==1) {
+            _navBarView.moreBtn.hidden = YES;
+        }else{
+            _navBarView.moreBtn.hidden = NO;
+        }
         hx_weakify(self);
         _navBarView.navMoreCall = ^{
             RCManagerRecordVC *rvc = [RCManagerRecordVC new];

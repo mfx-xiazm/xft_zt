@@ -56,11 +56,17 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
         [self getGradeDataRequest];
     }
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getGradeDataRequest];
+}
 #pragma mark -- 视图UI
 -(void)setUpNavBar
 {
-    [self.navigationItem setTitle:nil];
+    [self.navigationItem setTitle:@"客户业绩"];
     
+    /*
     SPButton *menu = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionRight];
     menu.hxn_size = CGSizeMake(200 , 44);
     menu.imageTitleSpace = 5.f;
@@ -72,6 +78,7 @@ static NSString *const MyClientStateCell = @"MyClientStateCell";
     menu.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.teamBtn = menu;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menu];
+     */
     
     SPButton *searchItem = [[SPButton alloc] initWithImagePosition:SPButtonImagePositionLeft];
     searchItem.hxn_size = CGSizeMake(44, 44);

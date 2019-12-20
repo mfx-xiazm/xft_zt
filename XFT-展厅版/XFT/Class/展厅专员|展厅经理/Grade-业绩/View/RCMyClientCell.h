@@ -18,6 +18,8 @@ typedef void(^clientHandleCall)(NSInteger index);
 @property(nonatomic,assign) NSInteger cusType;
 /* 客户 */
 @property(nonatomic,strong) RCMyClient *client;
+/* 状态 */
+@property (weak, nonatomic) IBOutlet UILabel *state;
 /* 底部操作视图 */
 @property (weak, nonatomic) IBOutlet UIView *handleToolView;
 /* 底部操作视图高度 */

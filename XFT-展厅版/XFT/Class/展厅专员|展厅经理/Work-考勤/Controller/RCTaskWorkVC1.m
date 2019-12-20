@@ -186,10 +186,18 @@ static NSString *const TaskWorkIngCell1 = @"TaskWorkIngCell1";
             if (index == 1) {
                 RCTaskPinVC *pvc = [RCTaskPinVC new];
                 pvc.task = task;
+                pvc.taskPinActionCall = ^{
+                    task.signCount = [NSString stringWithFormat:@"%zd",[task.signCount integerValue]+1];
+                    [tableView reloadData];
+                };
                 [strongSelf.navigationController pushViewController:pvc animated:YES];
             }else{
                 RCTaskReportVC *rvc = [RCTaskReportVC new];
                 rvc.task = task;
+                rvc.taskReportActionCall = ^(NSInteger num) {
+                    task.haveVolume = [NSString stringWithFormat:@"%zd",[task.haveVolume integerValue]+num];
+                    [tableView reloadData];
+                };
                 [strongSelf.navigationController pushViewController:rvc animated:YES];
             }
         };
@@ -220,6 +228,14 @@ static NSString *const TaskWorkIngCell1 = @"TaskWorkIngCell1";
         RCTaskDetailVC1 *dvc = [RCTaskDetailVC1 new];
         dvc.uuid = task.uuid;
         dvc.state = task.state;
+        dvc.taskInfoActionCall = ^(NSInteger type, NSInteger num) {
+            if (type == 1) {
+                task.signCount = [NSString stringWithFormat:@"%zd",[task.signCount integerValue]+num];
+            }else{
+                task.haveVolume = [NSString stringWithFormat:@"%zd",[task.haveVolume integerValue]+num];
+            }
+            [tableView reloadData];
+        };
         [self.navigationController pushViewController:dvc animated:YES];
     }else{
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:@"任务未开始"];

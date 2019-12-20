@@ -11,7 +11,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCLoginVC">
             <connections>
                 <outlet property="account" destination="ZJR-qr-fwL" id="O9y-2A-6pQ"/>
-                <outlet property="beeLogin" destination="yRq-o7-8UI" id="Mhs-vP-UCN"/>
                 <outlet property="loginBtn" destination="33A-3w-zpd" id="aOc-yW-5fW"/>
                 <outlet property="pwd" destination="DBr-t0-Vqe" id="VEe-4I-Rci"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,13 +30,19 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="gld-y0-gU7">
                                     <rect key="frame" x="93.5" y="95" width="188" height="56"/>
                                 </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="融客+展厅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V6-KC-jlG">
+                                    <rect key="frame" x="140" y="191" width="95" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                    <color key="textColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g9h-E9-vZ7">
-                                    <rect key="frame" x="30" y="211" width="315" height="44"/>
+                                    <rect key="frame" x="30" y="255" width="315" height="44"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_username_denglu" translatesAutoresizingMaskIntoConstraints="NO" id="cMM-dK-p3r">
                                             <rect key="frame" x="0.0" y="10" width="24" height="24"/>
                                         </imageView>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入您的账号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZJR-qr-fwL">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入展厅用户名/手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZJR-qr-fwL">
                                             <rect key="frame" x="34" y="2" width="271" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="J73-HU-bmr"/>
@@ -67,7 +72,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBa-Z9-h41">
-                                    <rect key="frame" x="30" y="280" width="315" height="44"/>
+                                    <rect key="frame" x="30" y="324" width="315" height="44"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key" translatesAutoresizingMaskIntoConstraints="NO" id="pEx-2L-ff8">
                                             <rect key="frame" x="0.0" y="10" width="24" height="24"/>
@@ -102,7 +107,7 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33A-3w-zpd">
-                                    <rect key="frame" x="15" y="384" width="345" height="44"/>
+                                    <rect key="frame" x="15" y="428" width="345" height="44"/>
                                     <color key="backgroundColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="FgD-VF-WrZ"/>
@@ -118,11 +123,11 @@
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sc-02-1hm" customClass="SPButton">
-                                    <rect key="frame" x="15" y="443" width="165" height="24"/>
+                                    <rect key="frame" x="15" y="487" width="165" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                    <state key="normal" title="扫码注册" image="icon_saoyisao">
+                                    <state key="normal" title="小蜜蜂扫码注册" image="icon_bee_ercode">
                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -135,11 +140,11 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yRq-o7-8UI" customClass="SPButton">
-                                    <rect key="frame" x="195" y="443" width="165" height="24"/>
+                                    <rect key="frame" x="195" y="487" width="165" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                    <state key="normal" title="小蜜蜂登录" image="icon_choose">
+                                    <state key="normal" title="小蜜蜂登录" image="icon_bee_login">
                                         <color key="titleColor" red="1" green="0.62352941179999999" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <state key="selected" image="icon_choose_click"/>
@@ -163,9 +168,11 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="33A-3w-zpd" secondAttribute="trailing" constant="15" id="03i-gf-NWG"/>
                                 <constraint firstItem="33A-3w-zpd" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="15" id="11Y-NK-SAE"/>
+                                <constraint firstItem="6V6-KC-jlG" firstAttribute="centerX" secondItem="kRr-EE-dzB" secondAttribute="centerX" id="1jf-I2-8nT"/>
                                 <constraint firstItem="33A-3w-zpd" firstAttribute="top" secondItem="MBa-Z9-h41" secondAttribute="bottom" constant="60" id="FdH-4V-8OR"/>
                                 <constraint firstItem="yRq-o7-8UI" firstAttribute="leading" secondItem="8sc-02-1hm" secondAttribute="trailing" constant="15" id="HoY-iO-aw9"/>
                                 <constraint firstItem="MBa-Z9-h41" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="30" id="LHa-bT-IHk"/>
+                                <constraint firstItem="6V6-KC-jlG" firstAttribute="top" secondItem="gld-y0-gU7" secondAttribute="bottom" constant="40" id="NMn-js-hjj"/>
                                 <constraint firstAttribute="trailing" secondItem="yRq-o7-8UI" secondAttribute="trailing" constant="15" id="Pxx-VQ-uK2"/>
                                 <constraint firstItem="yRq-o7-8UI" firstAttribute="top" secondItem="33A-3w-zpd" secondAttribute="bottom" constant="15" id="Qas-M7-yBU"/>
                                 <constraint firstItem="yRq-o7-8UI" firstAttribute="width" secondItem="8sc-02-1hm" secondAttribute="width" id="RPG-Y8-l8k"/>
@@ -178,7 +185,7 @@
                                 <constraint firstItem="8sc-02-1hm" firstAttribute="top" secondItem="33A-3w-zpd" secondAttribute="bottom" constant="15" id="kIs-Vv-Cy4"/>
                                 <constraint firstItem="g9h-E9-vZ7" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="30" id="ntJ-W7-v3F"/>
                                 <constraint firstItem="8sc-02-1hm" firstAttribute="leading" secondItem="kRr-EE-dzB" secondAttribute="leading" constant="15" id="oLe-Zs-YYD"/>
-                                <constraint firstItem="g9h-E9-vZ7" firstAttribute="top" secondItem="gld-y0-gU7" secondAttribute="bottom" constant="60" id="xaU-ub-dUV"/>
+                                <constraint firstItem="g9h-E9-vZ7" firstAttribute="top" secondItem="6V6-KC-jlG" secondAttribute="bottom" constant="40" id="tP2-QY-qi7"/>
                                 <constraint firstAttribute="trailing" secondItem="MBa-Z9-h41" secondAttribute="trailing" constant="30" id="xox-Xg-5lg"/>
                             </constraints>
                         </view>
@@ -205,10 +212,10 @@
         </view>
     </objects>
     <resources>
-        <image name="icon_choose" width="24" height="24"/>
+        <image name="icon_bee_ercode" width="18" height="18"/>
+        <image name="icon_bee_login" width="18" height="18"/>
         <image name="icon_choose_click" width="24" height="24"/>
         <image name="icon_key" width="24" height="24"/>
-        <image name="icon_saoyisao" width="24" height="24"/>
         <image name="icon_username_denglu" width="24" height="24"/>
         <image name="logo" width="188" height="56"/>
     </resources>

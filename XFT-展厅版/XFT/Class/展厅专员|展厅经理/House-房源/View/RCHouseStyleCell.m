@@ -27,7 +27,7 @@
     _style = style;
     [self.housePic sd_setImageWithURL:[NSURL URLWithString:_style.housePic]];
     self.styleName.text = _style.name;
-    self.roomArea.text = [NSString stringWithFormat:@"%@ %@㎡",_style.hxType,_style.buldArea];
+    self.roomArea.text = [NSString stringWithFormat:@"建面%@㎡ 套内%@㎡",_style.buldArea,_style.roomArea];
     self.price.text = [NSString stringWithFormat:@"%@万",_style.totalPrice];
     //0：待售2：售磬 其他销售中
     if ([_style.salesState isEqualToString:@"0"]) {

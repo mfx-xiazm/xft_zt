@@ -11,6 +11,8 @@
 #import "RCRegisterVC.h"
 #import "RCScanToBeeVC.h"
 #import "RCMyBee.h"
+#import "zhAlertView.h"
+#import <zhPopupController.h>
 
 static NSString *const MyBeesCell = @"MyBeesCell";
 
@@ -151,6 +153,24 @@ static NSString *const MyBeesCell = @"MyBeesCell";
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
 }
+-(void)resetPwdRequest:(NSString *)uuid
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    data[@"operator"] = @"resetPwd";
+    data[@"uuid"] = uuid;
+    parameters[@"data"] = data;
+    
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/showroomBeeLoginInside/updatePassword" parameters:parameters success:^(id responseObject) {
+        if ([responseObject[@"code"] integerValue] == 0) {
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+    }];
+}
 #pragma mark -- 点击事件
 - (IBAction)addBeeClicked:(UIButton *)sender {
     RCRegisterVC *rvc = [RCRegisterVC new];
@@ -177,6 +197,25 @@ static NSString *const MyBeesCell = @"MyBeesCell";
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     RCMyBee *bee = self.bees[indexPath.row];
     cell.bee = bee;
+    hx_weakify(self);
+    cell.resetPwdActionCall = ^{
+        hx_strongify(weakSelf);
+        zhAlertView *alert = [[zhAlertView alloc] initWithTitle:@"提示" message:@"确定重置为初始默认密码吗？" constantWidth:HX_SCREEN_WIDTH - 50*2];
+        zhAlertButton *cancelButton = [zhAlertButton buttonWithTitle:@"取消" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+        }];
+        zhAlertButton *okButton = [zhAlertButton buttonWithTitle:@"确定" handler:^(zhAlertButton * _Nonnull button) {
+            [strongSelf.zh_popupController dismiss];
+            [strongSelf resetPwdRequest:bee.uuid];
+        }];
+        cancelButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [cancelButton setTitleColor:UIColorFromRGB(0x999999) forState:UIControlStateNormal];
+        okButton.lineColor = UIColorFromRGB(0xDDDDDD);
+        [okButton setTitleColor:HXControlBg forState:UIControlStateNormal];
+        [alert adjoinWithLeftAction:cancelButton rightAction:okButton];
+        strongSelf.zh_popupController = [[zhPopupController alloc] init];
+        [strongSelf.zh_popupController presentContentView:alert duration:0.25 springAnimated:NO];
+    };
     return cell;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString * groupName;//小组名称
 @property (nonatomic, strong) NSString * teamUuid;//团队id
 @property (nonatomic, strong) NSString * teamName;//团队名称
+@property (nonatomic, strong) NSString * isLove;//是否关注
+@property (nonatomic, strong) NSString * baobeiYuqiTime;//是否关注
 
 @property (nonatomic, strong) NSString * baobeiTime;//报备时间
 @property (nonatomic, strong) NSString * lastVistTime;//最后到访时间
@@ -42,5 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger status;//用户状态
 
 @property (nonatomic, assign) NSInteger cusType;//自定字段，表客户状态
+
+@property (nonatomic, strong) NSString * showroomTwoQudaoCode;//展厅线索二级渠道编码
+@property (nonatomic, strong) NSString * showroomTwoQudaoName;//展厅线索二级渠道名称
+@property (nonatomic, strong) NSString * accUuid;//报备人uuid
+@property (nonatomic, strong) NSString * accName;//报备人姓名
+@property (nonatomic, strong) NSString * accTeamUuid;//归属团队uuid
+@property (nonatomic, strong) NSString * accTeamName;//归属团队名称
+@property (nonatomic, strong) NSString * accGroupUuid;//归属小组uuid
+@property (nonatomic, strong) NSString * accGroupName;//归属小组名称
 @end
 NS_ASSUME_NONNULL_END

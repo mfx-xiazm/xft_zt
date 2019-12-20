@@ -83,10 +83,12 @@
     }
     parameters[@"data"] = data;
     
+    [MBProgressHUD showLoadToView:nil title:@"加载中..."];
     hx_weakify(self);
     [HXNetworkTool POST:HXRC_M_URL action:@"cus/cus/universalChannel/myPerformanceByZy" parameters:parameters success:^(id responseObject) {
         hx_strongify(weakSelf);
         [strongSelf stopShimmer];
+        [MBProgressHUD hideHUD];
         if ([responseObject[@"code"] integerValue] == 0) {
             strongSelf.performance = [RCMyPerformance yy_modelWithDictionary:responseObject[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -98,6 +100,7 @@
     } failure:^(NSError *error) {
         hx_strongify(weakSelf);
         [strongSelf stopShimmer];
+        [MBProgressHUD hideHUD];
         [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
     }];
 }

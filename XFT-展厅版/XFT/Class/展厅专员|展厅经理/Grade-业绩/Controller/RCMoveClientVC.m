@@ -45,10 +45,11 @@ static NSString *const ChooseMemberCell = @"ChooseMemberCell";
     search.layer.cornerRadius = 40/2.f;
     search.layer.masksToBounds = YES;
     search.delegate = self;
+    search.placeholder = @"输入经纪人姓名检索";
     self.search = search;
     [self.searchView addSubview:search];
     
-    self.fromBrokerView.text = [NSString stringWithFormat:@"   转出方：%@",self.selectMoveAgent.name];
+    self.fromBrokerView.text = [NSString stringWithFormat:@"    转出方：%@",self.selectMoveAgent.name];
 
     [self setUpTableView];
     [self getAgentDataRequest];
@@ -96,9 +97,6 @@ static NSString *const ChooseMemberCell = @"ChooseMemberCell";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     data[@"accUuid"] = @"";//全选传递经纪人id，对应转出经济人id
-    data[@"groupName"] = (self.moveAgentTeam.groupName && self.moveAgentTeam.groupName.length)?self.moveAgentTeam.groupName:@"";//转入小组名称
-    data[@"groupUuid"] = (self.moveAgentTeam.groupUuid && self.moveAgentTeam.groupUuid.length)?self.moveAgentTeam.groupUuid:@"";//转入小组uuid
-
     NSMutableArray *listUuid = [NSMutableArray array];
     for (RCMoveClient *client in self.clients) {// 要转移的客户信息
         [listUuid addObject:@{@"cusUuid":client.cusUuid,//分配团队id
@@ -124,8 +122,10 @@ static NSString *const ChooseMemberCell = @"ChooseMemberCell";
     data[@"salesAccName"] = self.moveAgent.name;//分配经纪人名称，也就是转入的经纪人名称
     data[@"salesAccUuid"] = self.moveAgent.uuid;//分配经纪人uuid，也就是转入的经纪人uuid
     data[@"showUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid;//展厅uuid
-    data[@"teamName"] = (self.selectMoveAgentTeam.teamName && self.selectMoveAgentTeam.teamName.length)?self.selectMoveAgentTeam.teamName:@"";//转入方团队名称
-    data[@"teamUuid"] = (self.selectMoveAgentTeam.teamUuid && self.selectMoveAgentTeam.teamUuid.length)?self.selectMoveAgentTeam.teamUuid:@"";//转入方团队uuid
+    data[@"teamName"] = (self.moveAgentTeam.teamName && self.moveAgentTeam.teamName.length)?self.moveAgentTeam.teamName:@"";//转入方团队名称
+    data[@"teamUuid"] = (self.moveAgentTeam.teamUuid && self.moveAgentTeam.teamUuid.length)?self.moveAgentTeam.teamUuid:@"";//转入方团队uuid
+    data[@"groupName"] = (self.moveAgentTeam.groupName && self.moveAgentTeam.groupName.length)?self.moveAgentTeam.groupName:@"";//转入小组名称
+    data[@"groupUuid"] = (self.moveAgentTeam.groupUuid && self.moveAgentTeam.groupUuid.length)?self.moveAgentTeam.groupUuid:@"";//转入小组uuid
     data[@"type"] = @"";//全选传递查询类型 1.报备有效客户 2.到访有效客户 全部客户不用传
     parameters[@"data"] = data;
 
@@ -134,8 +134,11 @@ static NSString *const ChooseMemberCell = @"ChooseMemberCell";
         hx_strongify(weakSelf);
         if ([responseObject[@"code"] integerValue] == 0) {
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:[NSString stringWithFormat:@"成功移交客户%@人",responseObject[@"data"]]];
-            [strongSelf.navigationController popToRootViewControllerAnimated:YES];
-
+            if (strongSelf.isClientDetailPush) {
+                [strongSelf.navigationController popViewControllerAnimated:YES];
+            }else{
+                [strongSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
         }else{
             [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
         }

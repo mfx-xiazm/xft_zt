@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class RCStoreClient;
 @interface RCStoreClientCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *state;
 /* 客户 */
 @property(nonatomic,strong) RCStoreClient *client;
 @end

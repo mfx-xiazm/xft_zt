@@ -29,7 +29,7 @@ static NSString *const TaskWorkCell = @"TaskWorkCell";
     [super viewDidLoad];
     self.view.backgroundColor = HXGlobalBg;
     [self.navigationItem setTitle:@"任务考勤"];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTaskListData) name:@"RCRefreshTaskWork" object:nil];
     [self setUpTableView];
     [self setUpRefresh];
     [self setUpEmptyView];
@@ -97,6 +97,15 @@ static NSString *const TaskWorkCell = @"TaskWorkCell";
         [strongSelf getTaskListRequest:NO];
     }];
 }
+#pragma mark -- 通知处理
+-(void)refreshTaskListData
+{
+    [self getTaskListRequest:YES];
+}
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 #pragma mark -- 接口请求
 -(void)getTaskListRequest:(BOOL)isRefresh
 {
@@ -114,6 +123,7 @@ static NSString *const TaskWorkCell = @"TaskWorkCell";
         page[@"current"] = @(pagenum);//第几页
     }
     page[@"size"] = @"10";
+    page[@"descs"] = @[@"createTime"];
     parameters[@"data"] = data;
     parameters[@"page"] = page;
     

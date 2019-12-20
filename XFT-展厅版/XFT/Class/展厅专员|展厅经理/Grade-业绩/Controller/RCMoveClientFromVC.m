@@ -56,6 +56,7 @@ static NSString *const MoveClientFromCell = @"MoveClientFromCell";
         _search.layer.cornerRadius = 40/2.f;
         _search.layer.masksToBounds = YES;
         _search.delegate = self;
+        _search.placeholder = @"输入客户姓名检索";
     }
     return _search;
 }

@@ -184,7 +184,7 @@ static NSString *const TaskDetailReportCell = @"TaskDetailReportCell";
     // 处理基础详情
     NSMutableArray *houseInfo = [NSMutableArray array];
     NSArray *titles = @[@"任务标题",@"拓客方式",@"拓客地点",@"拓客时间",@"拓客任务量",@"拓客人员",@"任务创建者"];
-    NSArray *values = @[self.taskInfo.name,self.taskInfo.twoQudaoName,self.taskInfo.address,     [NSString stringWithFormat:@"%@ 至 %@",self.taskInfo.startTime,self.taskInfo.endTime],[NSString stringWithFormat:@"%@组",self.taskInfo.volume],[NSString stringWithFormat:@"%@人",self.taskInfo.accCount],[NSString stringWithFormat:@"%@(%@)",self.taskInfo.createName,self.taskInfo.showroomName]];
+    NSArray *values = @[self.taskInfo.name,self.taskInfo.twoQudaoName,self.taskInfo.address,     [NSString stringWithFormat:@"%@ 至 %@",self.taskInfo.startTime,self.taskInfo.endTime],[NSString stringWithFormat:@"%@组",self.taskInfo.volume],[NSString stringWithFormat:@"%@人",self.taskInfo.accCount],[NSString stringWithFormat:@"%@(%@-%@)",self.taskInfo.createName,self.taskInfo.createTeamName,self.taskInfo.createGroupName]];
 
     for (int i=0; i<7; i++) {
         NSMutableDictionary *dict = [NSMutableDictionary dictionary];
@@ -210,10 +210,26 @@ static NSString *const TaskDetailReportCell = @"TaskDetailReportCell";
     if (sender.tag == 1) {
         RCTaskPinVC *pvc = [RCTaskPinVC new];
         pvc.task = self.taskInfo;
+        hx_weakify(self);
+        pvc.taskPinActionCall = ^{
+            hx_strongify(weakSelf);
+            [strongSelf getTaskDetailRequest];
+            if (strongSelf.taskInfoActionCall) {
+                strongSelf.taskInfoActionCall(1, 1);
+            }
+        };
         [self.navigationController pushViewController:pvc animated:YES];
     }else{
         RCTaskReportVC *rvc = [RCTaskReportVC new];
         rvc.task = self.taskInfo;
+        hx_weakify(self);
+        rvc.taskReportActionCall = ^(NSInteger num) {
+            hx_strongify(weakSelf);
+            [strongSelf getTaskDetailRequest];
+            if (strongSelf.taskInfoActionCall) {
+                strongSelf.taskInfoActionCall(2, num);
+            }
+        };
         [self.navigationController pushViewController:rvc animated:YES];
     }
 }

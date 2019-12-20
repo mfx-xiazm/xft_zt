@@ -21,18 +21,18 @@
                         <rect key="frame" x="15" y="7" width="286" height="141"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="融创九棠府开盘公告" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0He-HD-3uT">
-                                <rect key="frame" x="15" y="15" width="256" height="19.5"/>
+                                <rect key="frame" x="15" y="10" width="256" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尊敬的客户,融创九棠府将于2019年8月5日上午9点在营销大厅现场抽签开盘,请及时前往认购." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="az7-Sm-QPl">
-                                <rect key="frame" x="15" y="44.5" width="256" height="54"/>
+                                <rect key="frame" x="15" y="39.5" width="256" height="54"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fd6-bG-7Ka" userLabel="分割线">
-                                <rect key="frame" x="15" y="108.5" width="256" height="1"/>
+                                <rect key="frame" x="15" y="103.5" width="256" height="1"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="kXW-09-h7H"/>
@@ -62,9 +62,8 @@
                             <constraint firstItem="0He-HD-3uT" firstAttribute="leading" secondItem="u2X-31-UJk" secondAttribute="leading" constant="15" id="cb3-R6-bmg"/>
                             <constraint firstAttribute="trailing" secondItem="fd6-bG-7Ka" secondAttribute="trailing" constant="15" id="g9T-pJ-BIu"/>
                             <constraint firstAttribute="trailing" secondItem="az7-Sm-QPl" secondAttribute="trailing" constant="15" id="itl-Ge-bBs"/>
-                            <constraint firstItem="0He-HD-3uT" firstAttribute="top" secondItem="u2X-31-UJk" secondAttribute="top" constant="15" id="mUL-hL-ywb"/>
                             <constraint firstItem="p38-mJ-5Ul" firstAttribute="leading" secondItem="u2X-31-UJk" secondAttribute="leading" constant="15" id="nIe-oH-GyL"/>
-                            <constraint firstAttribute="bottom" secondItem="p38-mJ-5Ul" secondAttribute="bottom" constant="10" id="vAO-x2-VZs"/>
+                            <constraint firstItem="p38-mJ-5Ul" firstAttribute="top" secondItem="fd6-bG-7Ka" secondAttribute="bottom" constant="12" id="zCK-68-pcY"/>
                             <constraint firstItem="az7-Sm-QPl" firstAttribute="top" secondItem="0He-HD-3uT" secondAttribute="bottom" constant="10" id="zur-Hd-7eW"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -90,6 +89,8 @@
                 <constraints>
                     <constraint firstItem="u2X-31-UJk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4Cr-Ww-KxU"/>
                     <constraint firstItem="u2X-31-UJk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="4TJ-Ir-5Cy"/>
+                    <constraint firstAttribute="bottom" secondItem="p38-mJ-5Ul" secondAttribute="bottom" constant="17" id="6IL-ET-66l"/>
+                    <constraint firstItem="0He-HD-3uT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="17" id="Y65-0h-UnA"/>
                     <constraint firstAttribute="trailing" secondItem="u2X-31-UJk" secondAttribute="trailing" constant="15" id="k5u-yh-SlL"/>
                     <constraint firstAttribute="bottom" secondItem="u2X-31-UJk" secondAttribute="bottom" constant="7" id="mKl-1a-o3p"/>
                 </constraints>

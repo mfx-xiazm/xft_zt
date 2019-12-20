@@ -33,7 +33,7 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"报备客户"];
     // 复制信息
-     self.houseName.text = self.beesWork.proName;//楼盘名字
+    self.houseName.text = self.beesWork.proName;//楼盘名字
     self.name.text = self.beesWork.cusName;
     self.phone.text = self.beesWork.cusPhone;
     
@@ -204,91 +204,64 @@
 #pragma mark -- 业务逻辑
 -(void)submitReportDataRequest:(UIButton *)sender
 {
-//    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    NSMutableDictionary *data = [NSMutableDictionary dictionary];
-//
-//    NSMutableArray *proIds = [NSMutableArray array];
-//    for (RCReportHouse *house in self.houses) {//每个推荐对象的楼盘信息都一样，所以可以直接去当前的推荐对象
-//        [proIds addObject:house.uuid];
-//    }
-//    data[@"proIds"] = proIds;//项目列表 必填
-//
-////    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-////    fmt.dateFormat = @"yyyy-MM-dd";
-//
-//    NSMutableArray *phones = [NSMutableArray array];
-//    [phones addObject:self.beesWork.cusPhone];
-//    if (self.beesWork.morePhones && self.beesWork.morePhones.count) {
-//        for (RCReportPhone *phone in self.beesWork.morePhones) {
-//            [phones addObject:phone.cusPhone];
-//        }
-//    }
-//
-//    data[@"cusInfo"] = @[@{@"name":self.beesWork.cusName,//客户姓名
-//                           @"phone":phones,//客户手机号
-//                           @"idNo":(self.beesWork.idCard && self.beesWork.idCard.length)?self.beesWork.idCard:@"", // 身份证号
-//                           @"cusPicInfo":(self.beesWork.headPic && self.beesWork.headPic.length)?@[self.beesWork.headPic]:@[],
-//                           @"remark":(self.beesWork.remark && self.beesWork.remark.length) ?self.beesWork.remark:@""//客户备注
-//    }];//客户信息 必填
-//    data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
-//    data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//推荐人角色 必填
-//    data[@"accName"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;//推荐人名称
-//    data[@"accType"] = @"4";//推荐人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一推荐人 6 门店管理员
-////    data[@"seeTime"] = (self.beesWork.appointDate && self.beesWork.appointDate.length)?@([[fmt dateFromString:self.beesWork.appointDate] timeIntervalSince1970]):@"";
-//    data[@"taskUuid"] = @"";
-//    data[@"accPhone"] = @"";
-//    data[@"xqzyAccUuid"] = @"";
-//    data[@"uuid"] = @"";
-//    data[@"domain"] = @"";
-//    data[@"isHidePhone"] = @"";
-//    data[@"proUuid"] = @"";
-//
-//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
-//        data[@"accTeamName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamName;//归属团队名称
-//    }else{
-//        data[@"accTeamName"] = @"";//归属团队名称
-//    }
-//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid.length) {
-//        data[@"accTeamUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid;//归属团队uuid
-//    }else{
-//        data[@"accTeamUuid"] = @"";//归属团队uuid
-//    }
-//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid.length) {
-//        data[@"accGroupUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid;//归属小组uuid
-//    }else{
-//        data[@"accGroupUuid"] = @"";//归属小组uuid
-//    }
-//    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupName && [MSUserManager sharedInstance].curUserInfo.selectRole.groupName.length) {
-//        data[@"accGroupName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupName;//归属小组名称
-//    }else{
-//        data[@"accGroupName"] = @"";//归属小组名称
-//    }
-//    if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomType isEqualToString:@"1"]) {//1 集团文旅 2 区域文旅
-//        data[@"oneQudaoCode"] = @"K-0018";//一级渠道id
-//        data[@"oneQudaoName"] = @"集团文旅";//一级渠道名称
-//    }else{
-//        data[@"oneQudaoCode"] = @"K-0019";//一级渠道id
-//        data[@"oneQudaoName"] = @"区域文旅";//一级渠道名称
-//    }
-//    data[@"twoQudaoName"] = ([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"";//推荐人所属机构名称
-//    data[@"twoQudaoCode"] =([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"";//推荐人所属机构id
-//    parameters[@"data"] = data;
-//
-//    hx_weakify(self);
-//    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/bee/oneKeyBaobei" parameters:parameters success:^(id responseObject) {
-//        hx_strongify(weakSelf);
-//        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
-//        if ([responseObject[@"code"] integerValue] == 0) {
-//            RCReportResultVC *rvc = [RCReportResultVC new];
-//            rvc.results = responseObject[@"data"];
-//            [strongSelf.navigationController pushViewController:rvc animated:YES];
-//        }else{
-//            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
-//        }
-//    } failure:^(NSError *error) {
-//        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
-//        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
-//    }];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+
+    data[@"proIds"] = @[self.beesWork.proUuid];//项目列表 必填
+    data[@"uuid"] = self.beesWork.uuid;//小蜜蜂上报记录
+    data[@"idNo"] = [self.idCard hasText]?self.idCard.text:@"";
+    data[@"cusPicInfo"] = @[(self.beesWork.showroomBeeCusPic && self.beesWork.showroomBeeCusPic.length)?self.beesWork.showroomBeeCusPic:@""];
+    data[@"remark"] = [self.remark hasText]?self.remark.text:@"";
+    data[@"accUuid"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.uuid;//推荐人id 必填
+    data[@"userRole"] = @([MSUserManager sharedInstance].curUserInfo.showroomLoginInside.accRole);//推荐人角色 必填
+    data[@"accName"] = [MSUserManager sharedInstance].curUserInfo.showroomLoginInside.name;//推荐人名称
+    data[@"accType"] = @"4";//推荐人类型 1 顾问 2 经纪人 3 自渠专员 4 展厅专员  5 统一推荐人 6 门店管理员
+    if ([[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomType isEqualToString:@"1"]) {//1 集团文旅 2 区域文旅
+        data[@"oneQudaoCode"] = @"K-0018";//一级渠道id
+        data[@"oneQudaoName"] = @"集团文旅";//一级渠道名称
+    }else{
+        data[@"oneQudaoCode"] = @"K-0019";//一级渠道id
+        data[@"oneQudaoName"] = @"区域文旅";//一级渠道名称
+    }
+    data[@"twoQudaoName"] = ([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomName:@"";//推荐人所属机构名称
+    data[@"twoQudaoCode"] =([MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid.length)?[MSUserManager sharedInstance].curUserInfo.selectRole.showRoomUuid:@"";//推荐人所属机构id
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamName && [MSUserManager sharedInstance].curUserInfo.selectRole.teamName.length) {
+        data[@"accTeamName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamName;//归属团队名称
+    }else{
+        data[@"accTeamName"] = @"";//归属团队名称
+    }
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid.length) {
+        data[@"accTeamUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.teamUuid;//归属团队uuid
+    }else{
+        data[@"accTeamUuid"] = @"";//归属团队uuid
+    }
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid && [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid.length) {
+        data[@"accGroupUuid"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupUuid;//归属小组uuid
+    }else{
+        data[@"accGroupUuid"] = @"";//归属小组uuid
+    }
+    if ([MSUserManager sharedInstance].curUserInfo.selectRole.groupName && [MSUserManager sharedInstance].curUserInfo.selectRole.groupName.length) {
+        data[@"accGroupName"] = [MSUserManager sharedInstance].curUserInfo.selectRole.groupName;//归属小组名称
+    }else{
+        data[@"accGroupName"] = @"";//归属小组名称
+    }
+    parameters[@"data"] = data;
+
+    hx_weakify(self);
+    [HXNetworkTool POST:HXRC_M_URL action:@"showroom/showroom/bee/oneKeyBaobei" parameters:parameters success:^(id responseObject) {
+        hx_strongify(weakSelf);
+        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
+        if ([responseObject[@"code"] integerValue] == 0) {
+            RCReportResultVC *rvc = [RCReportResultVC new];
+            rvc.results = responseObject[@"data"];
+            [strongSelf.navigationController pushViewController:rvc animated:YES];
+        }else{
+            [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD showTitleToView:nil postion:NHHUDPostionCenten title:error.localizedDescription];
+        [sender stopLoading:@"一键报备" image:nil textColor:nil backgroundColor:nil];
+    }];
 }
 -(void)upImageRequestWithImage:(UIImage *)image completedCall:(void(^)(NSString * imageUrl))completedCall
 {

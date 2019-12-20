@@ -44,6 +44,7 @@ static NSString *const ChooseMemberCell = @"ChooseMemberCell";
         search.hxn_centerY = self.searchView.hxn_height/2.0;
         search.layer.cornerRadius = 40/2.f;
         search.layer.masksToBounds = YES;
+        search.placeholder = @"输入经纪人姓名检索";
         search.delegate = self;
         self.search = search;
         [self.searchView addSubview:search];

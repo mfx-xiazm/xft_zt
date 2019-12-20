@@ -88,7 +88,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Gw-LY-wHh">
                                         <rect key="frame" x="15" y="0.0" width="94" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="目标(组)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuY-CD-gHb">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已拓(组)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EuY-CD-gHb">
                                                 <rect key="frame" x="0.0" y="14.5" width="46" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
@@ -113,14 +113,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6P6-x2-DQx">
                                         <rect key="frame" x="109" y="0.0" width="94" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已拓(组)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SxH-CD-11B">
-                                                <rect key="frame" x="18" y="14.5" width="46" height="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已打卡(次)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SxH-CD-11B">
+                                                <rect key="frame" x="12" y="14.5" width="58.5" height="15"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTG-8d-JIg">
-                                                <rect key="frame" x="66" y="11" width="11.5" height="22"/>
+                                                <rect key="frame" x="72.5" y="11" width="11.5" height="22"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -204,10 +204,12 @@
             <connections>
                 <outlet property="address" destination="LVl-uC-K3v" id="Y71-zv-vRU"/>
                 <outlet property="haveVolume" destination="tTG-8d-JIg" id="gNs-Me-1GH"/>
+                <outlet property="secView" destination="6P6-x2-DQx" id="CK1-Ju-y0n"/>
                 <outlet property="state" destination="XuH-t7-UpO" id="Jfc-SR-Xb0"/>
                 <outlet property="time" destination="kiH-rf-oWV" id="fe8-OY-emB"/>
                 <outlet property="title" destination="0ZR-xs-B78" id="Cc8-m6-xJv"/>
                 <outlet property="volume" destination="c6R-ca-jpM" id="wZP-D1-wVM"/>
+                <outlet property="volumeTag" destination="EuY-CD-gHb" id="BoB-5D-ePA"/>
             </connections>
             <point key="canvasLocation" x="152.17391304347828" y="152.67857142857142"/>
         </tableViewCell>

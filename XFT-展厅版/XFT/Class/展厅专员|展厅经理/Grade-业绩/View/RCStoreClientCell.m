@@ -11,7 +11,6 @@
 
 @interface RCStoreClientCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *headPic;
-@property (weak, nonatomic) IBOutlet UILabel *state;
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *sex;
 @property (weak, nonatomic) IBOutlet UILabel *time;
@@ -84,9 +83,9 @@
     }else{
         self.state.text = @"已失效";
         self.state.backgroundColor = UIColorFromRGB(0xBCC8D6);
-        self.saleMan.hidden = NO;
+        self.saleMan.hidden = YES;
         self.time.text = [NSString stringWithFormat:@"失效时间:%@",_client.transTime];
-        self.saleMan.text = [NSString stringWithFormat:@"案场顾问:%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName];
+//        self.saleMan.text = [NSString stringWithFormat:@"案场顾问:%@(%@-%@)",_client.salesName,_client.teamName,_client.groupName];
     }
     if ([_client.accType isEqualToString:@"5"]) {
         self.reportName.text = [NSString stringWithFormat:@"报备人:%@(统一报备人)",_client.accName];

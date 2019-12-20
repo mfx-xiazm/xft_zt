@@ -234,15 +234,8 @@ static NSString *const MyFollowClientCell = @"MyFollowClientCell";
             [strongSelf.navigationController pushViewController:hvc animated:YES];
         }else{
             RCClientDetailVC *nvc = [RCClientDetailVC new];
-            if (follow.cusState == 0) {// 如果是报备客户传报备uuid
-                nvc.cusUuid = follow.uuid;
-            }else{// 如果不是报备客户
-                if (follow.cusState == 8) {//失效客户
-                    nvc.cusUuid = follow.uuid;
-                }else{//其他状态客户
-                    nvc.cusUuid = follow.cusUuid;
-                }
-            }
+            nvc.uuid = follow.uuid;
+            nvc.cusUuid = follow.cusUuid;
             switch (follow.cusState) {
                 case 0:{
                     nvc.cusType = 0;
@@ -295,15 +288,8 @@ static NSString *const MyFollowClientCell = @"MyFollowClientCell";
 {
     RCMyFollow *follow = self.clients[indexPath.row];
     RCClientDetailVC *nvc = [RCClientDetailVC new];
-    if (follow.cusState == 0) {// 如果是报备客户传报备uuid
-        nvc.cusUuid = follow.uuid;
-    }else{// 如果不是报备客户
-        if (follow.cusState == 8) {//失效客户
-            nvc.cusUuid = follow.uuid;
-        }else{//其他状态客户
-            nvc.cusUuid = follow.cusUuid;
-        }
-    }
+    nvc.uuid = follow.uuid;
+    nvc.cusUuid = follow.cusUuid;
     switch (follow.cusState) {
         case 0:{
             nvc.cusType = 0;
